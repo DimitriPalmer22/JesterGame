@@ -1,4 +1,6 @@
-namespace UnrealToUnity.Code.Scripts.Core.Pawns
+using UnrealToUnity.Code.Scripts.Core.Pawns;
+
+namespace UnrealToUnity.Code.Scripts.Core.Player
 {
     /// <summary>
     /// Use prefabs as fully-featured "blueprint classes".

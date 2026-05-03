@@ -1,5 +1,6 @@
 using System;
 using UnrealToUnity.Code.Scripts.Core.Pawns;
+using UnrealToUnity.Code.Scripts.Core.Player;
 
 namespace UnrealToUnity.Code.Scripts.Core.GameMode
 {

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Pawns;
+using UnrealToUnity.Code.Scripts.Core.Player;
 
 namespace UnrealToUnity.Code.Scripts.Core.GameMode
 {
@@ -50,7 +52,23 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
                 // Also spawn the pawns as well.
                 Pawn currentPawn = null;
                 if (gameModePrefabs.pawnPrefab)
+                {
                     currentPawn = Instantiate(gameModePrefabs.pawnPrefab, null);
+
+                    // Get the player start & move the pawn there
+                    var playerStart = GetPlayerStart();
+                    if (playerStart)
+                    {
+                        var SpawnTransform = playerStart.GetSpawnTransform();
+                        currentPawn.transform.position = SpawnTransform.position;
+                        currentPawn.transform.forward = SpawnTransform.forward;
+                    }
+                    else
+                    {
+                        currentPawn.transform.position = Vector3.zero;
+                        currentPawn.transform.forward = Vector3.forward;
+                    }
+                }
 
                 // Possess if the pawn and controller were both instantiated.
                 if (playerController && currentPawn)
@@ -58,10 +76,23 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
             }
         }
 
-        protected virtual Transform GetPlayerStartTransform()
+        private PlayerStart[] GetAllPlayerStarts()
         {
-            // TODO: make a player start functionality to determine where pawns start.
-            return transform;
+            // Find all the player starts within the scene.
+            // var allStarts = FindObjectsByType<PlayerStart>(FindObjectsInactive.Exclude);
+            // return allStarts.Where(playerStart => playerStart && playerStart.enabled).ToArray();
+
+            return FindObjectsByType<PlayerStart>(FindObjectsInactive.Exclude);
+        }
+
+        protected virtual PlayerStart GetPlayerStart()
+        {
+            var allStarts = GetAllPlayerStarts();
+            if (allStarts.Length == 0)
+                return null;
+
+            // Use the first one as the chosen player start.
+            return allStarts[0];
         }
     }
 }
