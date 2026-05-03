@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace UnrealToUnity.Code.Scripts.Core.Pawns
 {
@@ -10,12 +11,32 @@ namespace UnrealToUnity.Code.Scripts.Core.Pawns
     /// In our Unity implementation, we can use a similar approach by creating a Pawn class that can be controlled by a PlayerController or AIController,
     /// allowing us to manage the behavior and interactions of our characters in a way that closely mimics Unreal Engine's architecture.
     /// </summary>
-    public class Pawn : MonoBehaviour
+    [RequireComponent(typeof(PlayerInput))]
+    public class Pawn : Actor
     {
         /// <summary>
         /// A reference to the controller currently controlling this pawn.
         /// Should not be edited directly; should only be set by controller class.
         /// </summary>
         [NonSerialized] internal Controller owningController;
+
+        [NonSerialized] private PlayerInput playerInput;
+
+        protected virtual void Awake()
+        {
+            // Set up the player input reference
+            playerInput = GetComponent<PlayerInput>();
+        }
+
+        private void OnDisable()
+        {
+            // Disable the player input
+            playerInput.enabled = false;
+        }
+
+        private void OnEnable()
+        {
+            playerInput.enabled = true;
+        }
     }
 }
