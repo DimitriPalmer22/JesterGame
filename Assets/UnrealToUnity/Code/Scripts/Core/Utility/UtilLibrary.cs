@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Subsystems;
 
 namespace UnrealToUnity.Code.Scripts.Core.Utility
@@ -25,5 +26,16 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
 
             return gameMode != null;
         }
+
+        #region Vector Functions
+
+        public static Vector3 NoYNormalized(this Vector3 vector)
+        {
+            vector.y = 0f;
+            return vector.normalized;
+        }
+
+        #endregion
+
     }
 }
