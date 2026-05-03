@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace UnrealToUnity.Code.Scripts.Core.Subsystems
 {
     public abstract class UnrealSubsystem

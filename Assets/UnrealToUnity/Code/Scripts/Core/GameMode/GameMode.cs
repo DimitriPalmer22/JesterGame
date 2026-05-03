@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnrealToUnity.Code.Scripts.Core.Pawns;
 
 namespace UnrealToUnity.Code.Scripts.Core.GameMode
 {
@@ -11,5 +13,55 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
     /// </summary>
     public abstract class GameMode : MonoBehaviour
     {
+        #region Setup
+
+        [SerializeField] public GameModePrefabs gameModePrefabs;
+
+        #endregion
+
+        #region Runtime Fields
+
+        /// <summary>
+        /// The list of active player controllers.
+        /// </summary>
+        private readonly List<PlayerController> _playerControllers = new();
+
+        #endregion
+
+        protected virtual void Awake()
+        {
+            // Instantiate the game mode prefabs.
+            InstantiateGameModePrefabs();
+        }
+
+        private void InstantiateGameModePrefabs()
+        {
+            // Create the player controllers & pawns
+            for (var i = 0; i < gameModePrefabs.numberOfPlayers; i++)
+            {
+                PlayerController playerController = null;
+
+                if (gameModePrefabs.playerControllerPrefab)
+                {
+                    playerController = Instantiate(gameModePrefabs.playerControllerPrefab, null);
+                    _playerControllers.Add(playerController);
+                }
+
+                // Also spawn the pawns as well.
+                Pawn currentPawn = null;
+                if (gameModePrefabs.pawnPrefab)
+                    currentPawn = Instantiate(gameModePrefabs.pawnPrefab, null);
+
+                // Possess if the pawn and controller were both instantiated.
+                if (playerController && currentPawn)
+                    playerController.Possess(currentPawn);
+            }
+        }
+
+        protected virtual Transform GetPlayerStartTransform()
+        {
+            // TODO: make a player start functionality to determine where pawns start.
+            return transform;
+        }
     }
 }

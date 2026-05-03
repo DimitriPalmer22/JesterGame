@@ -1,10 +1,8 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace UnrealToUnity.Code.Scripts.Core.GameMode
+namespace UnrealToUnity.Code.Scripts.Core.Testing
 {
-    public class GameModeTest : GameMode
+    public class GameModeTest : GameMode.GameMode
     {
         /// <summary>
         /// The name of the game mode.
@@ -15,11 +13,6 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
         /// The number of rounds in the game mode.
         /// </summary>
         [SerializeField] private int numberOfRounds = 3;
-
-        private void Awake()
-        {
-            Debug.Log($"Initializing Game Mode: {gameModeName}");
-        }
 
         private void Start()
         {
