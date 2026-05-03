@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Pawns;
 using UnrealToUnity.Code.Scripts.Core.Player;
+using UnrealToUnity.Code.Scripts.Core.Subsystems;
+using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace UnrealToUnity.Code.Scripts.Core.GameMode
 {
@@ -36,6 +38,14 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
             InstantiateGameModePrefabs();
         }
 
+        private void OnEnable()
+        {
+            // Get the game instance subsystem
+            // Set the current game mode in the subsystem
+            if (UtilLibrary.GetSubsystem(out GameInstanceSubsystem gameInstanceSubsystem))
+                gameInstanceSubsystem.CurrentGameMode = this;
+        }
+
         private void InstantiateGameModePrefabs()
         {
             // Create the player controllers & pawns
@@ -59,9 +69,9 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
                     var playerStart = GetPlayerStart();
                     if (playerStart)
                     {
-                        var SpawnTransform = playerStart.GetSpawnTransform();
-                        currentPawn.transform.position = SpawnTransform.position;
-                        currentPawn.transform.forward = SpawnTransform.forward;
+                        var spawnTransform = playerStart.GetSpawnTransform();
+                        currentPawn.transform.position = spawnTransform.position;
+                        currentPawn.transform.forward = spawnTransform.forward;
                     }
                     else
                     {

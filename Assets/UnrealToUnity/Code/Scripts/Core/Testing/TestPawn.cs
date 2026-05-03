@@ -23,17 +23,12 @@ namespace UnrealToUnity.Code.Scripts.Core.Testing
 
         private void Update()
         {
-            var deltaTime = Time.deltaTime;
-
-
             // Calculate the move delta of the pawn.
             var forwardMovement = transform.forward * _moveInput.y;
             var rightMovement = transform.right * _moveInput.x;
             var moveDelta = moveSpeed * (forwardMovement + rightMovement);
 
-            // // Apply the movement to the pawn
-            // transform.position += moveDelta;
-            // _characterController.Move(moveDelta * deltaTime);
+            // Apply the movement to the pawn
             _characterController.SimpleMove(moveDelta);
         }
 

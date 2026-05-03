@@ -13,6 +13,7 @@ namespace UnrealToUnity.Code.Scripts.Core
             // Create a list of subsystems to initialize on startup.
             var startupSubsystems = new UnrealSubsystem[]
             {
+                new GameInstanceSubsystem()
             };
             foreach (var startupSubsystem in startupSubsystems)
                 UnrealSubsystemManager.Instance.Add(startupSubsystem);

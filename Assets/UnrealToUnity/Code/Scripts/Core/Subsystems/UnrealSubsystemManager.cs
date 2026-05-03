@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,6 +8,8 @@ namespace UnrealToUnity.Code.Scripts.Core.Subsystems
     {
         /// A list of all the active subsystems.
         private readonly HashSet<UnrealSubsystem> _subsystems = new();
+
+        private readonly Dictionary<Type, UnrealSubsystem> _subsystemTypeMap = new();
 
         #region ICollection Implementation
 
@@ -20,8 +23,11 @@ namespace UnrealToUnity.Code.Scripts.Core.Subsystems
         public void Add(UnrealSubsystem item)
         {
             // If the subsystem is already in the list, we don't need to add it again.
-            if (item == null || !_subsystems.Add(item))
+            if (item == null || !_subsystems.Add(item) || _subsystemTypeMap.ContainsKey(item.GetType()))
                 return;
+
+            // Add the item to the dictionary as well, using its type as the key.
+            _subsystemTypeMap[item.GetType()] = item;
 
             // Run the initialize function
             item.Initialize();
@@ -34,6 +40,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Subsystems
                 subsystem.CleanUp();
 
             _subsystems.Clear();
+            _subsystemTypeMap.Clear();
         }
 
         public bool Contains(UnrealSubsystem item)
@@ -48,10 +55,14 @@ namespace UnrealToUnity.Code.Scripts.Core.Subsystems
 
         public bool Remove(UnrealSubsystem item)
         {
+            if (item == null)
+                return false;
+
             var bWasRemoved = _subsystems.Remove(item);
+            _subsystemTypeMap.Remove(item.GetType());
 
             // Run the cleanup function of the removed item
-            if (bWasRemoved && item != null)
+            if (bWasRemoved)
                 item.CleanUp();
 
             return bWasRemoved;
@@ -64,5 +75,13 @@ namespace UnrealToUnity.Code.Scripts.Core.Subsystems
         public static UnrealSubsystemManager Instance { get; } = new UnrealSubsystemManager();
 
         #endregion
+
+        public bool GetSubsystem<TValue>(out TValue subsystem) where TValue : UnrealSubsystem
+        {
+            var bIsFound = _subsystemTypeMap.TryGetValue(typeof(TValue), out var outValue);
+            subsystem = bIsFound ? outValue as TValue : null;
+
+            return bIsFound && subsystem != null;
+        }
     }
 }

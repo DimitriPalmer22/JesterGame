@@ -19,5 +19,15 @@ namespace UnrealToUnity.Code.Scripts.Core.Testing
             // Log the game mode name and number of rounds.
             Debug.Log($"Game Mode: {gameModeName}, Number of Rounds: {numberOfRounds}");
         }
+
+        public void StartGameMode()
+        {
+            Debug.Log($"Starting game mode: {gameModeName}");
+        }
+
+        public void EndGameMode()
+        {
+            Debug.Log($"Ending game mode: {gameModeName}");
+        }
     }
 }

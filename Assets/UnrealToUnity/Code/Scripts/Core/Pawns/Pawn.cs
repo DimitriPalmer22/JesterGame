@@ -20,23 +20,23 @@ namespace UnrealToUnity.Code.Scripts.Core.Pawns
         /// </summary>
         [NonSerialized] internal Controller owningController;
 
-        [NonSerialized] private PlayerInput playerInput;
+        [NonSerialized] private PlayerInput _playerInput;
 
         protected virtual void Awake()
         {
             // Set up the player input reference
-            playerInput = GetComponent<PlayerInput>();
+            _playerInput = GetComponent<PlayerInput>();
         }
 
         private void OnDisable()
         {
             // Disable the player input
-            playerInput.enabled = false;
+            _playerInput.enabled = false;
         }
 
         private void OnEnable()
         {
-            playerInput.enabled = true;
+            _playerInput.enabled = true;
         }
     }
 }
