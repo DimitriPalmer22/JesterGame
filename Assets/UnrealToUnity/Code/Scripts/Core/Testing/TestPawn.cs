@@ -31,9 +31,11 @@ namespace UnrealToUnity.Code.Scripts.Core.Testing
             // Get the current camera (if any)
             var currentCamera = cinemachineCamera;
 
+            var camTrans = currentCamera ? currentCamera.transform : Camera.main!.transform;
+
             // Get the camera forward & right
-            var camForward = (currentCamera ? currentCamera.transform.forward : transform.forward).NoYNormalized();
-            var camRight = (currentCamera ? currentCamera.transform.right : transform.right).NoYNormalized();
+            var camForward = camTrans.forward.NoYNormalized();
+            var camRight = camTrans.right.NoYNormalized();
 
             // Calculate the move delta of the pawn.
             var forwardMovement = camForward * _moveInput.y;
