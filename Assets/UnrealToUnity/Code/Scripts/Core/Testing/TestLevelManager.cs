@@ -6,7 +6,7 @@ using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace UnrealToUnity.Code.Scripts.Core.Testing
 {
-    public class LevelManagerTest : LevelManager
+    public class TestLevelManager : LevelManager
     {
         private void Start()
         {
@@ -16,7 +16,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Testing
         IEnumerator CoroutineTest()
         {
             // Get the game mode.
-            if (!UtilLibrary.GetGameMode(out GameModeTest gameMode))
+            if (!UtilLibrary.GetGameMode(out TestGameMode gameMode))
                 yield break;
 
             gameMode.StartGameMode();
