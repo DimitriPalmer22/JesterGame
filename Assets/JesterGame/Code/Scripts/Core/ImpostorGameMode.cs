@@ -7,6 +7,7 @@ namespace JesterGame.Code.Scripts.Core
 {
     public class ImpostorGameMode : GameMode
     {
-        [SerializeField] private Dictionary<DialogueCharacterAsset, CharacterInstance> characterInstanceMap;
+        // [SerializeField] private Dictionary<DialogueCharacterAsset, CharacterInstance> characterInstanceMap;
+        [SerializeField] private CharacterInstance characterInstanceTest;
     }
 }
