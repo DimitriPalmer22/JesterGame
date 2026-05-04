@@ -1,4 +1,5 @@
 using System;
+using UnrealToUnity.Code.Scripts.Core.CheatMenus;
 using UnrealToUnity.Code.Scripts.Core.Pawns;
 using UnrealToUnity.Code.Scripts.Core.Player;
 
@@ -19,5 +20,8 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
 
         /// The pawn prefab to use for this game mode.
         public Pawn pawnPrefab;
+
+        /// The cheat menu prefab to use for this game mode.
+        public CheatMenu cheatMenuPrefab;
     }
 }

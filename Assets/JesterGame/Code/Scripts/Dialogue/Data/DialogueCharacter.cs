@@ -1,4 +1,5 @@
 using System;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace JesterGame.Code.Scripts.Dialogue.Data
@@ -14,6 +15,6 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         /// <summary>
         /// The portrait of the character to display in the dialogue UI.
         /// </summary>
-        [SerializeField] public Texture2D portrait;
+        [SerializeField, ShowAssetPreview] public Texture2D portrait;
     }
 }
