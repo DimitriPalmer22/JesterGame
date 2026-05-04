@@ -83,6 +83,13 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
                 // Possess if the pawn and controller were both instantiated.
                 if (playerController && currentPawn)
                     playerController.Possess(currentPawn);
+
+                // Instantiate the cheat menu prefab if possible
+                if (gameModePrefabs.cheatMenuPrefab && playerController)
+                {
+                    var cheatMenu = Instantiate(gameModePrefabs.cheatMenuPrefab, null);
+                    cheatMenu.Initialize(playerController);
+                }
             }
         }
 

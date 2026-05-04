@@ -1,4 +1,5 @@
 using System;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace JesterGame.Code.Scripts.Dialogue.Data
@@ -9,7 +10,7 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         /// <summary>
         /// A reference to the dialogue character this instance handles.
         /// </summary>
-        [SerializeField] public DialogueCharacterAsset characterAsset;
+        [SerializeField, Required] public DialogueCharacterAsset characterAsset;
 
         /// <summary>
         /// The type of the character, whether it's an impostor or not.
@@ -20,7 +21,7 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         /// A bool indicating whether is character is alive or not.
         /// Should not really be changed in the inspector.
         /// </summary>
-        [SerializeField] public bool bIsAlive;
+        [SerializeField, ReadOnly] private bool bIsAlive;
 
         public CharacterInstance(DialogueCharacterAsset characterAsset, CharacterType characterType)
         {

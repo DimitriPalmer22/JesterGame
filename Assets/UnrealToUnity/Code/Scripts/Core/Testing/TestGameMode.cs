@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnrealToUnity.Code.Scripts.Core.Testing
 {
-    public class GameModeTest : GameMode.GameMode
+    public class TestGameMode : GameMode.GameMode
     {
         /// <summary>
         /// The name of the game mode.
