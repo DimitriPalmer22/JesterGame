@@ -107,13 +107,11 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
 
         public PlayerController GetPlayerController(int index)
         {
-            if (index < 0 || index >= _playerControllers.Count)
-            {
-                Debug.LogError($"Player controller index `{index}` is out of range.");
-                return null;
-            }
+            if (index >= 0 && index < _playerControllers.Count)
+                return _playerControllers[index];
 
-            return _playerControllers[index];
+            Debug.LogError($"Player controller index `{index}` is out of range.");
+            return null;
         }
     }
 }
