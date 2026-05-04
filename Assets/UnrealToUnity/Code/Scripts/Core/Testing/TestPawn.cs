@@ -13,7 +13,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Testing
         [SerializeField] private CinemachineCamera cinemachineCamera;
 
         [SerializeField, Min(0f)] private float moveSpeed = 5;
-        [SerializeField, Min(0f)] private float rotationSpeed = 360;
+        [SerializeField, Min(0f)] private float rotationSpeed = 720;
 
         private CharacterController _characterController;
 

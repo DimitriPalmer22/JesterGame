@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace UnrealToUnity.Code.Scripts.Core.Pawns
 {
@@ -20,23 +21,43 @@ namespace UnrealToUnity.Code.Scripts.Core.Pawns
         /// </summary>
         [NonSerialized] internal Controller owningController;
 
-        [NonSerialized] private PlayerInput _playerInput;
+        internal BoolTokenManager InputTokenManager { get; private set; } = new();
+
+        private PlayerInput _playerInput;
 
         protected virtual void Awake()
         {
             // Set up the player input reference
             _playerInput = GetComponent<PlayerInput>();
+
+            InputTokenManager.OnTokensChanged += InputTokenManagerOnOnTokensChanged;
         }
 
         private void OnDisable()
         {
             // Disable the player input
-            _playerInput.enabled = false;
+            AddInputBlocker(this);
         }
 
         private void OnEnable()
         {
-            _playerInput.enabled = true;
+            RemoveInputBlocker(this);
+        }
+
+        private void InputTokenManagerOnOnTokensChanged(bool hasTokens)
+        {
+            // If there are any tokens, disable input. Otherwise, enable it.
+            _playerInput.enabled = !hasTokens;
+        }
+
+        internal void AddInputBlocker(object token)
+        {
+            InputTokenManager.AddToken(token);
+        }
+
+        internal void RemoveInputBlocker(object token)
+        {
+            InputTokenManager.RemoveToken(token);
         }
     }
 }

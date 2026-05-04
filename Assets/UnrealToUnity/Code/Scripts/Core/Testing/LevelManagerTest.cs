@@ -10,7 +10,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Testing
     {
         private void Start()
         {
-            StartCoroutine(CoroutineTest());
+            StartCoroutine(IntroCutscene());
         }
 
         IEnumerator CoroutineTest()
@@ -24,6 +24,23 @@ namespace UnrealToUnity.Code.Scripts.Core.Testing
             yield return new WaitForSeconds(10f);
 
             gameMode.EndGameMode();
+        }
+
+        /// <summary>
+        /// Enumerator responsible for playing the cutscene at the start of the game.
+        /// </summary>
+        private IEnumerator IntroCutscene()
+        {
+            // Disable input
+            var playerController = UtilLibrary.GetPlayerController();
+            playerController?.AddInputBlocker(this);
+
+            yield return new WaitForSeconds(1f);
+
+            // re-enable input
+            playerController?.RemoveInputBlocker(this);
+
+            Debug.Log("Intro cutscene finished, input re-enabled.");
         }
     }
 }

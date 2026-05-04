@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnrealToUnity.Code.Scripts.Core.Player;
 using UnrealToUnity.Code.Scripts.Core.Subsystems;
 
 namespace UnrealToUnity.Code.Scripts.Core.Utility
@@ -27,6 +28,14 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
             return gameMode != null;
         }
 
+        public static PlayerController GetPlayerController(int index = 0)
+        {
+            if (!GetGameMode(out GameMode.GameMode gameMode))
+                return null;
+
+            return gameMode.GetPlayerController(index);
+        }
+
         #region Vector Functions
 
         public static Vector3 NoYNormalized(this Vector3 vector)
@@ -36,6 +45,5 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
         }
 
         #endregion
-
     }
 }

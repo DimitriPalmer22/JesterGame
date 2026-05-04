@@ -9,7 +9,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Pawns
         /// <summary>
         /// The pawn this controller is currently controlling.
         /// </summary>
-        private Pawn _controlledPawn;
+        public Pawn ControlledPawn { get; private set; }
 
         /// <summary>
         /// Should this controller mimic the pawn's position?
@@ -24,7 +24,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Pawns
         {
             // If the controller is set to follow the pawn, then set the position accordingly.
             if (bFollowPawn)
-                gameObject.transform.position = _controlledPawn.transform.position;
+                gameObject.transform.position = ControlledPawn.transform.position;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Pawns
         public void Possess(Pawn pawn)
         {
             // If the currently controlled pawn is not null, unpossess it first.
-            if (_controlledPawn)
+            if (ControlledPawn)
                 UnPossess();
 
             // If the new pawn is null, return
@@ -41,32 +41,40 @@ namespace UnrealToUnity.Code.Scripts.Core.Pawns
                 return;
 
             // Set the references in both this controller and the pawn.
-            _controlledPawn = pawn;
-            _controlledPawn.owningController = this;
+            ControlledPawn = pawn;
+            ControlledPawn.owningController = this;
 
             // If following the pawn, immediately set the position
             if (bFollowPawn)
-                gameObject.transform.position = _controlledPawn.transform.position;
+                gameObject.transform.position = ControlledPawn.transform.position;
+
+            CustomPossess(pawn);
 
             // Log that this controller is possessing the pawn
             Debug.Log($"{name} is now possessing {pawn.name}");
         }
 
+        protected abstract void CustomPossess(Pawn pawn);
+
         public void UnPossess()
         {
             // Return if there is no currently controlled pawn.
-            if (!_controlledPawn)
+            if (!ControlledPawn)
                 return;
 
-            var oldPawn = _controlledPawn;
+            var oldPawn = ControlledPawn;
 
             // Clear the references in both the controller and the pawn
-            _controlledPawn.owningController = null;
-            _controlledPawn = null;
+            ControlledPawn.owningController = null;
+            ControlledPawn = null;
+
+            CustomUnPossess(oldPawn);
 
             // Log that this controller is unpossessing the pawn
             Debug.Log($"{name} has unpossessed {oldPawn.name}");
         }
+
+        protected abstract void CustomUnPossess(Pawn pawn);
 
         #endregion
     }

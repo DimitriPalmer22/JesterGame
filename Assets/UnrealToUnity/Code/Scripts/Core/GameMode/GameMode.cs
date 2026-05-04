@@ -19,7 +19,7 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
     {
         #region Setup
 
-        [SerializeField] public GameModePrefabs gameModePrefabs;
+        [SerializeField] protected GameModePrefabs gameModePrefabs;
 
         #endregion
 
@@ -103,6 +103,17 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
 
             // Use the first one as the chosen player start.
             return allStarts[0];
+        }
+
+        public PlayerController GetPlayerController(int index)
+        {
+            if (index < 0 || index >= _playerControllers.Count)
+            {
+                Debug.LogError($"Player controller index `{index}` is out of range.");
+                return null;
+            }
+
+            return _playerControllers[index];
         }
     }
 }
