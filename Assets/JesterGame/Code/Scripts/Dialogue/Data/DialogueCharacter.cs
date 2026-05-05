@@ -1,11 +1,12 @@
 using System;
 using NaughtyAttributes;
 using UnityEngine;
+using UnrealToUnity.Code.Scripts.Core.DataTables;
 
 namespace JesterGame.Code.Scripts.Dialogue.Data
 {
     [Serializable]
-    public struct DialogueCharacter
+    public struct DialogueCharacter : IDataTableRow
     {
         /// <summary>
         /// The display name of the character.
@@ -22,5 +23,7 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         /// Small, tiny little portrait that appears next to dialogue box.
         /// </summary>
         [SerializeField, ShowAssetPreview] public Texture2D miniPortrait;
+
+        public string GetDataTableRowName => name;
     }
 }
