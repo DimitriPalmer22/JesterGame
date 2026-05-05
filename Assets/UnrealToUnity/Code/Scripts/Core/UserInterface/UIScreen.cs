@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Subsystems;
 using UnrealToUnity.Code.Scripts.Core.Utility;
@@ -12,6 +13,11 @@ namespace UnrealToUnity.Code.Scripts.Core.UserInterface
         /// it to the UI subsystem.
         /// </summary>
         protected virtual bool AddToSubsystem => true;
+
+        public bool IsOpen { get; private set; } = false;
+
+        private Coroutine _openScreenCoroutine;
+        private Coroutine _closeScreenCoroutine;
 
         private void Awake()
         {
@@ -44,5 +50,46 @@ namespace UnrealToUnity.Code.Scripts.Core.UserInterface
         }
 
         protected abstract void CustomStart();
+
+        public IEnumerator OpenScreen()
+        {
+            // Stop the close screen coroutine
+            if (_closeScreenCoroutine != null)
+            {
+                StopCoroutine(_closeScreenCoroutine);
+                _closeScreenCoroutine = null;
+            }
+
+            _openScreenCoroutine = StartCoroutine(OpenScreenCoroutine());
+            yield return _openScreenCoroutine;
+
+            IsOpen = true;
+            _openScreenCoroutine = null;
+        }
+
+        /// <summary>
+        /// A coroutine / animation for opening the screen.
+        /// This is called by the OpenScreen function, which can be called by external code to open the screen.
+        /// </summary>
+        /// <returns></returns>
+        protected abstract IEnumerator OpenScreenCoroutine();
+
+        public IEnumerator CloseScreen()
+        {
+            // Stop the open screen coroutine
+            if (_openScreenCoroutine != null)
+            {
+                StopCoroutine(_openScreenCoroutine);
+                _openScreenCoroutine = null;
+            }
+
+            _closeScreenCoroutine = StartCoroutine(CloseScreenCoroutine());
+            yield return _closeScreenCoroutine;
+
+            IsOpen = false;
+            _closeScreenCoroutine = null;
+        }
+
+        protected abstract IEnumerator CloseScreenCoroutine();
     }
 }
