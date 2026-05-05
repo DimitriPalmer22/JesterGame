@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &680658913375508802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2881828951043328200}
+  - component: {fileID: 777040674850859826}
+  m_Layer: 0
+  m_Name: ImpostorGameMode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2881828951043328200
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680658913375508802}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &777040674850859826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680658913375508802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bddbc1d2506241edbc3c687a3b7166a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Core.ImpostorGameMode
+  gameModePrefabs:
+    numberOfPlayers: 1
+    playerControllerPrefab: {fileID: 6936015359185284266, guid: 34368a966f99c4543b21a6ce4e9560a0, type: 3}
+    pawnPrefab: {fileID: -8877130054480770675, guid: 236d7f4b02e805c4385d7f02fe607ec3, type: 3}
+    cheatMenuPrefab: {fileID: 1225206401226145698, guid: 66054ff409ad87b4bbbcc2b8ae97a927, type: 3}
+  characterInstanceTest:
+    characterAsset: {fileID: 11400000, guid: c4404421471372844a345624694660f0, type: 2}
+    characterType: 0
+    bIsAlive: 1
+    affection: 0
