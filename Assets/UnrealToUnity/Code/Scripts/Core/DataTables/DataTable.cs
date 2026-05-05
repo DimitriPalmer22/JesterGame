@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
@@ -15,17 +16,16 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
         /// <summary>
         /// The data within the table;
         /// </summary>
-        [SerializeField] public TStruct[] rows;
+        [SerializeField, OnValueChanged("OnValueChanged")] private TStruct[] rows;
 
         /// <summary>
         /// A map of all the rows in the table, using the row name as the key.
         /// </summary>
-        private readonly Dictionary<string, TStruct> _dataMap = new();
+        [NonSerialized] private readonly Dictionary<string, TStruct> _dataMap = new();
 
-        private bool _bConstructed = false;
+        [NonSerialized] private bool _bConstructed = false;
 
-        [Button]
-        private void ConstructRowNameMap()
+        public override void ValidateTable()
         {
             // Clear the map
             _dataMap.Clear();
@@ -47,12 +47,42 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
             _bConstructed = true;
         }
 
+        [Button]
+        public void InvalidateTable()
+        {
+            _bConstructed = false;
+        }
+
         public bool GetRow(string rowName, out TStruct result)
         {
             if (!_bConstructed)
-                ConstructRowNameMap();
+                ValidateTable();
 
             return _dataMap.TryGetValue(rowName, out result);
+        }
+
+        public override bool HasRow(string rowName)
+        {
+            if (!_bConstructed)
+                ValidateTable();
+
+            return _dataMap.ContainsKey(rowName);
+        }
+
+        public override string[] GetAllRowNames()
+        {
+            if (!_bConstructed)
+                ValidateTable();
+
+            var keys = new string[_dataMap.Keys.Count];
+            _dataMap.Keys.CopyTo(keys, 0);
+            return keys;
+        }
+
+        private void OnValueChanged()
+        {
+            ValidateTable();
+            _bConstructed = false;
         }
     }
 }
