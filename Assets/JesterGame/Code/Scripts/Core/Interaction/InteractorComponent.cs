@@ -1,6 +1,7 @@
 using System;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
@@ -16,6 +17,9 @@ namespace JesterGame.Code.Scripts.Core.Interaction
         /// </summary>
         private InteractionHelperComponent _currentHelper;
 
+        [SerializeField, BoxGroup("Events")] public UnityEvent<InteractEventArgs> onFocusedInteractableChanged;
+        [SerializeField, BoxGroup("Events")] public UnityEvent<InteractEventArgs> onInteracted;
+
         private void Update()
         {
             // If the current helper is NOT the current helper, invoke events
@@ -23,6 +27,7 @@ namespace JesterGame.Code.Scripts.Core.Interaction
             if (newHelper != _currentHelper)
             {
                 var args = new InteractEventArgs(this, newHelper);
+                args.previousHelper = _currentHelper;
 
                 if (_currentHelper != null)
                     _currentHelper.onDeselected.Invoke(args);
@@ -31,6 +36,9 @@ namespace JesterGame.Code.Scripts.Core.Interaction
                     newHelper.onSelected.Invoke(args);
 
                 _currentHelper = newHelper;
+
+                // Invoke the onFocusedInteractableChanged event of this interactor with the new helper as the argument.
+                onFocusedInteractableChanged.Invoke(args);
             }
 
             // Tick the onSelected event of the current helper if it exists.
@@ -75,6 +83,9 @@ namespace JesterGame.Code.Scripts.Core.Interaction
             // Invoke the onInteract event of the helper with this interactor as the argument.
             var args = new InteractEventArgs(this, helper);
             helper.onInteract.Invoke(args);
+
+            // Also invoke the onInteracted event of this interactor with the helper as the argument.
+            onInteracted.Invoke(args);
         }
 
         [Button(enabledMode: EButtonEnableMode.Playmode)]
