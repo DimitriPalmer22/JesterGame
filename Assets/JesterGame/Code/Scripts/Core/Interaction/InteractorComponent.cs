@@ -17,8 +17,8 @@ namespace JesterGame.Code.Scripts.Core.Interaction
         /// </summary>
         private InteractionHelperComponent _currentHelper;
 
-        [SerializeField, BoxGroup("Events")] public UnityEvent<InteractEventArgs> onFocusedInteractableChanged;
-        [SerializeField, BoxGroup("Events")] public UnityEvent<InteractEventArgs> onInteracted;
+        [SerializeField, Foldout("Events")] public UnityEvent<InteractEventArgs> onFocusedInteractableChanged;
+        [SerializeField, Foldout("Events")] public UnityEvent<InteractEventArgs> onInteracted;
 
         private void Update()
         {

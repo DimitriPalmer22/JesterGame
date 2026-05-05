@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Subsystems;
+using UnrealToUnity.Code.Scripts.Core.UserInterface;
 
 namespace UnrealToUnity.Code.Scripts.Core
 {
@@ -16,7 +17,8 @@ namespace UnrealToUnity.Code.Scripts.Core
             // Create a list of subsystems to initialize on startup.
             var startupSubsystems = new UnrealSubsystem[]
             {
-                new GameInstanceSubsystem()
+                new GameInstanceSubsystem(),
+                new UISubsystem()
             };
 
             foreach (var startupSubsystem in startupSubsystems)
