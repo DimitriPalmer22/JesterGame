@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using NaughtyAttributes;
 using UnityEngine;
+using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.GameMode;
 
 namespace JesterGame.Code.Scripts.Core
@@ -27,8 +28,9 @@ namespace JesterGame.Code.Scripts.Core
         ]
         private int currentInteractionProgression;
 
-        // [SerializeField] private Dictionary<DialogueCharacterAsset, CharacterInstance> characterInstanceMap;
-        [SerializeField] private CharacterInstance characterInstanceTest;
+        private Dictionary<DialogueCharacterAsset, CharacterInstance> characterInstanceMap;
+
+        [SerializeField] private DataTableRowHandle testRowHandle;
 
         #endregion
 
@@ -83,6 +85,11 @@ namespace JesterGame.Code.Scripts.Core
             // Bind to the progress event
             OnProgressionChanged += LogProgress_Event;
             OnProgressionChanged += TestForGameFinished_Event;
+
+            Debug.LogWarning($"TEST: {testRowHandle.rowName}");
+
+            if (testRowHandle.GetValue(out DialogueCharacter testRow))
+                Debug.Log($"Test row value: {testRow.name}");
         }
 
         private void Start()
