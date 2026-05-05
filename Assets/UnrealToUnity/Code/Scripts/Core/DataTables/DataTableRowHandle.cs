@@ -17,6 +17,12 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
         /// </summary>
         [SerializeField] public string rowName;
 
+        public DataTableRowHandle(DataTableBase dataTable, string rowName)
+        {
+            this.dataTable = dataTable;
+            this.rowName = rowName;
+        }
+
         [Button]
         public bool Validate()
         {

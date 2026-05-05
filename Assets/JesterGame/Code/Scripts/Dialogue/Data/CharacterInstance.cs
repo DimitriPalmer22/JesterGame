@@ -1,6 +1,7 @@
 using System;
 using NaughtyAttributes;
 using UnityEngine;
+using UnrealToUnity.Code.Scripts.Core.DataTables;
 
 namespace JesterGame.Code.Scripts.Dialogue.Data
 {
@@ -10,7 +11,7 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         /// <summary>
         /// A reference to the dialogue character this instance handles.
         /// </summary>
-        [SerializeField, Required] public DialogueCharacterAsset characterAsset;
+        [SerializeField, Required] public DataTableRowHandle characterAsset;
 
         /// <summary>
         /// The type of the character, whether it's an impostor or not.
@@ -28,7 +29,7 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
 
         [SerializeField] public int currentAffection;
 
-        public CharacterInstance(DialogueCharacterAsset characterAsset, CharacterType characterType)
+        public CharacterInstance(DataTableRowHandle characterAsset, CharacterType characterType)
         {
             this.characterAsset = characterAsset;
             this.characterType = characterType;

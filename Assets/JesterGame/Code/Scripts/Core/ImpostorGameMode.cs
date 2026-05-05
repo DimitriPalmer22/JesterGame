@@ -14,23 +14,26 @@ namespace JesterGame.Code.Scripts.Core
 
         #region Inspector Fields
 
+        [SerializeField, ReadOnly, Label("Impostor Name"), BoxGroup("Debug")]
+        private string impostorRowName;
+
         /// <summary>
         /// The number of interactions the player must go through until they reach the end of the game.
         /// </summary>
-        [SerializeField, BoxGroup("Progression")]
+        [SerializeField, BoxGroup("Debug")]
         private int maxInteractionsProgression = 15;
 
         /// <summary>
         /// The number of interactions the player has currently gone through.
         /// </summary>
         [SerializeField, ReadOnly, ProgressBar("Current Interactions Progression", "maxInteractionsProgression"),
-         BoxGroup("Progression")
+         BoxGroup("Debug")
         ]
         private int currentInteractionProgression;
 
-        private Dictionary<DialogueCharacterAsset, CharacterInstance> characterInstanceMap;
+        [SerializeField] private DataTable<DialogueCharacter> characterDataTable;
 
-        [SerializeField] private DataTableRowHandle testRowHandle;
+        private readonly Dictionary<string, CharacterInstance> _characterInstanceMap = new();
 
         #endregion
 
@@ -65,7 +68,6 @@ namespace JesterGame.Code.Scripts.Core
                 Debug.Log("Game finished!");
 
                 // TODO: Add a function or something here to handle the game mode ending.
-
             }
         }
 
@@ -78,6 +80,8 @@ namespace JesterGame.Code.Scripts.Core
 
         #endregion
 
+        #region Awake
+
         protected override void Awake()
         {
             base.Awake();
@@ -86,11 +90,45 @@ namespace JesterGame.Code.Scripts.Core
             OnProgressionChanged += LogProgress_Event;
             OnProgressionChanged += TestForGameFinished_Event;
 
-            Debug.LogWarning($"TEST: {testRowHandle.rowName}");
-
-            if (testRowHandle.GetValue(out DialogueCharacter testRow))
-                Debug.Log($"Test row value: {testRow.name}");
+            InitializeCharacters();
         }
+
+        private void InitializeCharacters()
+        {
+            // Add all the characters to the map
+            _characterInstanceMap.Clear();
+            if (characterDataTable)
+            {
+                foreach (var rowHandle in characterDataTable.GetAllRowHandles())
+                    _characterInstanceMap[rowHandle.rowName] = new CharacterInstance(rowHandle, CharacterType.Normal);
+            }
+
+            // Determine who the impostor is.
+            // Randomly select an impostor.
+            var impostorIndex = UnityEngine.Random.Range(0, _characterInstanceMap.Count);
+            var currentIndex = 0;
+            foreach (var rowHandle in _characterInstanceMap.Values)
+            {
+                // If not the impostor, continue.
+                if (currentIndex != impostorIndex && currentIndex < _characterInstanceMap.Count)
+                {
+                    currentIndex++;
+                    continue;
+                }
+
+                // Set the impostor.
+                _characterInstanceMap[rowHandle.characterAsset.rowName] =
+                    new CharacterInstance(rowHandle.characterAsset, CharacterType.Impostor);
+                impostorRowName = rowHandle.characterAsset.rowName;
+
+                Debug.Log($"The impostor is {rowHandle.characterAsset.rowName}!");
+
+                break;
+            }
+        }
+
+        #endregion
+
 
         private void Start()
         {

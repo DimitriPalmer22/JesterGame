@@ -16,7 +16,8 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
         /// <summary>
         /// The data within the table;
         /// </summary>
-        [SerializeField, OnValueChanged("OnValueChanged")] private TStruct[] rows;
+        [SerializeField, OnValueChanged("OnValueChanged")]
+        private TStruct[] rows;
 
         /// <summary>
         /// A map of all the rows in the table, using the row name as the key.
@@ -83,6 +84,23 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
         {
             ValidateTable();
             _bConstructed = false;
+        }
+
+        public TStruct[] GetAllRowValues()
+        {
+            var values = new TStruct[rows.Length];
+            rows.CopyTo(values, 0);
+
+            return values;
+        }
+
+        public override DataTableRowHandle[] GetAllRowHandles()
+        {
+            var handles = new DataTableRowHandle[rows.Length];
+            for (var i = 0; i < rows.Length; i++)
+                handles[i] = new DataTableRowHandle(this, rows[i].GetDataTableRowName);
+
+            return handles;
         }
     }
 }

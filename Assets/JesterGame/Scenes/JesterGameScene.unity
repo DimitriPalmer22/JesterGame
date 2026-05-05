@@ -539,7 +539,7 @@ Transform:
   m_GameObject: {fileID: 857579752}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.04368, y: 0, z: 6.1483}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -672,6 +672,37 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &973763421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 973763422}
+  m_Layer: 0
+  m_Name: ===SPAWNED ITEMS===
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &973763422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973763421}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1138470028
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,7 +915,7 @@ Transform:
   m_GameObject: {fileID: 1833231655}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.22447, y: -0, z: -2.59703}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -958,10 +989,6 @@ PrefabInstance:
     - target: {fileID: 680658913375508802, guid: e6dd8ee156288b0419980411e9e4b5b0, type: 3}
       propertyPath: m_Name
       value: ImpostorGameMode
-      objectReference: {fileID: 0}
-    - target: {fileID: 777040674850859826, guid: e6dd8ee156288b0419980411e9e4b5b0, type: 3}
-      propertyPath: testRowHandle.rowName
-      value: Test Character 2
       objectReference: {fileID: 0}
     - target: {fileID: 2881828951043328200, guid: e6dd8ee156288b0419980411e9e4b5b0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1080,3 +1107,4 @@ SceneRoots:
   - {fileID: 1138470032}
   - {fileID: 116822723}
   - {fileID: 1721622228}
+  - {fileID: 973763422}
