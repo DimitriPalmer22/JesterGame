@@ -170,6 +170,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1250642331911069780}
+  - component: {fileID: 3253740296084392346}
   m_Layer: 0
   m_Name: SpawnTransform
   m_TagString: Untagged
@@ -192,3 +193,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2931356248201758439}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3253740296084392346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5032159767842027783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54fcbcb06a984953bfd77437ce912022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnrealToUnity.Code.Scripts.Core.Utility.Components.ArrowComponent
+  color: {r: 1, g: 0, b: 0, a: 1}
+  scale: 0.5
+  arrowHeadAngle: 70
