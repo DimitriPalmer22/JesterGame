@@ -27,8 +27,7 @@ namespace JesterGame.Code.Scripts.Core
         ]
         private int currentInteractionProgression;
 
-        // [SerializeField] private Dictionary<DialogueCharacterAsset, CharacterInstance> characterInstanceMap;
-        [SerializeField] private CharacterInstance characterInstanceTest;
+        private Dictionary<DialogueCharacterAsset, CharacterInstance> characterInstanceMap;
 
         #endregion
 
