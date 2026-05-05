@@ -252,7 +252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2724052410042357760}
   - component: {fileID: 4346776938213497931}
-  - component: {fileID: 1417715159344969984}
+  - component: {fileID: 3192293740704564663}
   - component: {fileID: 4277829949029483912}
   m_Layer: 0
   m_Name: CinemachineCamera
@@ -269,8 +269,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4575444523727080701}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18910757, y: 8.0531075e-11, z: -1.5508872e-11, w: 0.9819564}
-  m_LocalPosition: {x: 0, y: 2, z: -5}
+  m_LocalRotation: {x: 0.461727, y: -0, z: -0, w: 0.8870221}
+  m_LocalPosition: {x: 0, y: 5.355, z: -3.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -319,7 +319,7 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
---- !u!114 &1417715159344969984
+--- !u!114 &3192293740704564663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -333,11 +333,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 1}
+    PositionDamping: {x: 0, y: 0, z: 0}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 2, z: -5}
+  FollowOffset: {x: 0, y: 5.355, z: -3.75}
 --- !u!114 &4277829949029483912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,20 +353,20 @@ MonoBehaviour:
   Composition:
     ScreenPosition: {x: 0, y: 0}
     DeadZone:
-      Enabled: 1
+      Enabled: 0
       Size: {x: 0.2, y: 0.2}
     HardLimits:
       Enabled: 0
-      Size: {x: 0.8, y: 0.8}
+      Size: {x: 0.6, y: 0.6}
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 0.5, y: 0.5}
+  Damping: {x: 0, y: 0}
   Lookahead:
-    Enabled: 0
-    Time: 0
-    Smoothing: 0
-    IgnoreY: 0
+    Enabled: 1
+    Time: 0.025
+    Smoothing: 5
+    IgnoreY: 1
 --- !u!1 &6889343691574170140
 GameObject:
   m_ObjectHideFlags: 0
