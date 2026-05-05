@@ -1,6 +1,7 @@
 using System;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Core.Interaction
@@ -78,5 +79,11 @@ namespace JesterGame.Code.Scripts.Core.Interaction
 
         [Button(enabledMode: EButtonEnableMode.Playmode)]
         public void InteractWithSelected() => Interact(_currentHelper);
+
+        public void InteractInput(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                InteractWithSelected();
+        }
     }
 }
