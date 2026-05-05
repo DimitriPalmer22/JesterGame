@@ -23,17 +23,17 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         /// </summary>
         [SerializeField, ReadOnly] private bool bIsAlive;
 
-        public const int MAX_AFFECTION = 10;
+        public const int MAX_AFFECTION = 100;
+        public const int MIN_AFFECTION = 100;
 
-        [SerializeField, ProgressBar("Affection", MAX_AFFECTION, EColor.Green)]
-        public int affection;
+        [SerializeField] public int currentAffection;
 
         public CharacterInstance(DialogueCharacterAsset characterAsset, CharacterType characterType)
         {
             this.characterAsset = characterAsset;
             this.characterType = characterType;
             bIsAlive = true;
-            affection = 0;
+            currentAffection = 0;
         }
     }
 }
