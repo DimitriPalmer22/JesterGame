@@ -77,15 +77,8 @@ namespace JesterGame.Code.Scripts.Core.Interaction
 
         private void Interact(InteractionHelperComponent helper)
         {
-            if (helper == null)
-                return;
-
-            // Invoke the onInteract event of the helper with this interactor as the argument.
-            var args = new InteractEventArgs(this, helper);
-            helper.onInteract.Invoke(args);
-
-            // Also invoke the onInteracted event of this interactor with the helper as the argument.
-            onInteracted.Invoke(args);
+            if (helper)
+                helper.Interact(this);
         }
 
         [Button(enabledMode: EButtonEnableMode.Playmode)]

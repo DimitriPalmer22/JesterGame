@@ -70,7 +70,7 @@ namespace JesterGame.Code.Scripts.Core.Interaction
             // If the item being interacted with is NOT null, open the screen
             if (args.helper != null)
             {
-                interactText.text = $"Interact with {args.interactor.name}";
+                interactText.text = args.helper.InteractText;
                 StartCoroutine(OpenScreen());
             }
 

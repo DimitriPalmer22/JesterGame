@@ -358,6 +358,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Core.Interaction.InteractionHelperComponent
   interactionRange: 2
+  bDisableAfterInteract: 1
+  interactText: Interact with da block
   onInteract:
     m_PersistentCalls:
       m_Calls:
@@ -372,6 +374,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Interact!
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 406600491}
+        m_TargetAssemblyTypeName: UnityEngine.MeshRenderer, UnityEngine
+        m_MethodName: set_material
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2100000, guid: c30d5c9832b41fa4abf38703e644ad49, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   onSelected:
