@@ -19,6 +19,8 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
 
             if (property.isExpanded)
             {
+                EditorGUI.indentLevel++;
+
                 // Get the serialized properties
                 var dataTableProperty = property.FindPropertyRelative("dataTable");
                 var rowNameProperty = property.FindPropertyRelative("rowName");
@@ -40,6 +42,8 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
                     EditorGUIUtility.singleLineHeight
                 );
                 DrawRowNameDropdown(rowNameRect, dataTableProperty, rowNameProperty);
+
+                EditorGUI.indentLevel--;
             }
 
             EditorGUI.EndProperty();
@@ -49,13 +53,13 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
         {
             var dataTablePropHeight = EditorGUI.GetPropertyHeight(property, label, true);
 
-            return dataTablePropHeight + EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+            return dataTablePropHeight + EditorGUIUtility.standardVerticalSpacing;
         }
 
         private void DrawRowNameDropdown(Rect rect, SerializedProperty dataTableProperty,
             SerializedProperty rowNameProperty)
         {
-            DataTableBase dataTable = dataTableProperty.objectReferenceValue as DataTableBase;
+            var dataTable = dataTableProperty.objectReferenceValue as DataTableBase;
 
             if (dataTable == null)
             {
@@ -70,7 +74,13 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
             // Get all available row names
             var rowNames = dataTable.GetAllRowNames();
 
-            if (rowNames.Length == 0)
+            // Create a copy of rowNames, but with an empty string as the first element.
+            var rowNamesWithEmpty = new string[rowNames.Length + 1];
+            rowNamesWithEmpty[0] = "[---NO VALUE---]";
+            for (var i = 0; i < rowNames.Length; i++)
+                rowNamesWithEmpty[i + 1] = rowNames[i];
+
+            if (rowNamesWithEmpty.Length == 0)
             {
                 EditorGUI.TextField(rect, "Row Name", rowNameProperty.stringValue);
                 return;
@@ -78,17 +88,19 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
 
             // Get the selected index of the row name.
             // If the row name is out of bounds, set to the first row.
-            int selectedIndex = System.Array.IndexOf(rowNames, rowNameProperty.stringValue);
+            var selectedIndex = System.Array.IndexOf(rowNamesWithEmpty, rowNameProperty.stringValue);
             if (selectedIndex < 0)
                 selectedIndex = 0;
 
             // Draw dropdown
             EditorGUI.BeginChangeCheck();
-            int newIndex = EditorGUI.Popup(rect, "Row Name", selectedIndex, rowNames);
+            var newIndex = EditorGUI.Popup(rect, "Row Name", selectedIndex, rowNamesWithEmpty);
 
             if (EditorGUI.EndChangeCheck())
             {
-                rowNameProperty.stringValue = rowNames[newIndex];
+                rowNameProperty.stringValue = newIndex > 0
+                    ? rowNamesWithEmpty[newIndex]
+                    : string.Empty;
             }
         }
     }
