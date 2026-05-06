@@ -60,8 +60,6 @@ namespace JesterGame.Code.Scripts.Player
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            Debug.Log("OnMove");
-
             var value = context.ReadValue<Vector2>();
             SetMovementInput(value);
         }
