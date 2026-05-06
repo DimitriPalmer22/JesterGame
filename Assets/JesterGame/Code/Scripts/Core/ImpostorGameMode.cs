@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using JesterGame.Code.Scripts.Dialogue.Data;
+using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using JesterGame.Code.Scripts.Dialogue.DialogueLines;
 using NaughtyAttributes;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace JesterGame.Code.Scripts.Core
 
         private readonly Dictionary<string, CharacterInstance> _characterInstanceMap = new();
 
-        [SerializeField] public DialogueChoiceSimple test = DialogueChoiceSimple.Empty;
+        [SerializeField] public RuntimeDialogueGraph test;
 
         #endregion
 
