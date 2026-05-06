@@ -8,20 +8,10 @@ namespace JesterGame.Code.Scripts.Core.Interaction
     public class InteractScreen : UIScreen
     {
         /// <summary>
-        /// The canvas group component that controls the visibility.
-        /// </summary>
-        [SerializeField] private CanvasGroup canvasGroup;
-
-        /// <summary>
         /// The text component that displays the interaction prompt.
         /// This should be set to the text component in the prefab that is used for this screen.
         /// </summary>
         [SerializeField] private TMP_Text interactText;
-
-        /// <summary>
-        /// A curve to control the opacity in/out animation.
-        /// </summary>
-        [SerializeField] private AnimationCurve opacityCurve;
 
         protected override void CustomInitialize()
         {

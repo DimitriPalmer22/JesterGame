@@ -16,13 +16,13 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         /// <summary>
         /// The portrait of the character to display in the dialogue UI.
         /// </summary>
-        [SerializeField, ShowAssetPreview] public Texture2D portrait;
+        [SerializeField, ShowAssetPreview] public Sprite portrait;
 
         /// <summary>
         /// Idea?
         /// Small, tiny little portrait that appears next to dialogue box.
         /// </summary>
-        [SerializeField, ShowAssetPreview] public Texture2D miniPortrait;
+        [SerializeField, ShowAssetPreview] public Sprite miniPortrait;
 
         public string GetDataTableRowName => name;
     }

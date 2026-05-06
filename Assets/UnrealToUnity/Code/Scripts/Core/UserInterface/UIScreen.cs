@@ -1,13 +1,22 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnrealToUnity.Code.Scripts.Core.Subsystems;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace UnrealToUnity.Code.Scripts.Core.UserInterface
 {
     public abstract class UIScreen : MonoBehaviour
     {
+        /// <summary>
+        /// The canvas group component that controls the visibility.
+        /// </summary>
+        [SerializeField] protected CanvasGroup canvasGroup;
+
+        /// <summary>
+        /// A curve to control the opacity in/out animation.
+        /// </summary>
+        [SerializeField] protected AnimationCurve opacityCurve;
+
         /// <summary>
         /// Whether to only allow one instance of this screen at a time by adding
         /// it to the UI subsystem.

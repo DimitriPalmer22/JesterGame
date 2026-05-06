@@ -1,6 +1,7 @@
 using System.Collections;
 using JesterGame.Code.Scripts.Core.Interaction;
 using JesterGame.Code.Scripts.Dialogue.Data;
+using JesterGame.Code.Scripts.Dialogue.UI;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.AI;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
@@ -20,6 +21,13 @@ namespace JesterGame.Code.Scripts.Characters
         ///
         /// </summary>
         [SerializeField] private InteractionHelperComponent interactionHelperComponent;
+
+        /// <summary>
+        /// Data asset for opening the dialogue screen.
+        /// </summary>
+        [SerializeField] private DialogueScreenDataAsset dialogueScreenDataAsset;
+
+        [SerializeField] private DialogueDataAsset testDataAsset;
 
         private Coroutine _speakingCoroutine;
 
@@ -42,6 +50,9 @@ namespace JesterGame.Code.Scripts.Characters
         private IEnumerator SpeakCoroutine(DialogueCharacter characterData)
         {
             Debug.Log($"{characterData.name} is starting to speak!");
+
+            OpenDialoguePanel();
+
             yield return null;
             Debug.Log($"{name} has finished speaking");
 
@@ -55,6 +66,11 @@ namespace JesterGame.Code.Scripts.Characters
 
             Debug.LogError($"Failed to get character data for NPC {name} with handle {npcDataHandle}");
             return false;
+        }
+
+        public void OpenDialoguePanel()
+        {
+            dialogueScreenDataAsset?.Test(testDataAsset.dialogueLines);
         }
     }
 }
