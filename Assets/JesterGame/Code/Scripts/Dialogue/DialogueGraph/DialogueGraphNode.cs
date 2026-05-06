@@ -26,7 +26,7 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph
     }
 
     [Serializable]
-    public class StartNode : Node
+    public class StartDialogueNode : Node
     {
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
@@ -60,6 +60,35 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph
     }
 
     [Serializable]
+    public class AffectionDialogueNode : DialogueGraphNode
+    {
+        const string AFFECTION_NAME = "Affection";
+
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+            base.OnDefineOptions(context);
+        }
+
+        protected override void OnDefinePorts(IPortDefinitionContext context)
+        {
+            context.AddInputPort(EXEC_PORT_DEFAULT_NAME)
+                .WithDisplayName(string.Empty)
+                .WithConnectorUI(PortConnectorUI.Arrowhead)
+                .Build();
+
+            context.AddInputPort<int>(AFFECTION_NAME)
+                .WithDisplayName("Affection Value")
+                .WithDefaultValue(0)
+                .Build();
+
+            context.AddOutputPort(EXEC_PORT_DEFAULT_NAME)
+                .WithDisplayName(string.Empty)
+                .WithConnectorUI(PortConnectorUI.Arrowhead)
+                .Build();
+        }
+    }
+
+    [Serializable]
     public class OptionsDialogueNode : DialogueGraphNode
     {
         private const int MAX_CHOICES = 4;
@@ -76,13 +105,6 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph
                 .WithDisplayName("Number of Choices")
                 .WithDefaultValue(3)
                 .Build();
-
-            context.AddOption<DataTableRowHandle>("Speaker")
-                .WithDisplayName("Speaker")
-                .Build();
-            context.AddOption<string>("DialogueText")
-                .WithDisplayName(string.Empty)
-                .Build();
         }
 
         protected override void OnDefinePorts(IPortDefinitionContext context)
@@ -95,8 +117,9 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph
             var numChoices = GetNumChoices();
             for (var i = 0; i < numChoices; ++i)
             {
-                context.AddInputPort<DialogueChoiceSimple>($"{OPTION_BASE_NAME}_{i + 1}")
+                context.AddInputPort<string>($"{OPTION_BASE_NAME}_input_{i + 1}")
                     .WithDisplayName($"Choice {i + 1}")
+                    .WithDefaultValue($"Choice_{i + 1}")
                     .WithConnectorUI(PortConnectorUI.Circle)
                     .Build();
 
@@ -115,7 +138,7 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph
             if (option != null && option.TryGetValue(out int newNumChoices))
                 numChoices = newNumChoices;
 
-            return (int)MathF.Max(MathF.Min(numChoices, MAX_CHOICES), 2);
+            return (int)MathF.Max(MathF.Min(numChoices, MAX_CHOICES), 1);
         }
     }
 }
