@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using JesterGame.Code.Scripts.Dialogue.Data;
+using JesterGame.Code.Scripts.Dialogue.DialogueLines;
 using NaughtyAttributes;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
@@ -20,8 +21,7 @@ namespace JesterGame.Code.Scripts.Core
         /// <summary>
         /// The number of interactions the player must go through until they reach the end of the game.
         /// </summary>
-        [SerializeField, BoxGroup("Debug")]
-        private int maxInteractionsProgression = 15;
+        [SerializeField, BoxGroup("Debug")] private int maxInteractionsProgression = 15;
 
         /// <summary>
         /// The number of interactions the player has currently gone through.
