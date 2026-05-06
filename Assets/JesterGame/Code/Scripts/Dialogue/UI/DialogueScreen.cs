@@ -143,7 +143,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
                     // TODO: Wait for selection.
                     Debug.LogWarning($"Choices not implemented yet! Automatically selecting the first choice");
-                    yield return new WaitForSecondsRealtime(1f);
+                    yield return new WaitForSecondsRealtime(3f);
 
                     DestroyChoices();
                 }
