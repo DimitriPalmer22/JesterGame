@@ -46,7 +46,10 @@ namespace UnrealToUnity.Code.Scripts.Core.Pawns
 
             // If following the pawn, immediately set the position
             if (bFollowPawn)
+            {
                 gameObject.transform.position = ControlledPawn.transform.position;
+                transform.parent = ControlledPawn.transform;
+            }
 
             CustomPossess(pawn);
 
@@ -67,6 +70,9 @@ namespace UnrealToUnity.Code.Scripts.Core.Pawns
             // Clear the references in both the controller and the pawn
             ControlledPawn.owningController = null;
             ControlledPawn = null;
+
+            if (transform.parent == oldPawn.transform)
+                transform.parent = null;
 
             CustomUnPossess(oldPawn);
 

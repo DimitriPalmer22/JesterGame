@@ -75,5 +75,9 @@ namespace JesterGame.Code.Scripts.Core.Interaction
                 enabled = false;
         }
 
+        public void SetInteractionText(string newText)
+        {
+            interactText = newText;
+        }
     }
 }
