@@ -35,6 +35,8 @@ namespace JesterGame.Code.Scripts.Core
 
         private readonly Dictionary<string, CharacterInstance> _characterInstanceMap = new();
 
+        [SerializeField] public DialogueChoiceSimple test = DialogueChoiceSimple.Empty;
+
         #endregion
 
         public event ProgressionEventHandler OnProgressionChanged;
