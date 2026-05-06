@@ -1,6 +1,7 @@
 using System.Collections;
 using JesterGame.Code.Scripts.Core.Interaction;
 using JesterGame.Code.Scripts.Dialogue.Data;
+using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using JesterGame.Code.Scripts.Dialogue.UI;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.AI;
@@ -27,7 +28,7 @@ namespace JesterGame.Code.Scripts.Characters
         /// </summary>
         [SerializeField] private DialogueScreenDataAsset dialogueScreenDataAsset;
 
-        [SerializeField] private DialogueDataAsset testDataAsset;
+        [SerializeField] private RuntimeDialogueGraph testDialogueGraph;
 
         private Coroutine _speakingCoroutine;
 
@@ -89,7 +90,7 @@ namespace JesterGame.Code.Scripts.Characters
         private IEnumerator OpenDialoguePanel()
         {
             if (dialogueScreenDataAsset)
-                yield return StartCoroutine(dialogueScreenDataAsset.RunDialogueScreen(testDataAsset.dialogueLines));
+                yield return StartCoroutine(dialogueScreenDataAsset.RunDialogueScreen(testDialogueGraph));
 
             yield return null;
         }

@@ -20,6 +20,7 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor.Nodes
             context.AddOption<int>(NUM_CHOICES_NAME)
                 .WithDisplayName("Number of Choices")
                 .WithDefaultValue(3)
+                .Delayed() // Wait until enter key is pressed.
                 .Build();
         }
 

@@ -81,6 +81,10 @@ namespace JesterGame.Code.Scripts.Core.Interaction
 
         private void Interact(InteractionHelperComponent helper)
         {
+            // Ignore if not enabled
+            if (!enabled)
+                return;
+
             if (helper)
                 helper.Interact(this);
         }

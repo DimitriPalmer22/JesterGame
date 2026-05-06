@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using JesterGame.Code.Scripts.Dialogue.Data;
-using JesterGame.Code.Scripts.Dialogue.DialogueLines;
+using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +23,8 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
         #region Private Fields
 
-        private readonly List<DialogueLineWrapper> _dialogueLines = new();
+        private RuntimeDialogueGraph _currentDialogueGraph;
+        private string _currentNodeID;
 
         #endregion
 
@@ -76,13 +75,12 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
         /// Set the dialogue lines to be displayed on the screen.
         /// This should be called before opening the screen.
         /// </summary>
-        /// <param name="dialogueLines"></param>
-        private void SetDialogueInteraction(DialogueLineWrapper[] dialogueLines)
+        /// <param name="dialogueGraph">Dialogue graph asset for the interaction</param>
+        private void SetDialogueInteraction(RuntimeDialogueGraph dialogueGraph)
         {
-            // Replace the existing lines with the new lines.
-            _dialogueLines.Clear();
-            foreach (var line in dialogueLines)
-                _dialogueLines.Add(line);
+            // Set the current dialogue graph and current node
+            _currentDialogueGraph = dialogueGraph;
+            _currentNodeID = dialogueGraph.entryNodeID;
 
             // Initialize the text and image to be empty.
             dialogueText.text = string.Empty;
@@ -90,9 +88,9 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             characterImage.sprite = null;
         }
 
-        public IEnumerator RunDialogueCoroutine(DialogueLineWrapper[] dialogueLines)
+        public IEnumerator RunDialogueCoroutine(RuntimeDialogueGraph dialogueGraph)
         {
-            SetDialogueInteraction(dialogueLines);
+            SetDialogueInteraction(dialogueGraph);
 
             // Open the screen
             yield return StartCoroutine(OpenScreenCoroutine());
@@ -102,22 +100,18 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             var controlledPawn = UtilLibrary.GetPlayerController()?.ControlledPawn;
             controlledPawn?.AddInputBlocker(this);
 
-            // Play through the dialogue lines, waiting a few seconds after each line is done before playing the next line.
-            // foreach (var dialogueLine in _dialogueLines)
-            // {
-            //     yield return StartCoroutine(DisplayWordsInCurrentLine(dialogueLine));
-            //     yield return new WaitForSecondsRealtime(3);
-            // }
-
-            while (_dialogueLines.Count > 0)
+            while (!string.IsNullOrEmpty(_currentNodeID) && _currentDialogueGraph)
             {
-                // Remove the first item from the list.
-                var currentLine = _dialogueLines[0];
-                _dialogueLines.RemoveAt(0);
+                // Get the runtime dialogue node struct from the current ID
+                if (!_currentDialogueGraph.TryGetNodeByID(_currentNodeID, out var currentNode))
+                {
+                    Debug.LogError($"Dialogue node with ID {_currentNodeID} not found in dialogue graph!");
+                    break;
+                }
 
                 // TODO: Animate or something.
                 // Set the current text and speaker.
-                if (currentLine.speaker.GetValue(out DialogueCharacter characterData))
+                if (currentNode.speaker.GetValue(out DialogueCharacter characterData))
                 {
                     nameText.text = characterData.name;
                     characterImage.sprite = characterData.portrait;
@@ -129,28 +123,32 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                 }
 
                 // Display the text of the current line.
-                yield return StartCoroutine(DisplayWordsInCurrentLine(currentLine));
+                yield return StartCoroutine(DisplayWordsInCurrentLine(currentNode));
 
                 // If there are choices,
                 // 2. wait for selection
                 // 3. add the choice's nextLines back to the start of the dialogue lines.
-                if (currentLine.choices?.Length > 0)
+                if (currentNode.choiceStrings?.Count > 0)
                 {
                     const int selectionIndex = 0;
-                    var currentChoice = currentLine.choices[selectionIndex];
-                    _dialogueLines.InsertRange(
-                        0,
-                        currentChoice.nextLines?.dialogueLines ??
-                        Array.Empty<DialogueLineWrapper>()
-                    );
+                    _currentNodeID = currentNode.nextNodeIDs[selectionIndex];
 
-                    Debug.LogWarning(
-                        $"Choices not implemented yet! Automatically selecting the first choice: \"{currentChoice.text}\""
-                    );
+                    Debug.LogWarning($"Choices not implemented yet! Automatically selecting the first choice");
+
+                    // TODO: Wait for selection.
+                    yield return new WaitForSecondsRealtime(1f);
                 }
 
-                // Wait
-                yield return new WaitForSecondsRealtime(1f);
+                // Otherwise, just go to the next node.
+                else
+                {
+                    _currentNodeID = currentNode.nextNodeIDs?.Count > 0
+                        ? currentNode.nextNodeIDs[0]
+                        : string.Empty;
+
+                    // TODO: Wait for input
+                    yield return new WaitForSecondsRealtime(1f);
+                }
             }
 
             // Re-enable player input while dialogue is running.
@@ -162,10 +160,10 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             yield return null;
         }
 
-        private IEnumerator DisplayWordsInCurrentLine(DialogueLineWrapper currentLine)
+        private IEnumerator DisplayWordsInCurrentLine(RuntimeDialogueNode currentNode)
         {
             // Split the current line by spaces.
-            var splitLine = currentLine.text.Split(' ');
+            var splitLine = currentNode.dialogueText.Split(' ');
 
             // Clear the current text.
             dialogueText.text = string.Empty;

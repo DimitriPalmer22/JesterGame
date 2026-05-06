@@ -47,11 +47,11 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor
                 if (cNode is StartDialogueNode)
                     continue;
 
-                // TODO: Something.
                 var runtimeNode = new RuntimeDialogueNode();
-
                 if (cNode is DialogueGraphNode dialogueGraphNode)
-                    ProcessDialogueNode(dialogueGraphNode, runtimeNode, nodeIDMap);
+                    ProcessDialogueNode(dialogueGraphNode, ref runtimeNode, nodeIDMap);
+
+                runtimeGraph.allNodes.Add(runtimeNode);
             }
 
             // Binds the scriptable object we just created to the graph and allows us to drag and drop
@@ -67,7 +67,7 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor
         /// <param name="runtimeNode"></param>
         /// <param name="nodeIDMap"></param>
         private void ProcessDialogueNode(
-            DialogueGraphNode dialogueNode, RuntimeDialogueNode runtimeNode,
+            DialogueGraphNode dialogueNode, ref RuntimeDialogueNode runtimeNode,
             Dictionary<INode, string> nodeIDMap
         )
         {

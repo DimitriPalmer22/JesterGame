@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using JesterGame.Code.Scripts.Dialogue.Data;
-using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
-using JesterGame.Code.Scripts.Dialogue.DialogueLines;
 using NaughtyAttributes;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
@@ -35,8 +33,6 @@ namespace JesterGame.Code.Scripts.Core
         [SerializeField] private DataTable<DialogueCharacter> characterDataTable;
 
         private readonly Dictionary<string, CharacterInstance> _characterInstanceMap = new();
-
-        [SerializeField] public RuntimeDialogueGraph test;
 
         #endregion
 
