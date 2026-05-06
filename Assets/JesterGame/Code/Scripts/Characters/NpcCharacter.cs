@@ -40,21 +40,39 @@ namespace JesterGame.Code.Scripts.Characters
                 interactionHelperComponent.SetInteractionText($"Speak with {characterData.name}");
         }
 
-        public void StartSpeaking()
+        public void StartSpeaking(InteractEventArgs args)
         {
             if (!TryGetCharacterData(out var characterData))
                 return;
-            _speakingCoroutine = StartCoroutine(SpeakCoroutine(characterData));
+
+            // Stop the speaking coroutine
+            if (_speakingCoroutine != null)
+            {
+                StopCoroutine(_speakingCoroutine);
+                _speakingCoroutine = null;
+            }
+
+            // TODO: Determine which lines to play. For now, just play the test data asset.
+
+            _speakingCoroutine = StartCoroutine(SpeakCoroutine(characterData, args));
         }
 
-        private IEnumerator SpeakCoroutine(DialogueCharacter characterData)
+        private IEnumerator SpeakCoroutine(DialogueCharacter characterData, InteractEventArgs args)
         {
-            Debug.Log($"{characterData.name} is starting to speak!");
+            // Deactivate the interaction helper component
+            interactionHelperComponent.enabled = false;
 
-            OpenDialoguePanel();
+            // Deactivate interactor component on the player character to prevent multiple interactions while the dialogue is open.
+            args.interactor.enabled = false;
 
-            yield return null;
-            Debug.Log($"{name} has finished speaking");
+            // Wait for the dialogue panel to be complete.
+            yield return OpenDialoguePanel();
+
+            // Re-activate teh interaction helper component
+            interactionHelperComponent.enabled = true;
+
+            // Re-activate the interactor component on the player character
+            args.interactor.enabled = true;
 
             _speakingCoroutine = null;
         }
@@ -68,9 +86,12 @@ namespace JesterGame.Code.Scripts.Characters
             return false;
         }
 
-        public void OpenDialoguePanel()
+        private IEnumerator OpenDialoguePanel()
         {
-            dialogueScreenDataAsset?.Test(testDataAsset.dialogueLines);
+            if (dialogueScreenDataAsset)
+                yield return StartCoroutine(dialogueScreenDataAsset.RunDialogueScreen(testDataAsset.dialogueLines));
+
+            yield return null;
         }
     }
 }

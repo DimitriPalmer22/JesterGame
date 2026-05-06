@@ -47,6 +47,10 @@ namespace JesterGame.Code.Scripts.Core.Interaction
 
         private InteractionHelperComponent FindBestHelper()
         {
+            // Cannot find any helpers if the component is not enabled.
+            if (!enabled)
+                return null;
+
             if (!UtilLibrary.GetSubsystem(out InteractionSubsystem interactionSubsystem))
                 return null;
 
@@ -65,7 +69,7 @@ namespace JesterGame.Code.Scripts.Core.Interaction
                     continue;
 
                 // If not a better candidate than the current closest helper, then skip it.
-                if (closestHelper != null && distance > closestDistance)
+                if (closestHelper && distance > closestDistance)
                     continue;
 
                 closestHelper = helper;

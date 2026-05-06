@@ -26,7 +26,7 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
         [Button]
         public bool Validate()
         {
-            if (dataTable == null)
+            if (!dataTable)
                 return false;
 
             return dataTable.HasRow(rowName);
