@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using TMPro;
@@ -16,6 +17,9 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
         [SerializeField] private TMP_Text nameText;
         [SerializeField] private TMP_Text dialogueText;
         [SerializeField] private Image characterImage;
+
+        [SerializeField] private VerticalLayoutGroup choicesContainer;
+        [SerializeField] private Button choiceButtonPrefab;
 
         [SerializeField] private float wordDelay = 0.25f;
 
@@ -39,6 +43,8 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
         protected override IEnumerator OpenScreenCoroutine()
         {
+            DestroyChoices();
+
             // Get the end time based on the length of the curve.
             var beginTime = Time.unscaledTime;
             var endTime = beginTime + opacityCurve.keys[opacityCurve.length - 1].time;
@@ -128,15 +134,18 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                 // If there are choices,
                 // 2. wait for selection
                 // 3. add the choice's nextLines back to the start of the dialogue lines.
-                if (currentNode.choiceStrings?.Count > 0)
+                if (currentNode.choiceStrings.Count > 0)
                 {
                     const int selectionIndex = 0;
                     _currentNodeID = currentNode.nextNodeIDs[selectionIndex];
 
-                    Debug.LogWarning($"Choices not implemented yet! Automatically selecting the first choice");
+                    CreateChoices(currentNode);
 
                     // TODO: Wait for selection.
+                    Debug.LogWarning($"Choices not implemented yet! Automatically selecting the first choice");
                     yield return new WaitForSecondsRealtime(1f);
+
+                    DestroyChoices();
                 }
 
                 // Otherwise, just go to the next node.
@@ -180,6 +189,32 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                 // Add the space if not the last word.
                 if (index < splitLine.Length - 1)
                     dialogueText.text += " ";
+            }
+        }
+
+        private void DestroyChoices()
+        {
+            // Clear the children from the choices parent.
+            // Create a copy array containing all the children.
+            List<GameObject> currentChoices = new List<GameObject>();
+
+            foreach (Transform child in choicesContainer.transform)
+                currentChoices.Add(child.gameObject);
+
+            choicesContainer.transform.DetachChildren();
+            foreach (var currentChoice in currentChoices)
+                Destroy(currentChoice);
+        }
+
+        private void CreateChoices(RuntimeDialogueNode currentNode)
+        {
+            // For each choice, instantiate a new button and set the text to the choice string.
+            for (var index = 0; index < currentNode.choiceStrings.Count; index++)
+            {
+                var newButton = Instantiate(choiceButtonPrefab, choicesContainer.transform);
+
+                var choiceString = currentNode.choiceStrings[index];
+                newButton.GetComponentInChildren<TMP_Text>().text = choiceString;
             }
         }
     }

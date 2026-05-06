@@ -65,12 +65,21 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor.Nodes
             var numChoices = GetNumChoices();
             for (var i = 0; i < numChoices; ++i)
             {
-                var choice = GetNodeOptionByName($"{OPTION_BASE_NAME}_input_{i + 1}");
-                if (choice == null)
+                var choicePort = GetInputPortByName($"{OPTION_BASE_NAME}_input_{i + 1}");
+                if (choicePort == null)
                     continue;
 
-                if (choice.TryGetValue(out string choiceString))
-                    list.Add(choiceString);
+
+                // If the connected value is a variable, use that
+                string choiceString = string.Empty;
+                if (choicePort.IsConnected && choicePort.FirstConnectedPort.GetNode() is IVariableNode varNode)
+                    varNode.Variable.TryGetDefaultValue(out choiceString);
+
+                // Otherwise, use the value we typed in.
+                else
+                    choicePort.TryGetValue(out choiceString);
+
+                list.Add(choiceString);
             }
 
             return list;
