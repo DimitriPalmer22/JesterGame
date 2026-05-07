@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using JesterGame.Code.Scripts.Dialogue.Data;
+using JesterGame.Code.Scripts.Progression;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,16 +19,19 @@ namespace JesterGame.Code.Scripts.Core
         [SerializeField, ReadOnly, Label("Impostor Name"), BoxGroup("Debug")]
         private string impostorRowName;
 
-        /// <summary>
-        /// The number of interactions the player must go through until they reach the end of the game.
-        /// </summary>
-        [SerializeField, BoxGroup("Debug")] private int maxInteractionsProgression = 15;
+        [SerializeField, BoxGroup("Progression")]
+        public DayProgressionStruct[] dayProgressions;
+
+        [SerializeField, BoxGroup("Progression")]
+        public int currentDayIndex;
 
         /// <summary>
         /// The number of interactions the player has currently gone through.
         /// </summary>
-        [SerializeField, ReadOnly, ProgressBar("Current Interactions Progression", "maxInteractionsProgression"),
-         BoxGroup("Debug")
+        [
+            SerializeField, ReadOnly,
+            ProgressBar("Current Interactions Progression", "GetCurrentMaxProgressions"),
+            BoxGroup("Progression")
         ]
         private int currentInteractionProgression;
 
@@ -47,7 +51,7 @@ namespace JesterGame.Code.Scripts.Core
         public void SetProgress(int progress)
         {
             // If the new progress is out of bounds, return.
-            if (progress < 0 || progress > maxInteractionsProgression)
+            if (progress < 0 || progress > GetCurrentMaxProgressions())
                 return;
 
             var prevProgress = currentInteractionProgression;
@@ -72,7 +76,7 @@ namespace JesterGame.Code.Scripts.Core
 
         private void TestForGameFinished_Event(ProgressionEventArgs args)
         {
-            if (args.currentProgress >= maxInteractionsProgression)
+            if (args.currentProgress >= GetCurrentMaxProgressions())
             {
                 Debug.Log("Game finished!");
 
@@ -169,6 +173,15 @@ namespace JesterGame.Code.Scripts.Core
                 return;
 
             Debug.Log($"{args.characterName}'s affection is now {args.affectionValue} ({args.affectionDelta})");
+        }
+
+        public int GetCurrentMaxProgressions()
+        {
+            if (dayProgressions.Length == 0)
+                return 0;
+
+            var validDayIndex = Mathf.Clamp(currentDayIndex, 0, dayProgressions.Length - 1);
+            return dayProgressions[validDayIndex].numProgressionsInDay;
         }
     }
 }

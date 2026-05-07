@@ -12,19 +12,14 @@ namespace UnrealToUnity.Code.Scripts.Core.Cutscenes
     /// This class uses an IEnumerator to handle the cutscene.
     /// </summary>
     /// <typeparam name="TCutsceneStruct">A struct type used to pass information to cutscenes. Usually only needs 1 per game.</typeparam>
-    public abstract class CutsceneComponent<TCutsceneStruct> : MonoBehaviour
+    public abstract class CutsceneComponent<TCutsceneStruct> : CutsceneComponentBase
         where TCutsceneStruct : struct
     {
         [SerializeField] public UnityEvent<TCutsceneStruct> onCutsceneStarted;
         [SerializeField] public UnityEvent<TCutsceneStruct> onCutsceneEnded;
 
-        [NonSerialized] private Coroutine _cutsceneCoroutine;
 
-        /// <summary>
-        /// A custom yield instruction that can be used to wait for the cutscene to finish.
-        /// To be used externally.
-        /// </summary>
-        public WaitForCutsceneFinish WaitForCutsceneFinish { get; private set; } = new();
+
 
         public void RunCutscene(TCutsceneStruct cutsceneStruct)
         {
@@ -36,14 +31,14 @@ namespace UnrealToUnity.Code.Scripts.Core.Cutscenes
             // Invoke the start event.
             onCutsceneStarted?.Invoke(cutsceneStruct);
 
-            WaitForCutsceneFinish.StartCutscene();
+            CutsceneFinishYield.StartCutscene();
 
             // Yield for the custom cutscene code.
-            _cutsceneCoroutine = StartCoroutine(CustomRunCutscene(cutsceneStruct));
-            yield return _cutsceneCoroutine;
-            _cutsceneCoroutine = null;
+            cutsceneCoroutine = StartCoroutine(CustomRunCutscene(cutsceneStruct));
+            yield return cutsceneCoroutine;
+            cutsceneCoroutine = null;
 
-            WaitForCutsceneFinish.Reset();
+            CutsceneFinishYield.Reset();
 
             // Invoke the end event.
             onCutsceneEnded?.Invoke(cutsceneStruct);
