@@ -9,7 +9,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
     /// </summary>
     public class DialogueScreenButton : MonoBehaviour
     {
-        [SerializeField] private Button button;
+        [SerializeField] public Button button;
         [SerializeField] private TMP_Text buttonText;
 
         private DialogueScreen _dialogueScreen;

@@ -4,6 +4,7 @@ using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnrealToUnity.Code.Scripts.Core.UserInterface;
 using UnrealToUnity.Code.Scripts.Core.Utility;
@@ -21,6 +22,8 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
         [SerializeField] private VerticalLayoutGroup choicesContainer;
         [SerializeField] private DialogueScreenButton choiceButtonPrefab;
 
+        [SerializeField] private Button nextLineButton;
+
         [SerializeField] private float wordDelay = 0.25f;
 
         #endregion
@@ -29,6 +32,8 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
         private RuntimeDialogueGraph _currentDialogueGraph;
         private string _currentNodeID;
+
+        private WaitForNextLineInput _waitForNextLineInput;
         private WaitForDialogueChoiceSelection _waitForChoiceSelection;
 
         #endregion
@@ -45,6 +50,9 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
         protected override IEnumerator OpenScreenCoroutine()
         {
             DestroyChoices();
+
+            // Disable the next line button
+            nextLineButton.gameObject.SetActive(false);
 
             // Get the end time based on the length of the curve.
             var beginTime = Time.unscaledTime;
@@ -107,6 +115,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             var controlledPawn = UtilLibrary.GetPlayerController()?.ControlledPawn;
             controlledPawn?.AddInputBlocker(this);
 
+            // Keep looping until we reach an empty node.
             while (!string.IsNullOrEmpty(_currentNodeID) && _currentDialogueGraph)
             {
                 // Get the runtime dialogue node struct from the current ID
@@ -129,6 +138,9 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                     characterImage.sprite = null;
                 }
 
+                // Disable the next line button
+                nextLineButton.gameObject.SetActive(false);
+
                 // Display the text of the current line.
                 yield return StartCoroutine(DisplayWordsInCurrentLine(currentNode));
 
@@ -147,18 +159,28 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                     _currentNodeID = currentNode.nextNodeIDs[_waitForChoiceSelection.SelectionIndex];
                     _waitForChoiceSelection = null;
 
+                    // Re-enable the next line button
+                    nextLineButton.gameObject.SetActive(true);
+                    EventSystem.current.SetSelectedGameObject(nextLineButton.gameObject);
+
                     DestroyChoices();
                 }
 
                 // Otherwise, just go to the next node.
                 else
                 {
+                    // Re-enable the next line button
+                    nextLineButton.gameObject.SetActive(true);
+                    EventSystem.current.SetSelectedGameObject(nextLineButton.gameObject);
+
                     _currentNodeID = currentNode.nextNodeIDs?.Count > 0
                         ? currentNode.nextNodeIDs[0]
                         : string.Empty;
 
-                    // TODO: Wait for input
-                    yield return new WaitForSecondsRealtime(1f);
+                    // Wait for input
+                    _waitForNextLineInput = new WaitForNextLineInput();
+                    yield return _waitForNextLineInput;
+                    _waitForNextLineInput = null;
                 }
             }
 
@@ -210,20 +232,49 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
         private void CreateChoices(RuntimeDialogueNode currentNode)
         {
+            DialogueScreenButton[] choiceButtons = new DialogueScreenButton[currentNode.choiceStrings.Count];
+
             // For each choice, instantiate a new button and set the text to the choice string.
             for (var index = 0; index < currentNode.choiceStrings.Count; index++)
             {
                 var newButton = Instantiate(choiceButtonPrefab, choicesContainer.transform);
+                choiceButtons[index] = newButton;
+
                 newButton.BindToDialogueScreen(this, index);
 
                 var choiceString = currentNode.choiceStrings[index];
                 newButton.SetText(choiceString);
+
+                // Focus on the top-most button
+                if (index == 0)
+                    EventSystem.current.SetSelectedGameObject(newButton.gameObject);
+            }
+
+            for (var index = 0; index < choiceButtons.Length; index++)
+            {
+                var navigation = new Navigation
+                {
+                    mode = Navigation.Mode.Explicit,
+                };
+
+                if (index > 0)
+                    navigation.selectOnUp = choiceButtons[index - 1].button;
+                if (index < currentNode.choiceStrings.Count - 1)
+                    navigation.selectOnDown = choiceButtons[index + 1].button;
+
+                // Set up the navigation for the buttons.
+                choiceButtons[index].button.navigation = navigation;
             }
         }
 
         public void SetCurrentChoiceIndex(int index)
         {
             _waitForChoiceSelection?.SetSelectionIndex(index);
+        }
+
+        public void OnNextLineInput()
+        {
+            _waitForNextLineInput?.ReceiveInput();
         }
     }
 
@@ -237,5 +288,14 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
         {
             SelectionIndex = index;
         }
+    }
+
+    internal class WaitForNextLineInput : CustomYieldInstruction
+    {
+        private bool _inputReceived;
+
+        public override bool keepWaiting => !_inputReceived;
+
+        public void ReceiveInput() => _inputReceived = true;
     }
 }
