@@ -1,5 +1,8 @@
 using System;
+using JesterGame.Code.Scripts.Core;
 using UnityEngine;
+using UnrealToUnity.Code.Scripts.Core.Utility;
+using UnrealToUnity.Code.Scripts.Core.Utility.Interfaces;
 
 namespace UnrealToUnity.Code.Scripts.Core.UserInterface
 {
@@ -7,7 +10,7 @@ namespace UnrealToUnity.Code.Scripts.Core.UserInterface
     /// Class that instantiates all the UIs given a list of UI Data Assets
     /// </summary>
     [CreateAssetMenu(fileName = "UIInstantiator", menuName = "UnrealToUnity/UI/UIInstantiator")]
-    public class UIInstantiator : ScriptableObject
+    public class UIInstantiator : ScriptableObject, IRunnable<JesterGameEventArgs>
     {
         [SerializeField] public UIDataAssetBase[] uiDataAssets;
 
@@ -22,6 +25,11 @@ namespace UnrealToUnity.Code.Scripts.Core.UserInterface
 
                 uiDataAsset.InstantiateScreenAsync();
             }
+        }
+
+        public void Run(JesterGameEventArgs args)
+        {
+            InstantiateScreensAsync();
         }
     }
 }

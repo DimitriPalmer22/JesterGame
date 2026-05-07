@@ -249,7 +249,7 @@ namespace JesterGame.Code.Scripts.Core
             dayEvents.preEvent?.Invoke(args);
 
             // Play the cutscene
-            yield return StartCoroutine(cutsceneComponent.RunCutsceneEnumerator(args));
+            yield return StartCoroutine(cutsceneComponent.OngoingCoroutine(args));
 
             // Call the post-event
             dayEvents.postEvent?.Invoke(args);

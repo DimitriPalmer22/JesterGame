@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnrealToUnity.Code.Scripts.Core.Utility.Interfaces;
 
 namespace UnrealToUnity.Code.Scripts.Core.Cutscenes
 {
@@ -12,7 +13,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Cutscenes
     /// This class uses an IEnumerator to handle the cutscene.
     /// </summary>
     /// <typeparam name="TCutsceneStruct">A struct type used to pass information to cutscenes. Usually only needs 1 per game.</typeparam>
-    public abstract class CutsceneComponent<TCutsceneStruct> : CutsceneComponentBase
+    public abstract class CutsceneComponent<TCutsceneStruct> : CutsceneComponentBase, IOngoing<TCutsceneStruct>
         where TCutsceneStruct : struct
     {
         [SerializeField] public UnityEvent<TCutsceneStruct> onCutsceneStarted;
@@ -23,7 +24,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Cutscenes
             StartCoroutine(CustomRunCutscene(cutsceneStruct));
         }
 
-        public IEnumerator RunCutsceneEnumerator(TCutsceneStruct cutsceneStruct)
+        public IEnumerator OngoingCoroutine(TCutsceneStruct cutsceneStruct)
         {
             // Invoke the start event.
             onCutsceneStarted?.Invoke(cutsceneStruct);

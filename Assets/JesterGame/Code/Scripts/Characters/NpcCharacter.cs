@@ -11,13 +11,8 @@ using UnrealToUnity.Code.Scripts.Core.Pawns;
 namespace JesterGame.Code.Scripts.Characters
 {
     [RequireComponent(typeof(AutoPossessor))]
-    public class NpcCharacter : Pawn
+    public class NpcCharacter : JesterGamePawn
     {
-        /// <summary>
-        /// The row handle corresponding to the NPC data in the data table.
-        /// </summary>
-        [SerializeField] private DataTableRowHandle npcDataHandle;
-
         /// <summary>
         ///
         /// </summary>

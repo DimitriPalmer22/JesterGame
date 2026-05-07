@@ -1,12 +1,12 @@
+using JesterGame.Code.Scripts.Characters;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnrealToUnity.Code.Scripts.Core.Pawns;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Player
 {
-    public class JesterPlayerPawn : Pawn
+    public class JesterPlayerPawn : JesterGamePawn
     {
         [SerializeField] private CinemachineCamera cinemachineCamera;
 
