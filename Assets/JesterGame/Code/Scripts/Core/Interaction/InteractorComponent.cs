@@ -97,5 +97,15 @@ namespace JesterGame.Code.Scripts.Core.Interaction
             if (context.phase == InputActionPhase.Started)
                 InteractWithSelected();
         }
+
+        private void OnDrawGizmos()
+        {
+            if (_currentHelper)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(transform.position, _currentHelper.transform.position);
+                Gizmos.DrawWireSphere(_currentHelper.transform.position, _currentHelper.InteractionRange);
+            }
+        }
     }
 }

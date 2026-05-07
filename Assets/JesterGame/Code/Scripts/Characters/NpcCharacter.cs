@@ -78,7 +78,7 @@ namespace JesterGame.Code.Scripts.Characters
             _speakingCoroutine = null;
         }
 
-        private bool TryGetCharacterData(out DialogueCharacter characterData)
+        public bool TryGetCharacterData(out DialogueCharacter characterData)
         {
             if (npcDataHandle.GetValue(out characterData))
                 return true;

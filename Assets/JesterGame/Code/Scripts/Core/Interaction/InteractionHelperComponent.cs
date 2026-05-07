@@ -24,6 +24,8 @@ namespace JesterGame.Code.Scripts.Core.Interaction
 
         public string InteractText => interactText;
 
+        public float InteractionRange => interactionRange;
+
         private void OnEnable()
         {
             // Add this interaction helper to the InteractionSubsystem so that it can be detected by InteractorComponents.

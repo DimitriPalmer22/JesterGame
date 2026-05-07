@@ -1,0 +1,69 @@
+using System;
+using JesterGame.Code.Scripts.Characters;
+using UnityEngine;
+using UnityEngine.Events;
+using UnrealToUnity.Code.Scripts.Core;
+using UnrealToUnity.Code.Scripts.Core.Pawns;
+
+namespace JesterGame.Code.Scripts.Rooms
+{
+    /// <summary>
+    /// A class used to detect when the player enters a room, and to trigger any events associated with that room.
+    /// For simplicity, a big collider encompassing most of the room should be used here.
+    /// When the character touches this collider, their current room updates.
+    /// </summary>
+    public class RoomCollider : Actor
+    {
+        /// <summary>
+        /// A reference to the current room's data asset, which can be used to trigger events associated with that room.
+        /// </summary>
+        [SerializeField] public RoomDataAsset roomDataAsset;
+
+        [SerializeField] public BoxCollider boxCollider;
+
+        /// <summary>
+        /// ANOTHER unity event for when the room is entered, this one is on the collider itself instead of the data asset.
+        /// This is for things that should happen when the room is entered, but aren't necessarily associated with the room itself.
+        /// </summary>
+        [SerializeField] public UnityEvent<RoomEventArgs> onRoomEntered;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            // If the room data asset is null, return
+            if (roomDataAsset == null)
+                return;
+
+            // If the other thing colliding with this is not a pawn, return
+            if (!other.TryGetComponent(out Pawn pawn))
+                return;
+
+            var eventArgs = new RoomEventArgs
+            {
+                roomDataAsset = roomDataAsset,
+                pawn = pawn
+            };
+
+            // Try to cast to npc character to get the dialogue character
+            if (pawn is NpcCharacter npcCharacter)
+                eventArgs.dialogueCharacter.FromTryGet(npcCharacter.TryGetCharacterData);
+
+            // Call the event from the room data asset
+            // Call the event from this script
+            roomDataAsset.onRoomEntered.Invoke(eventArgs);
+            onRoomEntered.Invoke(eventArgs);
+        }
+
+        private void OnDrawGizmos()
+        {
+            // Draw the bounds of the box collider
+            Gizmos.color = Color.yellow;
+            var scaledSize = new Vector3(
+                boxCollider.size.x * transform.localScale.x,
+                boxCollider.size.y * transform.localScale.y,
+                boxCollider.size.z * transform.localScale.z
+            );
+
+            Gizmos.DrawWireCube(boxCollider.center, scaledSize);
+        }
+    }
+}

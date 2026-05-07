@@ -14,7 +14,7 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor
         [MenuItem("Assets/Create/JesterGame/Dialogue/Dialogue Graph", false)]
         static void CreateAssetFile()
         {
-            GraphDatabase.PromptInProjectBrowserToCreateNewAsset<DialogueGraph>("DG_InteractionName");
+            GraphDatabase.PromptInProjectBrowserToCreateNewAsset<DialogueGraph>("DG_");
         }
 
         public override void OnGraphChanged(GraphLogger graphLogger)
