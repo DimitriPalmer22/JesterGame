@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JesterGame.Code.Scripts.Core;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using TMPro;
@@ -103,7 +104,13 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             characterImage.sprite = null;
         }
 
-        public IEnumerator RunDialogueCoroutine(RuntimeDialogueGraph dialogueGraph)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="currentCharacter"></param>
+        /// <param name="dialogueGraph"></param>
+        /// <returns></returns>
+        public IEnumerator RunDialogueCoroutine(string currentCharacter, RuntimeDialogueGraph dialogueGraph)
         {
             SetDialogueInteraction(dialogueGraph);
 
@@ -124,6 +131,12 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                     Debug.LogError($"Dialogue node with ID {_currentNodeID} not found in dialogue graph!");
                     break;
                 }
+
+                // Modify the affection value if there is a change.
+                if (UtilLibrary.GetGameMode(out ImpostorGameMode gameMode) && currentNode.affectionValue != 0)
+                    gameMode.ModifyCharacterAffection(currentCharacter, currentNode.affectionValue);
+
+                // currentNode.affectionValue
 
                 // TODO: Animate or something.
                 // Set the current text and speaker.

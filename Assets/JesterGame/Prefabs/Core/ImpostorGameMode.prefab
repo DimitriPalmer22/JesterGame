@@ -49,6 +49,23 @@ MonoBehaviour:
     playerControllerPrefab: {fileID: 6936015359185284266, guid: 34368a966f99c4543b21a6ce4e9560a0, type: 3}
     pawnPrefab: {fileID: -8877130054480770675, guid: 236d7f4b02e805c4385d7f02fe607ec3, type: 3}
     cheatMenuPrefab: {fileID: 1396427182263401920, guid: 66054ff409ad87b4bbbcc2b8ae97a927, type: 3}
+  impostorRowName: 
   maxInteractionsProgression: 15
   currentInteractionProgression: 0
   characterDataTable: {fileID: 11400000, guid: 37aed0bd9a7e61a4a973b39480416394, type: 2}
+  onAffectionChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 777040674850859826}
+        m_TargetAssemblyTypeName: JesterGame.Code.Scripts.Core.ImpostorGameMode,
+          Assembly-CSharp
+        m_MethodName: LogAffectionStatus
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: AFFECTION CHANGED!
+          m_BoolArgument: 0
+        m_CallState: 2

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Events;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.GameMode;
 
@@ -32,9 +33,11 @@ namespace JesterGame.Code.Scripts.Core
 
         [SerializeField] private DataTable<DialogueCharacter> characterDataTable;
 
-        private readonly Dictionary<string, CharacterInstance> _characterInstanceMap = new();
+        [SerializeField] public UnityEvent<AffectionEventArgs> onAffectionChanged;
 
         #endregion
+
+        private readonly Dictionary<string, CharacterInstance> _characterInstanceMap = new();
 
         public event ProgressionEventHandler OnProgressionChanged;
 
@@ -73,6 +76,24 @@ namespace JesterGame.Code.Scripts.Core
         private void LogProgress_Event(ImpostorGameMode mode, int prevProgress, int currentProgress)
         {
             Debug.Log($"Day progressed to {currentProgress} from {prevProgress}");
+        }
+
+        public void ModifyCharacterAffection(string characterName, int affectionValue)
+        {
+            if (!_characterInstanceMap.TryGetValue(characterName, out var characterInstance))
+                return;
+
+            characterInstance.currentAffection += affectionValue;
+
+            // Update the value within the map
+            _characterInstanceMap[characterName] = characterInstance;
+
+            // Create affection event args
+            var affectionEventArgs =
+                new AffectionEventArgs(characterName, characterInstance.currentAffection, affectionValue);
+
+            // Broadcast affection event here.
+            onAffectionChanged?.Invoke(affectionEventArgs);
         }
 
         #endregion
@@ -128,11 +149,19 @@ namespace JesterGame.Code.Scripts.Core
 
         #endregion
 
-
         private void Start()
         {
             // Set the progress to 0
             SetProgress(0);
+        }
+
+        public void LogAffectionStatus(AffectionEventArgs args)
+        {
+            // Return if no change.
+            if (args.affectionDelta == 0)
+                return;
+
+            Debug.Log($"{args.characterName}'s affection is now {args.affectionValue} ({args.affectionDelta})");
         }
     }
 }

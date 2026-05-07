@@ -90,7 +90,9 @@ namespace JesterGame.Code.Scripts.Characters
         private IEnumerator OpenDialoguePanel()
         {
             if (dialogueScreenDataAsset)
-                yield return StartCoroutine(dialogueScreenDataAsset.RunDialogueScreen(testDialogueGraph));
+                yield return StartCoroutine(
+                    dialogueScreenDataAsset.RunDialogueScreen(npcDataHandle.rowName, testDialogueGraph)
+                );
 
             yield return null;
         }
