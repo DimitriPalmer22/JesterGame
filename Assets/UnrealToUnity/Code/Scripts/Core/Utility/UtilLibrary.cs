@@ -45,5 +45,10 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
         }
 
         #endregion
+
+        public static bool IsValidIndex<T>(this T[] array, int index)
+        {
+            return index >= 0 && index < array.Length;
+        }
     }
 }

@@ -9,10 +9,9 @@ namespace JesterGame.Code.Scripts.Progression
     {
         protected override IEnumerator CustomRunCutscene(ProgressionEventArgs cutsceneStruct)
         {
-            Debug.Log(
-                $"Running day end cutscene for day {cutsceneStruct.currentDay} with progress {cutsceneStruct.currentProgress}.");
-            yield return new WaitForSeconds(5f);
-            Debug.Log("Finished day end cutscene.");
+            Debug.Log($"Running day end cutscene for day {cutsceneStruct.currentDay - 1}.");
+            yield return new WaitForSeconds(3f);
+            Debug.Log($"Finished day end cutscene for day {cutsceneStruct.currentDay - 1}.");
         }
     }
 }

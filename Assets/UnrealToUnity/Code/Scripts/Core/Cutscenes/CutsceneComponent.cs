@@ -18,9 +18,6 @@ namespace UnrealToUnity.Code.Scripts.Core.Cutscenes
         [SerializeField] public UnityEvent<TCutsceneStruct> onCutsceneStarted;
         [SerializeField] public UnityEvent<TCutsceneStruct> onCutsceneEnded;
 
-
-
-
         public void RunCutscene(TCutsceneStruct cutsceneStruct)
         {
             StartCoroutine(CustomRunCutscene(cutsceneStruct));

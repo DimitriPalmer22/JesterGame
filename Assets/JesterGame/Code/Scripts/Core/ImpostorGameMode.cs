@@ -1,12 +1,15 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Progression;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
+using UnrealToUnity.Code.Scripts.Core.Cutscenes;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.GameMode;
+using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Core
 {
@@ -22,7 +25,11 @@ namespace JesterGame.Code.Scripts.Core
         [SerializeField, BoxGroup("Progression")]
         public DayProgressionStruct[] dayProgressions;
 
-        [SerializeField, BoxGroup("Progression")]
+        [
+            SerializeField, ReadOnly,
+            ProgressBar("Current Day", "GetMaxDays"),
+            BoxGroup("Progression")
+        ]
         public int currentDayIndex;
 
         /// <summary>
@@ -39,6 +46,7 @@ namespace JesterGame.Code.Scripts.Core
 
         [SerializeField] public UnityEvent<AffectionEventArgs> onAffectionChanged;
         [SerializeField] public UnityEvent<ProgressionEventArgs> onProgressionChanged;
+        [SerializeField] public UnityEvent<ProgressionEventArgs> onDayProgressed;
 
         #endregion
 
@@ -54,6 +62,10 @@ namespace JesterGame.Code.Scripts.Core
             if (progress < 0 || progress > GetCurrentMaxProgressions())
                 return;
 
+            // If the current day index is NOT valid, return
+            if (!dayProgressions.IsValidIndex(currentDayIndex))
+                return;
+
             var prevProgress = currentInteractionProgression;
             currentInteractionProgression = progress;
 
@@ -61,7 +73,7 @@ namespace JesterGame.Code.Scripts.Core
             if (prevProgress != currentInteractionProgression)
             {
                 // Create the progression args
-                var args = new ProgressionEventArgs(prevProgress, progress, 0);
+                var args = new ProgressionEventArgs(prevProgress, progress, currentDayIndex);
                 onProgressionChanged?.Invoke(args);
             }
 
@@ -74,17 +86,21 @@ namespace JesterGame.Code.Scripts.Core
         [Button(enabledMode: EButtonEnableMode.Playmode)]
         public void DecrementProgress() => SetProgress(currentInteractionProgression - 1);
 
-        private void TestForGameFinished_Event(ProgressionEventArgs args)
+        public void CheckDayProgression(ProgressionEventArgs args)
         {
-            if (args.currentProgress >= GetCurrentMaxProgressions())
-            {
-                Debug.Log("Game finished!");
+            if (args.currentProgress < GetCurrentMaxProgressions())
+                return;
 
-                // TODO: Add a function or something here to handle the game mode ending.
-            }
+            // Increment the day index and call the day progressed event.
+            currentDayIndex += 1;
+            onDayProgressed?.Invoke(
+                new ProgressionEventArgs(args.previousProgress, args.currentProgress, currentDayIndex));
+
+            // Reset the interaction progress.
+            currentInteractionProgression = 0;
         }
 
-        private void LogProgress_Event(ProgressionEventArgs args)
+        public void LogProgress_Event(ProgressionEventArgs args)
         {
             Debug.Log($"Day progressed from {args.previousProgress} to {args.currentProgress}");
         }
@@ -116,10 +132,6 @@ namespace JesterGame.Code.Scripts.Core
         protected override void Awake()
         {
             base.Awake();
-
-            // Bind to the progress event
-            onProgressionChanged.AddListener(LogProgress_Event);
-            onProgressionChanged.AddListener(TestForGameFinished_Event);
 
             InitializeCharacters();
         }
@@ -177,11 +189,70 @@ namespace JesterGame.Code.Scripts.Core
 
         public int GetCurrentMaxProgressions()
         {
-            if (dayProgressions.Length == 0)
+            if (!dayProgressions.IsValidIndex(currentDayIndex))
                 return 0;
 
             var validDayIndex = Mathf.Clamp(currentDayIndex, 0, dayProgressions.Length - 1);
             return dayProgressions[validDayIndex].numProgressionsInDay;
+        }
+
+        public int GetMaxDays => dayProgressions.Length;
+
+        public void OnDayProgressed_Event(ProgressionEventArgs args)
+        {
+            Debug.Log($"Day progressed to {args.currentDay}!");
+            StartCoroutine(DayProgressedCoroutine(args));
+        }
+
+        private IEnumerator DayProgressedCoroutine(ProgressionEventArgs args)
+        {
+            // Try to play the previous day end's cutscene
+            var previousDay = args.currentDay - 1;
+            if (previousDay >= 0 && dayProgressions.IsValidIndex(previousDay))
+            {
+                var previousDayStruct = dayProgressions[previousDay];
+
+                // yield the cutscene with events
+                yield return PlayDayCutsceneWithEvents(
+                    previousDayStruct.dayEndCutscene,
+                    previousDayStruct.dayEndEvents,
+                    args
+                );
+            }
+
+            // Try to play the current day start's cutscene
+            var currentDay = args.currentDay;
+            if (currentDay >= 0 && dayProgressions.IsValidIndex(currentDay))
+            {
+                var currentDayStruct = dayProgressions[currentDay];
+
+                yield return PlayDayCutsceneWithEvents(
+                    currentDayStruct.dayStartCutscene,
+                    currentDayStruct.dayStartEvents,
+                    args
+                );
+            }
+
+            yield return null;
+        }
+
+        private IEnumerator PlayDayCutsceneWithEvents(
+            CutsceneComponent<ProgressionEventArgs> cutsceneComponent,
+            PrePostEvent<ProgressionEventArgs> dayEvents,
+            ProgressionEventArgs args
+        )
+        {
+            if (!cutsceneComponent)
+                yield break;
+
+            // Call the pre-event
+            dayEvents.preEvent?.Invoke(args);
+
+            // Play the cutscene
+            yield return StartCoroutine(cutsceneComponent.RunCutsceneEnumerator(args));
+
+            // Call the post-event
+            dayEvents.postEvent?.Invoke(args);
         }
     }
 }
