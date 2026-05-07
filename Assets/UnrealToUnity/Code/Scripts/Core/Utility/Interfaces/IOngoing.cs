@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace UnrealToUnity.Code.Scripts.Core.Utility.Interfaces
 {
-    public interface IOngoing<in TStruct>
-        where TStruct : struct
+    public interface IOngoing<TType>
     {
-        public IEnumerator OngoingCoroutine(TStruct args);
+        public IEnumerator OngoingCoroutine(TType args);
     }
 }

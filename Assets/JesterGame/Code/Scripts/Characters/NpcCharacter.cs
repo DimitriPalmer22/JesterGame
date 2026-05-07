@@ -5,8 +5,6 @@ using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using JesterGame.Code.Scripts.Dialogue.UI;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.AI;
-using UnrealToUnity.Code.Scripts.Core.DataTables;
-using UnrealToUnity.Code.Scripts.Core.Pawns;
 
 namespace JesterGame.Code.Scripts.Characters
 {
