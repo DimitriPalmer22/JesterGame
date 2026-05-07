@@ -34,12 +34,11 @@ namespace JesterGame.Code.Scripts.Core
         [SerializeField] private DataTable<DialogueCharacter> characterDataTable;
 
         [SerializeField] public UnityEvent<AffectionEventArgs> onAffectionChanged;
+        [SerializeField] public UnityEvent<ProgressionEventArgs> onProgressionChanged;
 
         #endregion
 
         private readonly Dictionary<string, CharacterInstance> _characterInstanceMap = new();
-
-        public event ProgressionEventHandler OnProgressionChanged;
 
         #region Functions
 
@@ -54,7 +53,15 @@ namespace JesterGame.Code.Scripts.Core
             var prevProgress = currentInteractionProgression;
             currentInteractionProgression = progress;
 
-            OnProgressionChanged?.Invoke(this, prevProgress, currentInteractionProgression);
+            // Only invoke the event if the progress has actually changed.
+            if (prevProgress != currentInteractionProgression)
+            {
+                // Create the progression args
+                var args = new ProgressionEventArgs(prevProgress, progress, 0);
+                onProgressionChanged?.Invoke(args);
+            }
+
+            // TODO: Maybe have some different event for when the progress is reset.
         }
 
         [Button(enabledMode: EButtonEnableMode.Playmode)]
@@ -63,9 +70,9 @@ namespace JesterGame.Code.Scripts.Core
         [Button(enabledMode: EButtonEnableMode.Playmode)]
         public void DecrementProgress() => SetProgress(currentInteractionProgression - 1);
 
-        private void TestForGameFinished_Event(ImpostorGameMode mode, int prevProgress, int currentProgress)
+        private void TestForGameFinished_Event(ProgressionEventArgs args)
         {
-            if (currentProgress >= maxInteractionsProgression)
+            if (args.currentProgress >= maxInteractionsProgression)
             {
                 Debug.Log("Game finished!");
 
@@ -73,9 +80,9 @@ namespace JesterGame.Code.Scripts.Core
             }
         }
 
-        private void LogProgress_Event(ImpostorGameMode mode, int prevProgress, int currentProgress)
+        private void LogProgress_Event(ProgressionEventArgs args)
         {
-            Debug.Log($"Day progressed from {prevProgress} to {currentProgress}");
+            Debug.Log($"Day progressed from {args.previousProgress} to {args.currentProgress}");
         }
 
         public void ModifyCharacterAffection(string characterName, int affectionValue)
@@ -107,8 +114,8 @@ namespace JesterGame.Code.Scripts.Core
             base.Awake();
 
             // Bind to the progress event
-            OnProgressionChanged += LogProgress_Event;
-            OnProgressionChanged += TestForGameFinished_Event;
+            onProgressionChanged.AddListener(LogProgress_Event);
+            onProgressionChanged.AddListener(TestForGameFinished_Event);
 
             InitializeCharacters();
         }
