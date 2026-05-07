@@ -114,6 +114,8 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
         {
             SetDialogueInteraction(dialogueGraph);
 
+            UtilLibrary.GetGameMode(out ImpostorGameMode gameMode);
+
             // Open the screen
             yield return StartCoroutine(OpenScreenCoroutine());
 
@@ -133,7 +135,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                 }
 
                 // Modify the affection value if there is a change.
-                if (UtilLibrary.GetGameMode(out ImpostorGameMode gameMode) && currentNode.affectionValue != 0)
+                if (gameMode && currentNode.affectionValue != 0)
                     gameMode.ModifyCharacterAffection(currentCharacter, currentNode.affectionValue);
 
                 // currentNode.affectionValue
@@ -199,6 +201,10 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
             // Re-enable player input while dialogue is running.
             controlledPawn?.RemoveInputBlocker(this);
+
+            // Progress the game
+            if (gameMode)
+                gameMode.IncrementProgress();
 
             // Close the screen
             yield return StartCoroutine(CloseScreenCoroutine());

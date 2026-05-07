@@ -75,7 +75,7 @@ namespace JesterGame.Code.Scripts.Core
 
         private void LogProgress_Event(ImpostorGameMode mode, int prevProgress, int currentProgress)
         {
-            Debug.Log($"Day progressed to {currentProgress} from {prevProgress}");
+            Debug.Log($"Day progressed from {prevProgress} to {currentProgress}");
         }
 
         public void ModifyCharacterAffection(string characterName, int affectionValue)
