@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 777040674850859826}
   - component: {fileID: 4640229314338223285}
   - component: {fileID: 6286514807522637335}
+  - component: {fileID: 8232573044728332250}
   m_Layer: 0
   m_Name: ImpostorGameMode
   m_TagString: Untagged
@@ -224,3 +225,17 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   dayProgressionScreenDataAsset: {fileID: 11400000, guid: 763d6d2a350c05d48af791c20c4fb803, type: 2}
+  screenFadeDelay: 0.5
+--- !u!114 &8232573044728332250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680658913375508802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c15cb57c49d4e79b408a71547a1a7e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnrealToUnity.Code.Scripts.Core.UserInterface.UIInstantiatorComponent
+  uiInstantiator: {fileID: 11400000, guid: 622d8956513486640ba514cab9a49a2b, type: 2}
