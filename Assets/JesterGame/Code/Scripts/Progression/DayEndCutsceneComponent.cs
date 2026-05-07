@@ -2,16 +2,34 @@ using System.Collections;
 using JesterGame.Code.Scripts.Core;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Cutscenes;
+using UnrealToUnity.Code.Scripts.Core.Player;
+using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Progression
 {
-    public class DayEndCutsceneComponent : CutsceneComponent<ProgressionEventArgs>
+    public class DayEndCutsceneComponent : DayCutsceneComponentBase
     {
+        [SerializeField] private float screenFadeDelay = 0.5f;
+
         protected override IEnumerator CustomRunCutscene(ProgressionEventArgs cutsceneStruct)
         {
-            Debug.Log($"Running day end cutscene for day {cutsceneStruct.currentDay - 1}.");
-            yield return new WaitForSeconds(3f);
-            Debug.Log($"Finished day end cutscene for day {cutsceneStruct.currentDay - 1}.");
+            // Disable input while fading
+            var playerController = UtilLibrary.GetPlayerController();
+            playerController?.AddInputBlocker(this);
+
+            // Fade to black
+            if (dayProgressionScreenDataAsset)
+            {
+                yield return dayProgressionScreenDataAsset.OpenScreen();
+                yield return new WaitForSecondsRealtime(screenFadeDelay);
+            }
+
+            // Fade from black
+            if (dayProgressionScreenDataAsset)
+                yield return dayProgressionScreenDataAsset.CloseScreen();
+
+            // Re-enable input
+            playerController?.RemoveInputBlocker(this);
         }
     }
 }

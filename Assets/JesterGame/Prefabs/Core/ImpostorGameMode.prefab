@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2881828951043328200}
   - component: {fileID: 777040674850859826}
+  - component: {fileID: 4640229314338223285}
   - component: {fileID: 6286514807522637335}
   m_Layer: 0
   m_Name: ImpostorGameMode
@@ -73,7 +74,7 @@ MonoBehaviour:
       postEvent:
         m_PersistentCalls:
           m_Calls: []
-    dayStartCutscene: {fileID: 0}
+    dayStartCutscene: {fileID: 4640229314338223285}
     dayEndCutscene: {fileID: 6286514807522637335}
   - numProgressionsInDay: 5
     dayStartEvents:
@@ -96,7 +97,7 @@ MonoBehaviour:
       postEvent:
         m_PersistentCalls:
           m_Calls: []
-    dayStartCutscene: {fileID: 0}
+    dayStartCutscene: {fileID: 4640229314338223285}
     dayEndCutscene: {fileID: 6286514807522637335}
   - numProgressionsInDay: 5
     dayStartEvents:
@@ -119,7 +120,7 @@ MonoBehaviour:
       postEvent:
         m_PersistentCalls:
           m_Calls: []
-    dayStartCutscene: {fileID: 0}
+    dayStartCutscene: {fileID: 4640229314338223285}
     dayEndCutscene: {fileID: 6286514807522637335}
   currentDayIndex: 0
   currentInteractionProgression: 0
@@ -185,6 +186,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4640229314338223285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680658913375508802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88d0cff5bde4801af2c642093898e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Progression.DayStartCutsceneComponent
+  onCutsceneStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onCutsceneEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  dayProgressionScreenDataAsset: {fileID: 11400000, guid: 763d6d2a350c05d48af791c20c4fb803, type: 2}
 --- !u!114 &6286514807522637335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,3 +223,4 @@ MonoBehaviour:
   onCutsceneEnded:
     m_PersistentCalls:
       m_Calls: []
+  dayProgressionScreenDataAsset: {fileID: 11400000, guid: 763d6d2a350c05d48af791c20c4fb803, type: 2}
