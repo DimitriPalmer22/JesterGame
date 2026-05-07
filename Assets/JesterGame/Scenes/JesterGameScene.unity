@@ -841,23 +841,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1 &947979381 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1226444756715898226, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
-  m_PrefabInstance: {fileID: 326205162540813655}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &947979385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947979381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13d683b89d43470aa927c9c5fd265f91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UnrealToUnity.Code.Scripts.Core.Utility.Components.UnityEventDebugger
 --- !u!1 &973763421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,39 +1228,6 @@ PrefabInstance:
       propertyPath: roomDataAsset
       value: 
       objectReference: {fileID: 11400000, guid: c3a369cd4801f084c9ab5bba60c4f030, type: 2}
-    - target: {fileID: 2992297942319981365, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
-      propertyPath: onRoomEntered.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2992297942319981365, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
-      propertyPath: onRoomEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2992297942319981365, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
-      propertyPath: onRoomEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 947979385}
-    - target: {fileID: 2992297942319981365, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
-      propertyPath: onRoomEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2992297942319981365, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
-      propertyPath: onRoomEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LogError
-      objectReference: {fileID: 0}
-    - target: {fileID: 2992297942319981365, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
-      propertyPath: onRoomEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnrealToUnity.Code.Scripts.Core.Utility.Components.UnityEventDebugger,
-        Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2992297942319981365, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
-      propertyPath: onRoomEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: ENTERED ROOM
-      objectReference: {fileID: 0}
-    - target: {fileID: 2992297942319981365, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
-      propertyPath: onRoomEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 3443792706589417955, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1333,10 +1283,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1226444756715898226, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 947979385}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
 --- !u!1001 &3290305121503418342
 PrefabInstance:

@@ -102,7 +102,7 @@ namespace JesterGame.Code.Scripts.Core
 
         public void LogProgress_Event(ProgressionEventArgs args)
         {
-            Debug.Log($"Day progressed from {args.previousProgress} to {args.currentProgress}");
+            Debug.Log($"Progression from {args.previousProgress} to {args.currentProgress}");
         }
 
         public void ModifyCharacterAffection(string characterName, int affectionValue)

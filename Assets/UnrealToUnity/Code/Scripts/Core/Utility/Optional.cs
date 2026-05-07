@@ -68,5 +68,18 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
                 value = value
             };
         }
+
+        public static implicit operator bool(Optional<TStruct> optional)
+        {
+            return optional.bHasValue;
+        }
+
+        public override string ToString()
+        {
+            if (!bHasValue)
+                return "[NO VALUE]";
+
+            return value.ToString();
+        }
     }
 }

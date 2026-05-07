@@ -65,5 +65,14 @@ namespace JesterGame.Code.Scripts.Rooms
 
             Gizmos.DrawWireCube(boxCollider.center, scaledSize);
         }
+
+        public void LogRoomEnter(RoomEventArgs args)
+        {
+            Debug.Log(
+                args.dialogueCharacter
+                    ? $"{args.roomDataAsset.name} entered {args.roomDataAsset.roomName} ({args.pawn.name}"
+                    : $"{args.roomDataAsset.name} entered ({args.pawn.name}, {args.pawn.owningController.name})"
+            );
+        }
     }
 }
