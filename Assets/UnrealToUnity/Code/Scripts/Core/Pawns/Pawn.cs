@@ -37,11 +37,23 @@ namespace UnrealToUnity.Code.Scripts.Core.Pawns
         {
             // Disable the player input
             AddInputBlocker(this);
+
+            CustomOnDisable();
+        }
+
+        protected virtual void CustomOnDisable()
+        {
         }
 
         private void OnEnable()
         {
             RemoveInputBlocker(this);
+
+            CustomOnEnable();
+        }
+
+        protected virtual void CustomOnEnable()
+        {
         }
 
         private void InputTokenManagerOnOnTokensChanged(bool hasTokens)

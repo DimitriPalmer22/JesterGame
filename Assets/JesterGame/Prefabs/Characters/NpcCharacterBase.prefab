@@ -240,7 +240,6 @@ GameObject:
   - component: {fileID: 220822467586148966}
   - component: {fileID: 265953208402439980}
   - component: {fileID: 721196155857160652}
-  - component: {fileID: 1145458809717151022}
   m_Layer: 0
   m_Name: NpcCharacterBase
   m_TagString: Untagged
@@ -321,8 +320,9 @@ MonoBehaviour:
   npcDataHandle:
     dataTable: {fileID: 11400000, guid: 37aed0bd9a7e61a4a973b39480416394, type: 2}
     rowName: 
-  characterBehavior:
-    _underlyingValue: {fileID: 1145458809717151022}
+  waitBehavior:
+    _underlyingValue: {fileID: 0}
+  behaviorQueue: []
   interactionHelperComponent: {fileID: 721196155857160652}
   dialogueScreenDataAsset: {fileID: 11400000, guid: 532600b429f119644adc1c7dbf615908, type: 2}
   testDialogueGraph: {fileID: 3965311268370046156, guid: 91a8adad0f9274d43b1272184206044a, type: 3}
@@ -380,15 +380,3 @@ MonoBehaviour:
   onSelectedTick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1145458809717151022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6598573864551597866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 636615732ead499cac8814601dcf8616, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.TestNpcCharacterBehavior

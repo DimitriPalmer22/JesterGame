@@ -71,15 +71,6 @@ namespace JesterGame.Code.Scripts.Characters
             _speakingCoroutine = null;
         }
 
-        public bool TryGetCharacterData(out DialogueCharacter characterData)
-        {
-            if (npcDataHandle.GetValue(out characterData))
-                return true;
-
-            Debug.LogError($"Failed to get character data for NPC {name} with handle {npcDataHandle}");
-            return false;
-        }
-
         private IEnumerator OpenDialoguePanel()
         {
             if (dialogueScreenDataAsset)
