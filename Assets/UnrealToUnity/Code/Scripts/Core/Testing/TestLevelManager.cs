@@ -13,19 +13,6 @@ namespace UnrealToUnity.Code.Scripts.Core.Testing
             StartCoroutine(IntroCutscene());
         }
 
-        IEnumerator CoroutineTest()
-        {
-            // Get the game mode.
-            if (!UtilLibrary.GetGameMode(out TestGameMode gameMode))
-                yield break;
-
-            gameMode.StartGameMode();
-
-            yield return new WaitForSeconds(10f);
-
-            gameMode.EndGameMode();
-        }
-
         /// <summary>
         /// Enumerator responsible for playing the cutscene at the start of the game.
         /// </summary>
