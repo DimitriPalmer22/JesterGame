@@ -19,7 +19,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
         [SerializeField] private Image characterImage;
 
         [SerializeField] private VerticalLayoutGroup choicesContainer;
-        [SerializeField] private Button choiceButtonPrefab;
+        [SerializeField] private DialogueScreenButton choiceButtonPrefab;
 
         [SerializeField] private float wordDelay = 0.25f;
 
@@ -29,6 +29,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
         private RuntimeDialogueGraph _currentDialogueGraph;
         private string _currentNodeID;
+        private WaitForDialogueChoiceSelection _waitForChoiceSelection;
 
         #endregion
 
@@ -136,14 +137,15 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                 // 3. add the choice's nextLines back to the start of the dialogue lines.
                 if (currentNode.choiceStrings.Count > 0)
                 {
-                    const int selectionIndex = 0;
-                    _currentNodeID = currentNode.nextNodeIDs[selectionIndex];
-
                     CreateChoices(currentNode);
 
-                    // TODO: Wait for selection.
-                    Debug.LogWarning($"Choices not implemented yet! Automatically selecting the first choice");
-                    yield return new WaitForSecondsRealtime(3f);
+                    // Wait for selection.
+                    _waitForChoiceSelection = new WaitForDialogueChoiceSelection();
+                    yield return _waitForChoiceSelection;
+
+                    // Set the current node ID to the next node ID corresponding to the selected choice.
+                    _currentNodeID = currentNode.nextNodeIDs[_waitForChoiceSelection.SelectionIndex];
+                    _waitForChoiceSelection = null;
 
                     DestroyChoices();
                 }
@@ -212,10 +214,28 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             for (var index = 0; index < currentNode.choiceStrings.Count; index++)
             {
                 var newButton = Instantiate(choiceButtonPrefab, choicesContainer.transform);
+                newButton.BindToDialogueScreen(this, index);
 
                 var choiceString = currentNode.choiceStrings[index];
-                newButton.GetComponentInChildren<TMP_Text>().text = choiceString;
+                newButton.SetText(choiceString);
             }
+        }
+
+        public void SetCurrentChoiceIndex(int index)
+        {
+            _waitForChoiceSelection?.SetSelectionIndex(index);
+        }
+    }
+
+    internal class WaitForDialogueChoiceSelection : CustomYieldInstruction
+    {
+        public int SelectionIndex { get; private set; } = -1;
+
+        public override bool keepWaiting => SelectionIndex <= -1;
+
+        public void SetSelectionIndex(int index)
+        {
+            SelectionIndex = index;
         }
     }
 }
