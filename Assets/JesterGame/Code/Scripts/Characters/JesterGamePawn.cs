@@ -4,7 +4,7 @@ using UnrealToUnity.Code.Scripts.Core.Pawns;
 
 namespace JesterGame.Code.Scripts.Characters
 {
-    public class JesterGamePawn : Pawn
+    public abstract class JesterGamePawn : Pawn
     {
         /// <summary>
         /// The row handle corresponding to the NPC data in the data table.

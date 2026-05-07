@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Progression;
 using NaughtyAttributes;
@@ -48,9 +49,12 @@ namespace JesterGame.Code.Scripts.Core
         [SerializeField] public UnityEvent<ProgressionEventArgs> onProgressionChanged;
         [SerializeField] public UnityEvent<ProgressionEventArgs> onDayProgressed;
 
+        [SerializedDictionary("Character Name", "Character Instance"), ReadOnly]
+        public SerializedDictionary<string, CharacterInstance> characterInstanceMap = new();
+
         #endregion
 
-        private readonly Dictionary<string, CharacterInstance> _characterInstanceMap = new();
+        // private readonly Dictionary<string, CharacterInstance> _characterInstanceMap = new();
 
         #region Functions
 
@@ -107,13 +111,13 @@ namespace JesterGame.Code.Scripts.Core
 
         public void ModifyCharacterAffection(string characterName, int affectionValue)
         {
-            if (!_characterInstanceMap.TryGetValue(characterName, out var characterInstance))
+            if (!characterInstanceMap.TryGetValue(characterName, out var characterInstance))
                 return;
 
             characterInstance.currentAffection += affectionValue;
 
             // Update the value within the map
-            _characterInstanceMap[characterName] = characterInstance;
+            characterInstanceMap[characterName] = characterInstance;
 
             // Create affection event args
             var affectionEventArgs =
@@ -139,28 +143,28 @@ namespace JesterGame.Code.Scripts.Core
         private void InitializeCharacters()
         {
             // Add all the characters to the map
-            _characterInstanceMap.Clear();
+            characterInstanceMap.Clear();
             if (characterDataTable)
             {
                 foreach (var rowHandle in characterDataTable.GetAllRowHandles())
-                    _characterInstanceMap[rowHandle.rowName] = new CharacterInstance(rowHandle, CharacterType.Normal);
+                    characterInstanceMap[rowHandle.rowName] = new CharacterInstance(rowHandle, CharacterType.Normal);
             }
 
             // Determine who the impostor is.
             // Randomly select an impostor.
-            var impostorIndex = UnityEngine.Random.Range(0, _characterInstanceMap.Count);
+            var impostorIndex = UnityEngine.Random.Range(0, characterInstanceMap.Count);
             var currentIndex = 0;
-            foreach (var rowHandle in _characterInstanceMap.Values)
+            foreach (var rowHandle in characterInstanceMap.Values)
             {
                 // If not the impostor, continue.
-                if (currentIndex != impostorIndex && currentIndex < _characterInstanceMap.Count)
+                if (currentIndex != impostorIndex && currentIndex < characterInstanceMap.Count)
                 {
                     currentIndex++;
                     continue;
                 }
 
                 // Set the impostor.
-                _characterInstanceMap[rowHandle.characterAsset.rowName] =
+                characterInstanceMap[rowHandle.characterAsset.rowName] =
                     new CharacterInstance(rowHandle.characterAsset, CharacterType.Impostor);
                 impostorRowName = rowHandle.characterAsset.rowName;
 
