@@ -48,12 +48,6 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
             _bConstructed = true;
         }
 
-        [Button]
-        public void InvalidateTable()
-        {
-            _bConstructed = false;
-        }
-
         public bool GetRow(string rowName, out TStruct result)
         {
             if (!_bConstructed)

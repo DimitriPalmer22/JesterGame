@@ -13,16 +13,19 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         /// </summary>
         [SerializeField] public string name;
 
+        [SerializeField] public bool bIsMainCharacter;
+
         /// <summary>
         /// The portrait of the character to display in the dialogue UI.
         /// </summary>
-        [SerializeField, ShowAssetPreview] public Sprite portrait;
+        [SerializeField] public Sprite portrait;
 
         /// <summary>
         /// Idea?
         /// Small, tiny little portrait that appears next to dialogue box.
         /// </summary>
-        [SerializeField, ShowAssetPreview] public Sprite miniPortrait;
+        [SerializeField] public Sprite miniPortrait;
+
 
         public string GetDataTableRowName => name;
     }
