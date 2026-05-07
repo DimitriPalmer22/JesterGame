@@ -1,5 +1,8 @@
+using System;
+
 namespace JesterGame.Code.Scripts.Core
 {
+    [Serializable]
     public struct AffectionEventArgs
     {
         public string characterName;
