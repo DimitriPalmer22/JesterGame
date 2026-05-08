@@ -16,13 +16,11 @@ namespace JesterGame.Code.Scripts.Rooms
     /// </summary>
     public class RoomCollider : Actor
     {
-        /// <summary>
-        /// A reference to the current room's data asset, which can be used to trigger events associated with that room.
-        /// </summary>
-        [SerializeField] public RoomDataAsset roomDataAsset;
+        [SerializeField] public JesterLevelManager roomManager;
 
         [SerializeField] public BoxCollider boxCollider;
 
+        /// <summary>
         /// <summary>
         /// ANOTHER unity event for when the room is entered, this one is on the collider itself instead of the data asset.
         /// This is for things that should happen when the room is entered, but aren't necessarily associated with the room itself.
@@ -33,6 +31,8 @@ namespace JesterGame.Code.Scripts.Rooms
         {
             if (!CanTriggerCollider(other, out var pawn))
                 return;
+
+            roomManager.TryGetRoomDataAsset(out var roomDataAsset);
 
             var eventArgs = new RoomEventArgs
             {
@@ -46,7 +46,7 @@ namespace JesterGame.Code.Scripts.Rooms
 
             // Call the event from the room data asset
             // Call the event from this script
-            roomDataAsset.onRoomEntered.Invoke(eventArgs);
+            roomDataAsset?.onRoomEntered.Invoke(eventArgs);
             onRoomEntered.Invoke(eventArgs);
         }
 
@@ -59,6 +59,8 @@ namespace JesterGame.Code.Scripts.Rooms
         private bool CanTriggerCollider(Collider other, out Pawn pawn)
         {
             pawn = null;
+
+            roomManager.TryGetRoomDataAsset(out var roomDataAsset);
 
             // If the room data asset is null, return
             if (roomDataAsset == null)

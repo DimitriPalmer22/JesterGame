@@ -34,5 +34,11 @@ namespace JesterGame.Code.Scripts.Core
             Array.Copy(pointsOfInterest, copy, pointsOfInterest.Length);
             return copy;
         }
+
+        public bool TryGetRoomDataAsset(out RoomDataAsset asset)
+        {
+            asset = roomDataAsset;
+            return asset != null;
+        }
     }
 }
