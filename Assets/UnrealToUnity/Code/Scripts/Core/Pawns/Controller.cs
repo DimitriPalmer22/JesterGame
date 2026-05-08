@@ -53,8 +53,8 @@ namespace UnrealToUnity.Code.Scripts.Core.Pawns
 
             CustomPossess(pawn);
 
-            // Log that this controller is possessing the pawn
-            Debug.Log($"{name} is now possessing {pawn.name}");
+            // // Log that this controller is possessing the pawn
+            // Debug.Log($"{name} is now possessing {pawn.name}");
         }
 
         protected abstract void CustomPossess(Pawn pawn);

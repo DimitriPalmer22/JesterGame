@@ -365,19 +365,6 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 406600495}
-        m_TargetAssemblyTypeName: UnrealToUnity.Code.Scripts.Core.Utility.Components.UnityEventDebugger,
-          Assembly-CSharp
-        m_MethodName: LogMessage
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Interact!
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 406600491}
         m_TargetAssemblyTypeName: UnityEngine.MeshRenderer, UnityEngine
         m_MethodName: set_material
@@ -392,52 +379,13 @@ MonoBehaviour:
         m_CallState: 2
   onSelected:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 406600495}
-        m_TargetAssemblyTypeName: UnrealToUnity.Code.Scripts.Core.Utility.Components.UnityEventDebugger,
-          Assembly-CSharp
-        m_MethodName: LogMessage
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Selected!
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onDeselected:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 406600495}
-        m_TargetAssemblyTypeName: UnrealToUnity.Code.Scripts.Core.Utility.Components.UnityEventDebugger,
-          Assembly-CSharp
-        m_MethodName: LogMessage
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Deselected!
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onSelectedTick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 406600495}
-        m_TargetAssemblyTypeName: UnrealToUnity.Code.Scripts.Core.Utility.Components.UnityEventDebugger,
-          Assembly-CSharp
-        m_MethodName: LogMessage
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Selected Tick!
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &406600495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1134,7 +1082,7 @@ Transform:
   m_GameObject: {fileID: 1286397726}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 1, z: -16}
+  m_LocalPosition: {x: 2, y: 1, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1180,7 +1128,7 @@ Transform:
   m_GameObject: {fileID: 1385833981}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16, y: 1, z: -16}
+  m_LocalPosition: {x: -11, y: 1, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1275,7 +1223,7 @@ Transform:
   m_GameObject: {fileID: 1526614285}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.18204, y: -0, z: -9.38577}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1382,7 +1330,7 @@ Transform:
   m_GameObject: {fileID: 1816097251}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16, y: 1, z: -16}
+  m_LocalPosition: {x: 11, y: 1, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1601,7 +1549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3830698877808783891, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
       propertyPath: m_Size.x
-      value: 39
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 3830698877808783891, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
       propertyPath: m_Size.y
@@ -1609,7 +1557,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3830698877808783891, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
       propertyPath: m_Size.z
-      value: 39
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 6043965437316209304, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
       propertyPath: m_Name
@@ -1619,6 +1567,10 @@ PrefabInstance:
       propertyPath: roomDataAsset
       value: 
       objectReference: {fileID: 11400000, guid: 4b69581f301d6f24993e4a7b247accb3, type: 2}
+    - target: {fileID: 8204262888219217246, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: priority
+      value: 999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

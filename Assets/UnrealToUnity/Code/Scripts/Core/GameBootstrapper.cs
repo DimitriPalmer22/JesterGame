@@ -12,8 +12,6 @@ namespace UnrealToUnity.Code.Scripts.Core
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void OnGameStart()
         {
-            Debug.Log("Game is starting, no GameObject needed!");
-
             // Create a list of subsystems to initialize on startup.
             var startupSubsystems = new UnrealSubsystem[]
             {
@@ -26,6 +24,13 @@ namespace UnrealToUnity.Code.Scripts.Core
 
             foreach (var startupSubsystem in ExtraRegisteredSubsystems)
                 UnrealSubsystemManager.Instance.Add(startupSubsystem);
+
+            // Debug.Log($"Initialized subsystem: {GetType().Name}");
+
+            var initializationString = "Initialized Subsystems:";
+            foreach (var subsystem in UnrealSubsystemManager.Instance)
+                initializationString += $"\n- {subsystem.GetType().Name}";
+            Debug.Log(initializationString);
         }
 
         public static void RegisterSubsystem(UnrealSubsystem subsystem)

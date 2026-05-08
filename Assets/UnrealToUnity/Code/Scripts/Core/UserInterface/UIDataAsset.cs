@@ -82,7 +82,7 @@ namespace UnrealToUnity.Code.Scripts.Core.UserInterface
 
             operation.completed -= OnAsyncInstantiationComplete;
 
-            Debug.Log($"Instantiated screen {_instantiatedScreen} in {name} ({hasBeenInstantiated}).");
+            // Debug.Log($"Instantiated screen {_instantiatedScreen} in {name} ({hasBeenInstantiated}).");
         }
 
         private void SetInstantiatedScreen(TScreenType screen)

@@ -98,9 +98,9 @@ namespace JesterGame.Code.Scripts.Characters
                 _currentBehaviorCoroutine = StartCoroutine(currentBehavior.Value.OngoingCoroutine(this));
                 yield return _currentBehaviorCoroutine;
 
-                // Log the character has ended the behavior
-                if (bHasCharacterData)
-                    Debug.Log($"{characterData.name} has ended behavior: {currentBehavior.Value.GetBehaviorName}");
+                // // Log the character has ended the behavior
+                // if (bHasCharacterData)
+                //     Debug.Log($"{characterData.name} has ended behavior: {currentBehavior.Value.GetBehaviorName}");
 
                 // Use the correct brain to determine the next behavior(s) and enqueue them.
                 if (behaviorQueue.Count <= 0 && validBehaviors != null && validBehaviors.Length > 0)

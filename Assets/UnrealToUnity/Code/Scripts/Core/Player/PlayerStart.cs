@@ -15,6 +15,12 @@ namespace UnrealToUnity.Code.Scripts.Core.Player
         /// </summary>
         [SerializeField] private Transform spawnTransform;
 
+        /// <summary>
+        /// Priority of this player start.
+        /// If there are multiple player starts in the level, the one with the highest priority will be used.
+        /// </summary>
+        [SerializeField] private int priority = 0;
+
         public Transform GetSpawnTransform()
         {
             if (spawnTransform)
@@ -22,5 +28,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Player
 
             return gameObject.transform;
         }
+
+        public int Priority => priority;
     }
 }

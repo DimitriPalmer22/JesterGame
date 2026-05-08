@@ -180,8 +180,10 @@ namespace JesterGame.Code.Scripts.Core
 
         #endregion
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             // Set the progress to 0
             SetProgress(0);
         }

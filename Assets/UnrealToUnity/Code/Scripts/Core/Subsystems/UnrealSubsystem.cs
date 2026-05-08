@@ -7,8 +7,6 @@ namespace UnrealToUnity.Code.Scripts.Core.Subsystems
         internal void Initialize()
         {
             CustomInitialize();
-
-            Debug.Log($"Initialized subsystem: {GetType().Name}");
         }
 
         protected abstract void CustomInitialize();

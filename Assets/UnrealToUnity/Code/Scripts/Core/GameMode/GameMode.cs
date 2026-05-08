@@ -34,6 +34,12 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
 
         protected virtual void Awake()
         {
+            // // Instantiate the game mode prefabs.
+            // InstantiateGameModePrefabs();
+        }
+
+        protected virtual void Start()
+        {
             // Instantiate the game mode prefabs.
             InstantiateGameModePrefabs();
         }
@@ -110,8 +116,20 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
             if (allStarts.Length == 0)
                 return null;
 
-            // Use the first one as the chosen player start.
-            return allStarts[0];
+            var highestPriority = 0;
+            var highestPriorityStart = allStarts[0];
+
+            foreach (var playerStart in allStarts)
+            {
+                if (playerStart.Priority <= highestPriority)
+                    continue;
+
+                highestPriority = playerStart.Priority;
+                highestPriorityStart = playerStart;
+            }
+
+            // Use the highest priority player start to spawn the player.
+            return highestPriorityStart;
         }
 
         public PlayerController GetPlayerController(int index)
