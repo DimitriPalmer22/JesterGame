@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using AYellowpaper;
 using JesterGame.Code.Scripts.Characters.Behaviors;
+using JesterGame.Code.Scripts.Characters.Behaviors.Brains;
+using JesterGame.Code.Scripts.Core;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using NaughtyAttributes;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.Pawns;
+using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Characters
 {
@@ -31,6 +34,9 @@ namespace JesterGame.Code.Scripts.Characters
 
         [SerializeField, ReadOnly, ShowIf("bDoCharacterBehavior")]
         protected List<InterfaceReference<ICharacterBehavior>> behaviorQueue = new();
+
+        [SerializeField] private CharacterBehaviorBrain innocentBrain;
+        [SerializeField] private CharacterBehaviorBrain impostorBrain;
 
         #endregion
 
@@ -96,12 +102,17 @@ namespace JesterGame.Code.Scripts.Characters
                 if (bHasCharacterData)
                     Debug.Log($"{characterData.name} has ended behavior: {currentBehavior.Value.GetBehaviorName}");
 
-                // TODO: Find a better way to decide behaviors
+                // Use the correct brain to determine the next behavior(s) and enqueue them.
                 if (behaviorQueue.Count <= 0 && validBehaviors != null && validBehaviors.Length > 0)
                 {
-                    // Get a random behavior from the valid behaviors
-                    var randomIndex = UnityEngine.Random.Range(0, validBehaviors.Length);
-                    behaviorQueue.Add(validBehaviors[randomIndex]);
+                    if (TryGetCurrentBrain(out var brain))
+                    {
+                        var nextBehaviors = brain.DetermineBehavior(this);
+                        EnqueueBehaviors(nextBehaviors);
+                    }
+
+                    else
+                        Debug.LogError($"Could not determine behaviors for NPC {name}");
                 }
             }
 
@@ -127,6 +138,32 @@ namespace JesterGame.Code.Scripts.Characters
 
             _currentBehaviorCoroutine = null;
             _mainBehaviorCoroutine = null;
+        }
+
+        private bool TryGetCurrentBrain(out CharacterBehaviorBrain brain)
+        {
+            brain = null;
+
+            if (!TryGetCharacterData(out var characterData))
+                return false;
+
+            if (!UtilLibrary.GetGameMode(out ImpostorGameMode gameMode))
+                return false;
+
+            if (!gameMode.characterInstanceMap.TryGetValue(characterData.name, out var characterInstanceData))
+                return false;
+
+            brain = characterInstanceData.characterType switch
+            {
+                CharacterType.Normal => innocentBrain,
+                CharacterType.Impostor => impostorBrain,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            if (brain == null)
+                return false;
+
+            return true;
         }
 
         #region Behavior Queue Functions

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using JesterGame.Code.Scripts.Core.Interaction;
 using JesterGame.Code.Scripts.Dialogue.Data;
@@ -25,6 +26,7 @@ namespace JesterGame.Code.Scripts.Characters
         [SerializeField] private RuntimeDialogueGraph testDialogueGraph;
 
         [SerializeField] private NavMeshAgent agent;
+
 
         private Coroutine _speakingCoroutine;
 
@@ -68,6 +70,8 @@ namespace JesterGame.Code.Scripts.Characters
             var prevAcceleration = agent.acceleration;
             agent.acceleration = 10000;
 
+            // TODO: Start a coroutine to look at the player. DON'T yield for it, just start if. End it after closing.
+
             // Wait for the dialogue panel to be complete.
             yield return OpenDialoguePanel();
 
@@ -94,5 +98,6 @@ namespace JesterGame.Code.Scripts.Characters
 
             yield return null;
         }
+
     }
 }
