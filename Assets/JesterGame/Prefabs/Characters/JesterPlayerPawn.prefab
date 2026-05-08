@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 2694684978663128119}
   - component: {fileID: 3066040264628579882}
   - component: {fileID: 1137917443894404245}
+  - component: {fileID: 3817043120047245222}
   m_Layer: 6
   m_Name: JesterPlayerPawn
   m_TagString: Untagged
@@ -172,6 +173,8 @@ MonoBehaviour:
     _underlyingValue: {fileID: 0}
   validBehaviors: []
   behaviorQueue: []
+  innocentBrain: {fileID: 0}
+  impostorBrain: {fileID: 0}
   cinemachineCamera: {fileID: 4346776938213497931}
   moveSpeed: 10
   rotationSpeed: 720
@@ -267,6 +270,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d683b89d43470aa927c9c5fd265f91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnrealToUnity.Code.Scripts.Core.Utility.Components.UnityEventDebugger
+--- !u!208 &3817043120047245222
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4067538012022057987}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4575444523727080701
 GameObject:
   m_ObjectHideFlags: 0
