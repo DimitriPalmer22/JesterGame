@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnrealToUnity.Code.Scripts.Core.Utility.Interfaces
 {
-    public interface IOngoing<TType>
+    public interface IOngoing<in TType>
     {
         public IEnumerator OngoingCoroutine(TType args);
     }

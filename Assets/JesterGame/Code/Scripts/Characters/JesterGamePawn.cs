@@ -20,9 +20,14 @@ namespace JesterGame.Code.Scripts.Characters
         /// </summary>
         [SerializeField] protected DataTableRowHandle npcDataHandle;
 
-        [SerializeField] protected InterfaceReference<ICharacterBehavior> waitBehavior;
+        [SerializeField, Header("Character Behavior")]
+        protected bool bDoCharacterBehavior;
 
-        [SerializeField, ReadOnly] protected List<InterfaceReference<ICharacterBehavior>> behaviorQueue = new();
+        [SerializeField, ShowIf("bDoCharacterBehavior")]
+        protected InterfaceReference<ICharacterBehavior> waitBehavior;
+
+        [SerializeField, ReadOnly, ShowIf("bDoCharacterBehavior")]
+        protected List<InterfaceReference<ICharacterBehavior>> behaviorQueue = new();
 
         #endregion
 
@@ -40,7 +45,8 @@ namespace JesterGame.Code.Scripts.Characters
             if (_mainBehaviorCoroutine != null)
                 StopCoroutine(_mainBehaviorCoroutine);
 
-            _mainBehaviorCoroutine = StartCoroutine(MainBehaviorCoroutine());
+            if (bDoCharacterBehavior)
+                _mainBehaviorCoroutine = StartCoroutine(MainBehaviorCoroutine());
         }
 
         protected override void CustomOnDisable()
@@ -142,10 +148,7 @@ namespace JesterGame.Code.Scripts.Characters
             behaviorRef = null;
 
             if (behaviorQueue == null || behaviorQueue.Count == 0)
-            {
-                Debug.LogWarning("Cannot dequeue behavior: behavior queue is empty.");
                 return false;
-            }
 
             behaviorRef = behaviorQueue[0];
             behaviorQueue.RemoveAt(0);
