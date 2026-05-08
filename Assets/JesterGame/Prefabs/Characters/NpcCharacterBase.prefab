@@ -106,9 +106,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -219,9 +219,9 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 220822467586148966}
   - component: {fileID: 265953208402439980}
   - component: {fileID: 721196155857160652}
-  - component: {fileID: 6490191231195548662}
+  - component: {fileID: 1253927449654443988}
   - component: {fileID: 2663689184051431422}
   m_Layer: 6
   m_Name: NpcCharacterBase
@@ -388,7 +388,7 @@ MonoBehaviour:
   onSelectedTick:
     m_PersistentCalls:
       m_Calls: []
---- !u!143 &6490191231195548662
+--- !u!143 &1253927449654443988
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -434,4 +434,4 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
