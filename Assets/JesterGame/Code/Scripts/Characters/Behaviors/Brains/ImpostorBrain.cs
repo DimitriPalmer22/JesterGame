@@ -11,7 +11,7 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.Brains
     {
         public override InterfaceReference<ICharacterBehavior>[] DetermineBehavior(JesterGamePawn pawn)
         {
-            throw new System.NotImplementedException();
+            return new[] { waitBetweenBehavior };
         }
     }
 }
