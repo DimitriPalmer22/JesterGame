@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using JesterGame.Code.Scripts.Core;
 using JesterGame.Code.Scripts.Core.Interaction;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
@@ -7,6 +8,7 @@ using JesterGame.Code.Scripts.Dialogue.UI;
 using UnityEngine;
 using UnityEngine.AI;
 using UnrealToUnity.Code.Scripts.Core.AI;
+using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Characters
 {
@@ -27,6 +29,8 @@ namespace JesterGame.Code.Scripts.Characters
 
         [SerializeField] private NavMeshAgent agent;
 
+        [SerializeField] private Renderer[] impostorMaterialRenderers;
+        [SerializeField] public Material impostorMaterial;
 
         private Coroutine _speakingCoroutine;
 
@@ -37,6 +41,19 @@ namespace JesterGame.Code.Scripts.Characters
             // Set the text of the interaction helper component
             if (interactionHelperComponent && npcDataHandle.GetValue(out DialogueCharacter characterData))
                 interactionHelperComponent.SetInteractionText($"Speak with {characterData.name}");
+        }
+
+        private void Start()
+        {
+            // If this is the impostor, apply the impostor material to the renderer
+            if (UtilLibrary.GetGameMode(out ImpostorGameMode gameMode) &&
+                gameMode.GetCharacterInstance(npcDataHandle.rowName, out var characterInstance) &&
+                characterInstance.characterType == CharacterType.Impostor
+               )
+            {
+                foreach (var cRenderer in impostorMaterialRenderers)
+                    cRenderer.material = impostorMaterial;
+            }
         }
 
         public void StartSpeaking(InteractEventArgs args)
@@ -98,6 +115,5 @@ namespace JesterGame.Code.Scripts.Characters
 
             yield return null;
         }
-
     }
 }

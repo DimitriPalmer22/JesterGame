@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using AYellowpaper.SerializedCollections;
 using JesterGame.Code.Scripts.Characters;
 using JesterGame.Code.Scripts.Dialogue.Data;
@@ -12,7 +12,6 @@ using UnityEngine.Events;
 using UnrealToUnity.Code.Scripts.Core.Cutscenes;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.GameMode;
-using UnrealToUnity.Code.Scripts.Core.Pawns;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Core
@@ -157,11 +156,16 @@ namespace JesterGame.Code.Scripts.Core
                     characterInstanceMap[rowHandle.rowName] = new CharacterInstance(rowHandle, CharacterType.Normal);
             }
 
+            var validImpostors = characterInstanceMap
+                .Where(n => CanBeImpostor(n.Key))
+                .Select(n => n.Value)
+                .ToArray();
+
             // Determine who the impostor is.
             // Randomly select an impostor.
-            var impostorIndex = UnityEngine.Random.Range(0, characterInstanceMap.Count);
+            var impostorIndex = UnityEngine.Random.Range(0, validImpostors.Length);
             var currentIndex = 0;
-            foreach (var rowHandle in characterInstanceMap.Values)
+            foreach (var characterInstance in validImpostors)
             {
                 // If not the impostor, continue.
                 if (currentIndex != impostorIndex && currentIndex < characterInstanceMap.Count)
@@ -171,14 +175,26 @@ namespace JesterGame.Code.Scripts.Core
                 }
 
                 // Set the impostor.
-                characterInstanceMap[rowHandle.characterAsset.rowName] =
-                    new CharacterInstance(rowHandle.characterAsset, CharacterType.Impostor);
-                impostorRowName = rowHandle.characterAsset.rowName;
+                characterInstanceMap[characterInstance.characterAsset.rowName] =
+                    new CharacterInstance(characterInstance.characterAsset, CharacterType.Impostor);
+                impostorRowName = characterInstance.characterAsset.rowName;
 
-                Debug.Log($"The impostor is {rowHandle.characterAsset.rowName}!");
+                Debug.Log($"The impostor is {characterInstance.characterAsset.rowName}!");
 
                 break;
             }
+        }
+
+        private bool CanBeImpostor(string characterName)
+        {
+            // If the character is not in the table, return false
+            if (!characterDataTable.GetRow(characterName, out var characterAsset))
+                return false;
+
+            if (characterAsset.bIsMainCharacter)
+                return false;
+
+            return true;
         }
 
         #endregion
