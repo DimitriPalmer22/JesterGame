@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
 {
@@ -20,7 +21,16 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
 
         private IEnumerator MoveToPointOfInterest(JesterGamePawn args)
         {
-            yield return new WaitForEndOfFrame();
+            // Try to get the nav mesh agent component from the pawn
+            if (!args.TryGetComponent(out NavMeshAgent navMeshAgent))
+                yield break;
+
+            // Set the destination of the nav mesh agent to the position of this point of interest
+            navMeshAgent.SetDestination(transform.position);
+
+            // Wait until the nav mesh agent has reached the destination
+            while (navMeshAgent.pathPending || navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
+                yield return null;
         }
 
         protected abstract IEnumerator DoAtPointOfInterest(JesterGamePawn args);

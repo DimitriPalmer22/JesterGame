@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3597616935296814487}
   - component: {fileID: 1005408363526095468}
   - component: {fileID: 3563635650578601842}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 2945123532722956911}
   - component: {fileID: 2614782314461708261}
   - component: {fileID: 1984343894153892942}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,8 @@ GameObject:
   - component: {fileID: 265953208402439980}
   - component: {fileID: 721196155857160652}
   - component: {fileID: 6490191231195548662}
-  m_Layer: 0
+  - component: {fileID: 2663689184051431422}
+  m_Layer: 6
   m_Name: NpcCharacterBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,3 +410,25 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &2663689184051431422
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598573864551597866}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 4
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.5
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
