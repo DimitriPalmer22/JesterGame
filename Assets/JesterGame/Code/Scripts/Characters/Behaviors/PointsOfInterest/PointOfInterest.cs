@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -36,5 +37,12 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
         protected abstract IEnumerator DoAtPointOfInterest(JesterGamePawn args);
 
         public string GetBehaviorName => $"Point of interest: {gameObject.name}";
+
+        private void OnDrawGizmosSelected()
+        {
+            // Draw a small sphere at the point
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, 0.1f);
+        }
     }
 }

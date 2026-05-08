@@ -231,52 +231,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &304635034
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 304635036}
-  - component: {fileID: 304635035}
-  m_Layer: 0
-  m_Name: CubePointOfInterest_3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &304635035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 304635034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 838b0edbc1d1427880eeb84a5c2e2a90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest.InspectorPointOfInterest
-  behaviorAtPointOfInterest:
-    _underlyingValue: {fileID: 11400000, guid: 9f735d449dd242c40ac1e9b7a432cd85, type: 2}
---- !u!4 &304635036
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 304635034}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.59, y: 1, z: -7.65}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &406600489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,6 +1091,98 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50e41549fd6b2064a8fe7149e9f5fe6f, type: 3}
+--- !u!1 &1286397726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1286397728}
+  - component: {fileID: 1286397727}
+  m_Layer: 0
+  m_Name: CubePointOfInterest_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!114 &1286397727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286397726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838b0edbc1d1427880eeb84a5c2e2a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest.InspectorPointOfInterest
+  behaviorAtPointOfInterest:
+    _underlyingValue: {fileID: 11400000, guid: 9f735d449dd242c40ac1e9b7a432cd85, type: 2}
+--- !u!4 &1286397728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286397726}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: 1, z: -7.4799995}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1385833981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1385833983}
+  - component: {fileID: 1385833982}
+  m_Layer: 0
+  m_Name: CubePointOfInterest_4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!114 &1385833982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385833981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838b0edbc1d1427880eeb84a5c2e2a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest.InspectorPointOfInterest
+  behaviorAtPointOfInterest:
+    _underlyingValue: {fileID: 11400000, guid: 9f735d449dd242c40ac1e9b7a432cd85, type: 2}
+--- !u!4 &1385833983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385833981}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.57, y: 1, z: -7.47}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1435291313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1368,6 +1414,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
+--- !u!1 &1816097251
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1816097253}
+  - component: {fileID: 1816097252}
+  m_Layer: 0
+  m_Name: CubePointOfInterest_5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!114 &1816097252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816097251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838b0edbc1d1427880eeb84a5c2e2a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest.InspectorPointOfInterest
+  behaviorAtPointOfInterest:
+    _underlyingValue: {fileID: 11400000, guid: 9f735d449dd242c40ac1e9b7a432cd85, type: 2}
+--- !u!4 &1816097253
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816097251}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.08, y: 1, z: -7.6399994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1833231655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,52 +1532,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.08, y: 1, z: 2.84}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1918117016
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1918117018}
-  - component: {fileID: 1918117017}
-  m_Layer: 0
-  m_Name: CubePointOfInterest_4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &1918117017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918117016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 838b0edbc1d1427880eeb84a5c2e2a90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest.InspectorPointOfInterest
-  behaviorAtPointOfInterest:
-    _underlyingValue: {fileID: 11400000, guid: 9f735d449dd242c40ac1e9b7a432cd85, type: 2}
---- !u!4 &1918117018
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918117016}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.59, y: 1, z: -7.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1668,7 +1714,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: c3a369cd4801f084c9ab5bba60c4f030, type: 2}
     - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
       propertyPath: pointsOfInterest.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
       propertyPath: 'pointsOfInterest.Array.data[0]'
@@ -1685,11 +1731,35 @@ PrefabInstance:
     - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
       propertyPath: 'pointsOfInterest.Array.data[3]'
       value: 
-      objectReference: {fileID: 304635035}
+      objectReference: {fileID: 1286397727}
     - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
       propertyPath: 'pointsOfInterest.Array.data[4]'
       value: 
-      objectReference: {fileID: 1918117017}
+      objectReference: {fileID: 1385833982}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: 'pointsOfInterest.Array.data[5]'
+      value: 
+      objectReference: {fileID: 1816097252}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: 'pointsOfInterest.Array.data[6]'
+      value: 
+      objectReference: {fileID: 951068782}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: 'pointsOfInterest.Array.data[7]'
+      value: 
+      objectReference: {fileID: 1868964191}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: 'pointsOfInterest.Array.data[8]'
+      value: 
+      objectReference: {fileID: 1286397727}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: 'pointsOfInterest.Array.data[9]'
+      value: 
+      objectReference: {fileID: 1385833982}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: 'pointsOfInterest.Array.data[10]'
+      value: 
+      objectReference: {fileID: 1816097252}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1947,8 +2017,9 @@ SceneRoots:
   - {fileID: 2118956171}
   - {fileID: 951068783}
   - {fileID: 1868964192}
-  - {fileID: 304635036}
-  - {fileID: 1918117018}
+  - {fileID: 1286397728}
+  - {fileID: 1385833983}
+  - {fileID: 1816097253}
   - {fileID: 973763422}
   - {fileID: 8550650257562668874}
   - {fileID: 846833843}
