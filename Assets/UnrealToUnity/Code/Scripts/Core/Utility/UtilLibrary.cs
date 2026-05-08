@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Player;
 using UnrealToUnity.Code.Scripts.Core.Subsystems;
+using UnrealToUnity.Code.Scripts.Core.Utility.Interfaces;
 
 namespace UnrealToUnity.Code.Scripts.Core.Utility
 {
@@ -49,6 +52,29 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
         public static bool IsValidIndex<T>(this T[] array, int index)
         {
             return index >= 0 && index < array.Length;
+        }
+
+        public static TWeightedType GetRandomWeightedOption<TWeightedType>(this IEnumerable<TWeightedType> options)
+            where TWeightedType : IWeightedSelection
+        {
+            var optionsAsArray = options.Where(n => n.Weight > 0).ToArray();
+            var totalWeight = optionsAsArray.Sum(option => option.Weight);
+
+            var randomValue = Random.Range(0f, totalWeight);
+            var cumulativeWeight = 0f;
+
+            TWeightedType lastOption = default;
+            foreach (var option in optionsAsArray)
+            {
+                lastOption = option;
+
+                cumulativeWeight += option.Weight;
+                if (randomValue <= cumulativeWeight)
+                    return option;
+            }
+
+            // In case of rounding errors, return the last option
+            return lastOption;
         }
     }
 }

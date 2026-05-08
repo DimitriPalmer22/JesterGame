@@ -1,5 +1,6 @@
 using AYellowpaper;
 using UnityEngine;
+using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Characters.Behaviors.Brains
 {
@@ -12,11 +13,9 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.Brains
 
         public override InterfaceReference<ICharacterBehavior>[] DetermineBehavior(JesterGamePawn pawn)
         {
-            var behaviorDelegates = BehaviorDelegates();
-
-            // Get a random behavior delegate and execute it to get the behavior(s) to perform
-            var randomDelegate = behaviorDelegates[Random.Range(0, behaviorDelegates.Length)];
-            return randomDelegate(pawn);
+            // Get a random option from the list of weighted options.
+            var randomBehaviorDefinition = characterBehaviorDefinitions.GetRandomWeightedOption();
+            return randomBehaviorDefinition.behaviors;
         }
     }
 }
