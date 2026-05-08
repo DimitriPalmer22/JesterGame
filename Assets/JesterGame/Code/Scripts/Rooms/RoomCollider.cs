@@ -81,7 +81,9 @@ namespace JesterGame.Code.Scripts.Rooms
                 boxCollider.size.z * transform.localScale.z
             );
 
-            Gizmos.DrawWireCube(boxCollider.center, scaledSize);
+            var startPos = transform.position + boxCollider.center;
+
+            Gizmos.DrawWireCube(startPos, scaledSize);
         }
 
         public void UpdatePawnRoomArea(RoomEventArgs args)
