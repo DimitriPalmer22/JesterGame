@@ -26,6 +26,9 @@ namespace JesterGame.Code.Scripts.Characters
         [SerializeField, ShowIf("bDoCharacterBehavior")]
         protected InterfaceReference<ICharacterBehavior> waitBehavior;
 
+        [SerializeField, ShowIf("bDoCharacterBehavior")]
+        protected InterfaceReference<ICharacterBehavior>[] validBehaviors;
+
         [SerializeField, ReadOnly, ShowIf("bDoCharacterBehavior")]
         protected List<InterfaceReference<ICharacterBehavior>> behaviorQueue = new();
 
@@ -70,7 +73,7 @@ namespace JesterGame.Code.Scripts.Characters
 
         private IEnumerator MainBehaviorCoroutine()
         {
-            while (enabled)
+            while (enabled && bDoCharacterBehavior)
             {
                 // Try to pop something from the queue
                 if (!DequeueBehavior(out var currentBehavior))
@@ -88,9 +91,9 @@ namespace JesterGame.Code.Scripts.Characters
 
                 var bHasCharacterData = TryGetCharacterData(out var characterData);
 
-                // Log the character starting the behavior
-                if (bHasCharacterData)
-                    Debug.Log($"{characterData.name} is starting behavior: {currentBehavior.Value.GetBehaviorName}");
+                // // Log the character starting the behavior
+                // if (bHasCharacterData)
+                //     Debug.Log($"{characterData.name} is starting behavior: {currentBehavior.Value.GetBehaviorName}");
 
                 // Perform the current item & wait for it to finish.
                 _currentBehaviorCoroutine = StartCoroutine(currentBehavior.Value.OngoingCoroutine(this));
@@ -99,6 +102,14 @@ namespace JesterGame.Code.Scripts.Characters
                 // Log the character has ended the behavior
                 if (bHasCharacterData)
                     Debug.Log($"{characterData.name} has ended behavior: {currentBehavior.Value.GetBehaviorName}");
+
+                // TODO: Find a better way to decide behaviors
+                if (behaviorQueue.Count <= 0 && validBehaviors != null && validBehaviors.Length > 0)
+                {
+                    // Get a random behavior from the valid behaviors
+                    var randomIndex = UnityEngine.Random.Range(0, validBehaviors.Length);
+                    behaviorQueue.Add(validBehaviors[randomIndex]);
+                }
             }
 
             // Set the coroutine to null afterward.

@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Progression;
+using JesterGame.Code.Scripts.Rooms;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
 using UnrealToUnity.Code.Scripts.Core.Cutscenes;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.GameMode;
+using UnrealToUnity.Code.Scripts.Core.Pawns;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Core
 {
     public class ImpostorGameMode : GameMode
     {
-        public delegate void ProgressionEventHandler(ImpostorGameMode mode, int prevProgress, int currentProgress);
-
         #region Inspector Fields
 
         [SerializeField, ReadOnly, Label("Impostor Name"), BoxGroup("Debug")]
@@ -52,9 +52,13 @@ namespace JesterGame.Code.Scripts.Core
         [SerializedDictionary("Character Name", "Character Instance"), ReadOnly]
         public SerializedDictionary<string, CharacterInstance> characterInstanceMap = new();
 
-        #endregion
+        [SerializedDictionary("Room Data Asset", "Level Manager"), ReadOnly]
+        public SerializedDictionary<RoomDataAsset, JesterLevelManager> roomToLevelManagerMap = new();
 
-        // private readonly Dictionary<string, CharacterInstance> _characterInstanceMap = new();
+        [SerializedDictionary("Pawn", "Room Data Asset"), ReadOnly]
+        public SerializedDictionary<Pawn, RoomDataAsset> pawnToRoomMap = new();
+
+        #endregion
 
         #region Functions
 
@@ -257,6 +261,16 @@ namespace JesterGame.Code.Scripts.Core
 
             // Call the post-event
             dayEvents.postEvent?.Invoke(args);
+        }
+
+        public bool GetCurrentRoom(Pawn pawn, out RoomDataAsset dataAsset)
+        {
+            return pawnToRoomMap.TryGetValue(pawn, out dataAsset);
+        }
+
+        public bool GetRoomLevelManager(RoomDataAsset dataAsset, out JesterLevelManager levelManager)
+        {
+            return roomToLevelManagerMap.TryGetValue(dataAsset, out levelManager);
         }
     }
 }

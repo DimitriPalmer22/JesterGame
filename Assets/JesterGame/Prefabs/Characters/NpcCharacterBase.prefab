@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 220822467586148966}
   - component: {fileID: 265953208402439980}
   - component: {fileID: 721196155857160652}
+  - component: {fileID: 6490191231195548662}
   m_Layer: 0
   m_Name: NpcCharacterBase
   m_TagString: Untagged
@@ -323,6 +324,8 @@ MonoBehaviour:
   bDoCharacterBehavior: 1
   waitBehavior:
     _underlyingValue: {fileID: 11400000, guid: 9f735d449dd242c40ac1e9b7a432cd85, type: 2}
+  validBehaviors:
+  - _underlyingValue: {fileID: 11400000, guid: 1bdff4d5211fe7544b114acfc25cf64f, type: 2}
   behaviorQueue: []
   interactionHelperComponent: {fileID: 721196155857160652}
   dialogueScreenDataAsset: {fileID: 11400000, guid: 532600b429f119644adc1c7dbf615908, type: 2}
@@ -381,3 +384,28 @@ MonoBehaviour:
   onSelectedTick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!143 &6490191231195548662
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598573864551597866}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}

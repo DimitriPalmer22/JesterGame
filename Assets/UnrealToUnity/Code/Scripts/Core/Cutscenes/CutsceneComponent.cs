@@ -24,22 +24,22 @@ namespace UnrealToUnity.Code.Scripts.Core.Cutscenes
             StartCoroutine(CustomRunCutscene(cutsceneStruct));
         }
 
-        public IEnumerator OngoingCoroutine(TCutsceneStruct cutsceneStruct)
+        public IEnumerator OngoingCoroutine(TCutsceneStruct pawn)
         {
             // Invoke the start event.
-            onCutsceneStarted?.Invoke(cutsceneStruct);
+            onCutsceneStarted?.Invoke(pawn);
 
             CutsceneFinishYield.StartCutscene();
 
             // Yield for the custom cutscene code.
-            cutsceneCoroutine = StartCoroutine(CustomRunCutscene(cutsceneStruct));
+            cutsceneCoroutine = StartCoroutine(CustomRunCutscene(pawn));
             yield return cutsceneCoroutine;
             cutsceneCoroutine = null;
 
             CutsceneFinishYield.Reset();
 
             // Invoke the end event.
-            onCutsceneEnded?.Invoke(cutsceneStruct);
+            onCutsceneEnded?.Invoke(pawn);
         }
 
         protected abstract IEnumerator CustomRunCutscene(TCutsceneStruct cutsceneStruct);

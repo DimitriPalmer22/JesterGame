@@ -1,9 +1,11 @@
 using System;
 using JesterGame.Code.Scripts.Characters;
+using JesterGame.Code.Scripts.Core;
 using UnityEngine;
 using UnityEngine.Events;
 using UnrealToUnity.Code.Scripts.Core;
 using UnrealToUnity.Code.Scripts.Core.Pawns;
+using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Rooms
 {
@@ -29,12 +31,7 @@ namespace JesterGame.Code.Scripts.Rooms
 
         private void OnTriggerEnter(Collider other)
         {
-            // If the room data asset is null, return
-            if (roomDataAsset == null)
-                return;
-
-            // If the other thing colliding with this is not a pawn, return
-            if (!other.TryGetComponent(out Pawn pawn))
+            if (!CanTriggerCollider(other, out var pawn))
                 return;
 
             var eventArgs = new RoomEventArgs
@@ -53,6 +50,27 @@ namespace JesterGame.Code.Scripts.Rooms
             onRoomEntered.Invoke(eventArgs);
         }
 
+        // private void OnTriggerStay(Collider other)
+        // {
+        //     if (!CanTriggerCollider(other, out var pawn))
+        //         return;
+        // }
+
+        private bool CanTriggerCollider(Collider other, out Pawn pawn)
+        {
+            pawn = null;
+
+            // If the room data asset is null, return
+            if (roomDataAsset == null)
+                return false;
+
+            // If the other thing colliding with this is not a pawn, return
+            if (!other.TryGetComponent(out pawn))
+                return false;
+
+            return true;
+        }
+
         private void OnDrawGizmos()
         {
             // Draw the bounds of the box collider
@@ -64,6 +82,12 @@ namespace JesterGame.Code.Scripts.Rooms
             );
 
             Gizmos.DrawWireCube(boxCollider.center, scaledSize);
+        }
+
+        public void UpdatePawnRoomArea(RoomEventArgs args)
+        {
+            if (UtilLibrary.GetGameMode(out ImpostorGameMode gameMode) && args.pawn)
+                gameMode.pawnToRoomMap[args.pawn] = args.roomDataAsset;
         }
 
         public void LogRoomEnter(RoomEventArgs args)

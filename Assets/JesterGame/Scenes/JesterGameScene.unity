@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 116822722}
   - component: {fileID: 116822721}
   - component: {fileID: 116822720}
+  - component: {fileID: 116822724}
   m_Layer: 0
   m_Name: Cube_1
   m_TagString: Untagged
@@ -231,6 +232,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &116822724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116822719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838b0edbc1d1427880eeb84a5c2e2a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest.InspectorPointOfInterest
+  behaviorAtPointOfInterest:
+    _underlyingValue: {fileID: 11400000, guid: 9f735d449dd242c40ac1e9b7a432cd85, type: 2}
 --- !u!1 &406600489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,6 +1352,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: JesterLevelManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: roomDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c3a369cd4801f084c9ab5bba60c4f030, type: 2}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: pointsOfInterest.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: 'pointsOfInterest.Array.data[0]'
+      value: 
+      objectReference: {fileID: 116822724}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

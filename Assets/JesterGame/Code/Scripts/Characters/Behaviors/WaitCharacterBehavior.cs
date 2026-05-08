@@ -9,7 +9,7 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors
         [SerializeField, Delayed] public float minWaitTime = 1;
         [SerializeField, Delayed] public float maxWaitTime = 1;
 
-        public override IEnumerator OngoingCoroutine(JesterGamePawn args)
+        public override IEnumerator OngoingCoroutine(JesterGamePawn pawn)
         {
             var randomWaitTime = UnityEngine.Random.Range(minWaitTime, maxWaitTime);
             yield return new WaitForSeconds(randomWaitTime);
