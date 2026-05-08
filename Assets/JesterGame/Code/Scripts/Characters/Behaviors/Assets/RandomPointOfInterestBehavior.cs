@@ -3,7 +3,7 @@ using JesterGame.Code.Scripts.Core;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
-namespace JesterGame.Code.Scripts.Characters.Behaviors
+namespace JesterGame.Code.Scripts.Characters.Behaviors.Assets
 {
     [CreateAssetMenu(
         fileName = "CB_RandomPointOfInterest",

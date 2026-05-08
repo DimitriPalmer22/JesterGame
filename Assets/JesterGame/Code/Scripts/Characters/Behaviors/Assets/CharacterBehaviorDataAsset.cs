@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace JesterGame.Code.Scripts.Characters.Behaviors
+namespace JesterGame.Code.Scripts.Characters.Behaviors.Assets
 {
     public abstract class CharacterBehaviorDataAsset : ScriptableObject, ICharacterBehavior
     {

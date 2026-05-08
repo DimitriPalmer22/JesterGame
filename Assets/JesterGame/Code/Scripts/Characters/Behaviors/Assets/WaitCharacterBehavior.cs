@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace JesterGame.Code.Scripts.Characters.Behaviors
+namespace JesterGame.Code.Scripts.Characters.Behaviors.Assets
 {
     [CreateAssetMenu(fileName = "CB_Wait_", menuName = "JesterGame/Character Behaviors/Wait Character Behavior")]
     public class WaitCharacterBehavior : CharacterBehaviorDataAsset
