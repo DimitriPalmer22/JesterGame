@@ -45,21 +45,14 @@ namespace JesterGame.Code.Scripts.Characters
         {
             base.CustomOnEnable();
 
-            if (_mainBehaviorCoroutine != null)
-                StopCoroutine(_mainBehaviorCoroutine);
-
-            if (bDoCharacterBehavior)
-                _mainBehaviorCoroutine = StartCoroutine(MainBehaviorCoroutine());
+            StartMainBehaviorCoroutine();
         }
 
         protected override void CustomOnDisable()
         {
             base.CustomOnDisable();
 
-            if (_mainBehaviorCoroutine != null)
-                StopCoroutine(_mainBehaviorCoroutine);
-
-            _mainBehaviorCoroutine = null;
+            StopMainBehaviorCoroutine();
         }
 
         public bool TryGetCharacterData(out DialogueCharacter characterData)
@@ -113,6 +106,26 @@ namespace JesterGame.Code.Scripts.Characters
             }
 
             // Set the coroutine to null afterward.
+            _mainBehaviorCoroutine = null;
+        }
+
+        public void StartMainBehaviorCoroutine()
+        {
+            StopMainBehaviorCoroutine();
+
+            if (bDoCharacterBehavior)
+                _mainBehaviorCoroutine = StartCoroutine(MainBehaviorCoroutine());
+        }
+
+        public void StopMainBehaviorCoroutine()
+        {
+            if (_currentBehaviorCoroutine != null)
+                StopCoroutine(_currentBehaviorCoroutine);
+
+            if (_mainBehaviorCoroutine != null)
+                StopCoroutine(_mainBehaviorCoroutine);
+
+            _currentBehaviorCoroutine = null;
             _mainBehaviorCoroutine = null;
         }
 

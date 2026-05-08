@@ -15,9 +15,9 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
         /// <returns></returns>
         public IEnumerator OngoingCoroutine(JesterGamePawn pawn)
         {
-            yield return StartCoroutine(MoveToPointOfInterest(pawn));
+            yield return MoveToPointOfInterest(pawn);
 
-            yield return StartCoroutine(DoAtPointOfInterest(pawn));
+            yield return DoAtPointOfInterest(pawn);
         }
 
         private IEnumerator MoveToPointOfInterest(JesterGamePawn args)

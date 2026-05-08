@@ -27,8 +27,10 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors
             if (randomPoint == null)
                 yield break;
 
-            // Do the thing
-            yield return pawn.StartCoroutine(randomPoint.OngoingCoroutine(pawn));
+            // // Do the thing
+            // yield return pawn.StartCoroutine(randomPoint.OngoingCoroutine(pawn));
+
+            yield return randomPoint.OngoingCoroutine(pawn);
         }
 
         public override string GetBehaviorName => $"RandomPointOfInterestBehavior";

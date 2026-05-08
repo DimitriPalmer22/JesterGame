@@ -4,6 +4,7 @@ using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using JesterGame.Code.Scripts.Dialogue.UI;
 using UnityEngine;
+using UnityEngine.AI;
 using UnrealToUnity.Code.Scripts.Core.AI;
 
 namespace JesterGame.Code.Scripts.Characters
@@ -22,6 +23,8 @@ namespace JesterGame.Code.Scripts.Characters
         [SerializeField] private DialogueScreenDataAsset dialogueScreenDataAsset;
 
         [SerializeField] private RuntimeDialogueGraph testDialogueGraph;
+
+        [SerializeField] private NavMeshAgent agent;
 
         private Coroutine _speakingCoroutine;
 
@@ -59,10 +62,21 @@ namespace JesterGame.Code.Scripts.Characters
             // Deactivate interactor component on the player character to prevent multiple interactions while the dialogue is open.
             args.interactor.enabled = false;
 
+            // Stop the current behavior coroutine
+            StopMainBehaviorCoroutine();
+            agent.isStopped = true;
+            var prevAcceleration = agent.acceleration;
+            agent.acceleration = 10000;
+
             // Wait for the dialogue panel to be complete.
             yield return OpenDialoguePanel();
 
-            // Re-activate teh interaction helper component
+            // Restart the current behavior coroutine.
+            agent.isStopped = false;
+            agent.acceleration = prevAcceleration;
+            StartMainBehaviorCoroutine();
+
+            // Re-activate the interaction helper component
             interactionHelperComponent.enabled = true;
 
             // Re-activate the interactor component on the player character
