@@ -42,7 +42,7 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
         {
             // Draw a small sphere at the point
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, 0.1f);
+            Gizmos.DrawWireSphere(transform.position, 0.5f);
         }
     }
 }
