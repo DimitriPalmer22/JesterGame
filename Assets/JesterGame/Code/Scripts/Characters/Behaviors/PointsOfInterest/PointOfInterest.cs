@@ -7,6 +7,8 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
 {
     public abstract class PointOfInterest : MonoBehaviour, ICharacterBehavior
     {
+        [SerializeField] private Transform pointTransform;
+
         /// <summary>
         /// Move toward this point of interest.
         /// Then, do whatever at the point of interest.
@@ -27,7 +29,7 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
                 yield break;
 
             // Set the destination of the nav mesh agent to the position of this point of interest
-            navMeshAgent.SetDestination(transform.position);
+            navMeshAgent.SetDestination(PointOfInterestTransform.position);
 
             // Wait until the nav mesh agent has reached the destination
             while (navMeshAgent.pathPending || navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
@@ -42,7 +44,9 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
         {
             // Draw a small sphere at the point
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, 0.5f);
+            Gizmos.DrawWireSphere(PointOfInterestTransform.position, 0.5f);
         }
+
+        public Transform PointOfInterestTransform => pointTransform != null ? pointTransform : transform;
     }
 }
