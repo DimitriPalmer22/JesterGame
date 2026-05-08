@@ -29,9 +29,6 @@ namespace JesterGame.Code.Scripts.Characters
         [SerializeField, ShowIf("bDoCharacterBehavior")]
         protected InterfaceReference<ICharacterBehavior> waitBehavior;
 
-        [SerializeField, ShowIf("bDoCharacterBehavior")]
-        protected InterfaceReference<ICharacterBehavior>[] validBehaviors;
-
         [SerializeField, ReadOnly, ShowIf("bDoCharacterBehavior")]
         protected List<InterfaceReference<ICharacterBehavior>> behaviorQueue = new();
 
@@ -52,6 +49,10 @@ namespace JesterGame.Code.Scripts.Characters
             base.CustomOnEnable();
 
             StartMainBehaviorCoroutine();
+
+            // Set the value in the map.
+            if (UtilLibrary.GetGameMode(out ImpostorGameMode gameMode))
+                gameMode.characterNameToPawnMap[npcDataHandle.rowName] = this;
         }
 
         protected override void CustomOnDisable()
@@ -88,8 +89,7 @@ namespace JesterGame.Code.Scripts.Characters
                     }
                 }
 
-                var bHasCharacterData = TryGetCharacterData(out var characterData);
-
+                // var bHasCharacterData = TryGetCharacterData(out var characterData);
                 // // Log the character starting the behavior
                 // if (bHasCharacterData)
                 //     Debug.Log($"{characterData.name} is starting behavior: {currentBehavior.Value.GetBehaviorName}");
@@ -103,7 +103,7 @@ namespace JesterGame.Code.Scripts.Characters
                 //     Debug.Log($"{characterData.name} has ended behavior: {currentBehavior.Value.GetBehaviorName}");
 
                 // Use the correct brain to determine the next behavior(s) and enqueue them.
-                if (behaviorQueue.Count <= 0 && validBehaviors != null && validBehaviors.Length > 0)
+                if (behaviorQueue.Count <= 0)
                 {
                     if (TryGetCurrentBrain(out var brain))
                     {

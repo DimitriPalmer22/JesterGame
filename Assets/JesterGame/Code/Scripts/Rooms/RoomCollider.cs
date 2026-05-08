@@ -55,7 +55,7 @@ namespace JesterGame.Code.Scripts.Rooms
         //         return;
         // }
 
-        private bool CanTriggerCollider(Collider other, out Pawn pawn)
+        private bool CanTriggerCollider(Collider other, out JesterGamePawn pawn)
         {
             pawn = null;
 

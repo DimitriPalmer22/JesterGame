@@ -1,4 +1,5 @@
 using System;
+using JesterGame.Code.Scripts.Characters;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Pawns;
@@ -11,6 +12,6 @@ namespace JesterGame.Code.Scripts.Rooms
     {
         [SerializeField] public RoomDataAsset roomDataAsset;
         [SerializeField] public Optional<DialogueCharacter> dialogueCharacter;
-        [SerializeField] public Pawn pawn;
+        [SerializeField] public JesterGamePawn pawn;
     }
 }

@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using UnrealToUnity.Code.Scripts.Core.Player;
 using UnrealToUnity.Code.Scripts.Core.Subsystems;
 using UnrealToUnity.Code.Scripts.Core.Utility.Interfaces;
@@ -75,6 +77,21 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
 
             // In case of rounding errors, return the last option
             return lastOption;
+        }
+
+        public static bool IsAtDestination(this NavMeshAgent agent)
+        {
+            return !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance;
+        }
+
+        public static IEnumerator MoveToCoroutine(this NavMeshAgent navMeshAgent, Vector3 destination)
+        {
+            // Set the destination of the nav mesh agent to the position of this point of interest
+            navMeshAgent.SetDestination(destination);
+
+            // Wait until the nav mesh agent has reached the destination
+            while (!navMeshAgent.IsAtDestination())
+                yield return null;
         }
     }
 }

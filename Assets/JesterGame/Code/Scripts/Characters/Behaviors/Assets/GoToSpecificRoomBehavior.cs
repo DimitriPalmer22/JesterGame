@@ -3,7 +3,10 @@ using UnityEngine;
 
 namespace JesterGame.Code.Scripts.Characters.Behaviors.Assets
 {
-    [CreateAssetMenu(fileName = "CB_GoToRoom_", menuName = "JesterGame/Character Behaviors/Go To Specific Room")]
+    [CreateAssetMenu(
+        fileName = "CB_GoToRoom_",
+        menuName = "JesterGame/Character Behaviors/Room/Go To Specific")
+    ]
     public class GoToSpecificRoomBehavior : GoToRoomBehavior
     {
         [SerializeField] private RoomDataAsset roomToGoTo;

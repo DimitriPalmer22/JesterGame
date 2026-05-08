@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
 {
@@ -28,12 +29,8 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
             if (!args.TryGetComponent(out NavMeshAgent navMeshAgent))
                 yield break;
 
-            // Set the destination of the nav mesh agent to the position of this point of interest
-            navMeshAgent.SetDestination(PointOfInterestTransform.position);
-
-            // Wait until the nav mesh agent has reached the destination
-            while (navMeshAgent.pathPending || navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
-                yield return null;
+            // Wait until the nav mesh agent is done with its current path
+            yield return navMeshAgent.MoveToCoroutine(PointOfInterestTransform.position);
         }
 
         protected abstract IEnumerator DoAtPointOfInterest(JesterGamePawn args);

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
+using JesterGame.Code.Scripts.Characters;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Progression;
 using JesterGame.Code.Scripts.Rooms;
@@ -56,9 +57,11 @@ namespace JesterGame.Code.Scripts.Core
         public SerializedDictionary<RoomDataAsset, JesterLevelManager> roomToLevelManagerMap = new();
 
         [SerializedDictionary("Pawn", "Room Data Asset"), ReadOnly]
-        public SerializedDictionary<Pawn, RoomDataAsset> pawnToRoomMap = new();
+        public SerializedDictionary<JesterGamePawn, RoomDataAsset> pawnToRoomMap = new();
 
         #endregion
+
+        [NonSerialized] public readonly SerializedDictionary<string, JesterGamePawn> characterNameToPawnMap = new();
 
         #region Functions
 
@@ -265,7 +268,9 @@ namespace JesterGame.Code.Scripts.Core
             dayEvents.postEvent?.Invoke(args);
         }
 
-        public bool GetCurrentRoom(Pawn pawn, out RoomDataAsset dataAsset)
+        #region Get Functions
+
+        public bool GetCurrentRoom(JesterGamePawn pawn, out RoomDataAsset dataAsset)
         {
             return pawnToRoomMap.TryGetValue(pawn, out dataAsset);
         }
@@ -274,5 +279,17 @@ namespace JesterGame.Code.Scripts.Core
         {
             return roomToLevelManagerMap.TryGetValue(dataAsset, out levelManager);
         }
+
+        public bool GetCharacterInstance(string characterAssetName, out CharacterInstance characterInstance)
+        {
+            return characterInstanceMap.TryGetValue(characterAssetName, out characterInstance);
+        }
+
+        public bool GetCharacterPawn(string characterName, out JesterGamePawn pawn)
+        {
+            return characterNameToPawnMap.TryGetValue(characterName, out pawn);
+        }
+
+        #endregion
     }
 }

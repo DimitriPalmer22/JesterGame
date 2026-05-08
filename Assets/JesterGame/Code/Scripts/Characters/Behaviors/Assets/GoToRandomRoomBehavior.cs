@@ -6,7 +6,10 @@ using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Characters.Behaviors.Assets
 {
-    [CreateAssetMenu(fileName = "CB_GoToRandomRoom", menuName = "JesterGame/Character Behaviors/Go To Random Room")]
+    [CreateAssetMenu(
+        fileName = "CB_GoToRoom_Random",
+        menuName = "JesterGame/Character Behaviors/Room/Go To Random")
+    ]
     public class GoToRandomRoomBehavior : GoToRoomBehavior
     {
         public override string GetBehaviorName => $"Go To Random Room";

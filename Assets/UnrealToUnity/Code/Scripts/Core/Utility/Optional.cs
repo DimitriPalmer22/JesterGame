@@ -49,6 +49,8 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
         /// </summary>
         public TStruct GetValueUnsafe => value;
 
+        public bool HasValue => bHasValue;
+
         public void FromTryGet(TryGetDelegate tryGetDelegate)
         {
             bHasValue = tryGetDelegate(out value);
