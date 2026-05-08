@@ -99,7 +99,9 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
             // var allStarts = FindObjectsByType<PlayerStart>(FindObjectsInactive.Exclude);
             // return allStarts.Where(playerStart => playerStart && playerStart.enabled).ToArray();
 
-            return FindObjectsByType<PlayerStart>(FindObjectsInactive.Exclude);
+            var allPlayerStarts = FindObjectsByType<PlayerStart>(FindObjectsInactive.Exclude);
+
+            return allPlayerStarts;
         }
 
         protected virtual PlayerStart GetPlayerStart()

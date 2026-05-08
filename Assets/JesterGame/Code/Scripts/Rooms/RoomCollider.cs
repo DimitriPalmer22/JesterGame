@@ -21,7 +21,6 @@ namespace JesterGame.Code.Scripts.Rooms
         [SerializeField] public BoxCollider boxCollider;
 
         /// <summary>
-        /// <summary>
         /// ANOTHER unity event for when the room is entered, this one is on the collider itself instead of the data asset.
         /// This is for things that should happen when the room is entered, but aren't necessarily associated with the room itself.
         /// </summary>
