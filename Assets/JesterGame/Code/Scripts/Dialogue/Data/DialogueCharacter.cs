@@ -26,6 +26,12 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         /// </summary>
         [SerializeField] public Sprite miniPortrait;
 
+        /// <summary>
+        /// The dialogue pool to use for this character.
+        /// This will determine the dialogue interactions that can occur with this character.
+        /// </summary>
+        [SerializeField] public DialoguePoolDataAsset poolDataAsset;
+
 
         public string GetDataTableRowName => name;
     }
