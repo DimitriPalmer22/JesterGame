@@ -90,7 +90,20 @@ namespace JesterGame.Code.Scripts.Characters
             // Wait for the dialogue panel to be complete.
             var currentDialogueGraph = DetermineCurrentDialogue(characterData);
             if (currentDialogueGraph != null)
+            {
                 yield return OpenDialoguePanel(currentDialogueGraph);
+
+                // Mark the first interaction type for this room as complete
+                if (
+                    UtilLibrary.GetGameMode(out ImpostorGameMode gameMode) &&
+                    gameMode.pawnToRoomMap.TryGetValue(this, out var currentRoom)
+                )
+                {
+                    var characterInstance = gameMode.characterInstanceMap[npcDataHandle.rowName];
+                    characterInstance.hasCompletedFirstInteractionPerRoom[currentRoom] = true;
+                    gameMode.characterInstanceMap[npcDataHandle.rowName] = characterInstance;
+                }
+            }
 
             // Restart the current behavior coroutine.
             agent.isStopped = false;
