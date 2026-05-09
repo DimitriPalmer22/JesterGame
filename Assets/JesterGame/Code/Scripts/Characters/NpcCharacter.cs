@@ -5,6 +5,7 @@ using JesterGame.Code.Scripts.Core.Interaction;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using JesterGame.Code.Scripts.Dialogue.UI;
+using JesterGame.Code.Scripts.Rooms;
 using UnityEngine;
 using UnityEngine.AI;
 using UnrealToUnity.Code.Scripts.Core.AI;
@@ -24,8 +25,6 @@ namespace JesterGame.Code.Scripts.Characters
         /// Data asset for opening the dialogue screen.
         /// </summary>
         [SerializeField] private DialogueScreenDataAsset dialogueScreenDataAsset;
-
-        [SerializeField] private RuntimeDialogueGraph testDialogueGraph;
 
         [SerializeField] private NavMeshAgent agent;
 
@@ -68,8 +67,6 @@ namespace JesterGame.Code.Scripts.Characters
                 _speakingCoroutine = null;
             }
 
-            // TODO: Determine which lines to play. For now, just play the test data asset.
-
             _speakingCoroutine = StartCoroutine(SpeakCoroutine(characterData, args));
         }
 
@@ -89,8 +86,11 @@ namespace JesterGame.Code.Scripts.Characters
 
             // TODO: Start a coroutine to look at the player. DON'T yield for it, just start if. End it after closing.
 
+            // Determine which lines to play. For now, just play the test data asset.
             // Wait for the dialogue panel to be complete.
-            yield return OpenDialoguePanel();
+            var currentDialogueGraph = DetermineCurrentDialogue(characterData);
+            if (currentDialogueGraph != null)
+                yield return OpenDialoguePanel(currentDialogueGraph);
 
             // Restart the current behavior coroutine.
             agent.isStopped = false;
@@ -106,14 +106,47 @@ namespace JesterGame.Code.Scripts.Characters
             _speakingCoroutine = null;
         }
 
-        private IEnumerator OpenDialoguePanel()
+        private IEnumerator OpenDialoguePanel(RuntimeDialogueGraph dialogueGraph)
         {
             if (dialogueScreenDataAsset)
                 yield return StartCoroutine(
-                    dialogueScreenDataAsset.RunDialogueScreen(npcDataHandle.rowName, testDialogueGraph)
+                    dialogueScreenDataAsset.RunDialogueScreen(npcDataHandle.rowName, dialogueGraph)
                 );
 
             yield return null;
+        }
+
+        public RuntimeDialogueGraph DetermineCurrentDialogue(DialogueCharacter characterData)
+        {
+            // Get the game mode to access the pawn to room map
+            if (!UtilLibrary.GetGameMode(out ImpostorGameMode gameMode))
+                return null;
+
+            if (!gameMode.characterInstanceMap.TryGetValue(npcDataHandle.rowName, out var characterInstance))
+                return null;
+
+            // Check to see if the character is the impostor
+            var bIsImpostor = characterInstance.characterType == CharacterType.Impostor;
+            var currentPool = bIsImpostor
+                ? characterData.impostorPoolAsset
+                : characterData.innocentPoolAsset;
+
+            if (!currentPool)
+                return null;
+
+            if (!gameMode.pawnToRoomMap.TryGetValue(this, out var currentRoom))
+                return null;
+
+            // Check to see if the character has already been interacted with while in this room.
+            characterInstance.hasCompletedFirstInteractionPerRoom.TryGetValue(
+                currentRoom,
+                out var bCompletedRoomInteraction
+            );
+
+            if (bCompletedRoomInteraction)
+                return currentPool.Data.randomInteractions.GetRandom();
+
+            return currentPool.Data.firstInteractionPerRoom[currentRoom];
         }
     }
 }

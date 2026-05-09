@@ -56,6 +56,15 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
             return index >= 0 && index < array.Length;
         }
 
+        public static T GetRandom<T>(this T[] array)
+        {
+            if (array == null || array.Length == 0)
+                return default;
+
+            var randomIndex = Random.Range(0, array.Length);
+            return array[randomIndex];
+        }
+
         public static TWeightedType GetRandomWeightedOption<TWeightedType>(this IEnumerable<TWeightedType> options)
             where TWeightedType : IWeightedSelection
         {

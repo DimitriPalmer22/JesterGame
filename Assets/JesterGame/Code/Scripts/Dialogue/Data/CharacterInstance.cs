@@ -1,4 +1,6 @@
 using System;
+using AYellowpaper.SerializedCollections;
+using JesterGame.Code.Scripts.Rooms;
 using NaughtyAttributes;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
@@ -29,12 +31,16 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
 
         [SerializeField] public int currentAffection;
 
+        [SerializedDictionary("Room Data Asset", "Has Completed First Interaction"), ReadOnly]
+        public readonly SerializedDictionary<RoomDataAsset, bool> hasCompletedFirstInteractionPerRoom;
+
         public CharacterInstance(DataTableRowHandle characterAsset, CharacterType characterType)
         {
             this.characterAsset = characterAsset;
             this.characterType = characterType;
             bIsAlive = true;
             currentAffection = 0;
+            hasCompletedFirstInteractionPerRoom = new SerializedDictionary<RoomDataAsset, bool>();
         }
     }
 }

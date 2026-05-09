@@ -30,7 +30,9 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         /// The dialogue pool to use for this character.
         /// This will determine the dialogue interactions that can occur with this character.
         /// </summary>
-        [SerializeField] public DialoguePoolDataAsset poolDataAsset;
+        [SerializeField] public DialoguePoolDataAsset innocentPoolAsset;
+
+        [SerializeField] public DialoguePoolDataAsset impostorPoolAsset;
 
 
         public string GetDataTableRowName => name;
