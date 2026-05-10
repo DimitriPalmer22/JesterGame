@@ -67,10 +67,6 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
                 return;
             }
 
-            // Validate the table first to make sure the data is up to date.
-            // This will log any errors with the table if there are any.
-            dataTable.ValidateTable();
-
             // Get all available row names
             var rowNames = dataTable.GetAllRowNames();
 
