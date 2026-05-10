@@ -13,9 +13,9 @@ namespace UnrealToUnity.Code.Scripts.Core.UserInterface
         /// </summary>
         [NonSerialized] protected internal bool hasBeenInstantiated = false;
 
-        [NonSerialized] protected readonly CancellationTokenSource instantiationCancelSource = new();
+        [NonSerialized] protected internal AsyncInstantiateOperation asyncInstantiationOp;
 
-        public abstract void InstantiateScreenAsync();
+        public abstract AsyncInstantiateOperation InstantiateScreenAsync();
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace UnrealToUnity.Code.Scripts.Core.UserInterface
             if (!hasBeenInstantiated)
             {
                 // Cancel any ongoing async instantiation, since we're doing a synchronous instantiation now.
-                instantiationCancelSource.Cancel();
+                asyncInstantiationOp?.Cancel();
                 SetInstantiatedScreen(Instantiate(screenPrefab));
             }
 
@@ -59,7 +59,7 @@ namespace UnrealToUnity.Code.Scripts.Core.UserInterface
             return _instantiatedScreen;
         }
 
-        public override void InstantiateScreenAsync()
+        public override AsyncInstantiateOperation InstantiateScreenAsync()
         {
             var instantiateParameters = new InstantiateParameters()
             {
@@ -71,11 +71,16 @@ namespace UnrealToUnity.Code.Scripts.Core.UserInterface
             // var asyncOp = InstantiateAsync(screenPrefab, instantiateParameters, instantiationCancelSource.Token);
             var asyncOp = InstantiateAsync(screenPrefab);
             asyncOp.completed += OnAsyncInstantiationComplete;
+
+            return asyncOp;
         }
 
         private void OnAsyncInstantiationComplete(AsyncOperation operation)
         {
             if (operation is not AsyncInstantiateOperation<TScreenType> castOperation)
+                return;
+
+            if (castOperation.Result == null || castOperation.Result.Length <= 0)
                 return;
 
             SetInstantiatedScreen(castOperation.Result[0]);

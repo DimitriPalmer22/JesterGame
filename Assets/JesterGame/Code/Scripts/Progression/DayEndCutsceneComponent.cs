@@ -24,9 +24,9 @@ namespace JesterGame.Code.Scripts.Progression
                 yield return new WaitForSecondsRealtime(screenFadeDelay);
             }
 
-            // Fade from black
-            if (dayProgressionScreenDataAsset)
-                yield return dayProgressionScreenDataAsset.CloseScreen();
+            // // Fade from black
+            // if (dayProgressionScreenDataAsset)
+            //     yield return dayProgressionScreenDataAsset.CloseScreen();
 
             // Re-enable input
             playerController?.RemoveInputBlocker(this);

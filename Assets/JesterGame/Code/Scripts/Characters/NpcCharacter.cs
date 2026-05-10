@@ -79,7 +79,7 @@ namespace JesterGame.Code.Scripts.Characters
             args.interactor.enabled = false;
 
             // Stop the current behavior coroutine
-            StopMainBehaviorCoroutine();
+            StopMainBehaviorCoroutine(false);
             agent.isStopped = true;
             var prevAcceleration = agent.acceleration;
             agent.acceleration = 10000;
@@ -108,7 +108,7 @@ namespace JesterGame.Code.Scripts.Characters
             // Restart the current behavior coroutine.
             agent.isStopped = false;
             agent.acceleration = prevAcceleration;
-            StartMainBehaviorCoroutine();
+            StartMainBehaviorCoroutine(false);
 
             // Re-activate the interaction helper component
             interactionHelperComponent.enabled = true;

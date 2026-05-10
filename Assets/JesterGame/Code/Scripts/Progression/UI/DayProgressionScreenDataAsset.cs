@@ -17,7 +17,7 @@ namespace JesterGame.Code.Scripts.Progression.UI
             if (!screen)
                 yield break;
 
-            yield return screen.StartCoroutine(screen.OpenScreen());
+            yield return screen.OpenScreen();
         }
 
         public IEnumerator CloseScreen()

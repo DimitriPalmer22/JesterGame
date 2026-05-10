@@ -2,6 +2,7 @@ using System.Collections;
 using JesterGame.Code.Scripts.Core;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Cutscenes;
+using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Progression
 {
@@ -9,7 +10,23 @@ namespace JesterGame.Code.Scripts.Progression
     {
         protected override IEnumerator CustomRunCutscene(ProgressionEventArgs cutsceneStruct)
         {
-            yield return null;
+            // Disable input while fading
+            var playerController = UtilLibrary.GetPlayerController();
+            playerController?.AddInputBlocker(this);
+
+            // // Fade to black
+            // if (dayProgressionScreenDataAsset)
+            // {
+            //     yield return dayProgressionScreenDataAsset.OpenScreen();
+            //     yield return new WaitForSecondsRealtime(screenFadeDelay);
+            // }
+
+            // Fade from black
+            if (dayProgressionScreenDataAsset)
+                yield return dayProgressionScreenDataAsset.CloseScreen();
+
+            // Re-enable input
+            playerController?.RemoveInputBlocker(this);
         }
     }
 }

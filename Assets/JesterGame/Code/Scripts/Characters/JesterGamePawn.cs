@@ -48,8 +48,6 @@ namespace JesterGame.Code.Scripts.Characters
         {
             base.CustomOnEnable();
 
-            StartMainBehaviorCoroutine();
-
             // Set the value in the map.
             if (UtilLibrary.GetGameMode(out ImpostorGameMode gameMode))
                 gameMode.characterNameToPawnMap[npcDataHandle.RowName] = this;
@@ -58,8 +56,6 @@ namespace JesterGame.Code.Scripts.Characters
         protected override void CustomOnDisable()
         {
             base.CustomOnDisable();
-
-            StopMainBehaviorCoroutine();
         }
 
         public bool TryGetCharacterData(out DialogueCharacter characterData)
@@ -120,15 +116,15 @@ namespace JesterGame.Code.Scripts.Characters
             _mainBehaviorCoroutine = null;
         }
 
-        public void StartMainBehaviorCoroutine()
+        public void StartMainBehaviorCoroutine(bool bClear)
         {
-            StopMainBehaviorCoroutine();
+            StopMainBehaviorCoroutine(bClear);
 
             if (bDoCharacterBehavior)
                 _mainBehaviorCoroutine = StartCoroutine(MainBehaviorCoroutine());
         }
 
-        public void StopMainBehaviorCoroutine()
+        public void StopMainBehaviorCoroutine(bool bClear)
         {
             if (_currentBehaviorCoroutine != null)
                 StopCoroutine(_currentBehaviorCoroutine);

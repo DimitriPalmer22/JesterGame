@@ -151,9 +151,6 @@ namespace JesterGame.Code.Scripts.Core
         {
             base.Start();
 
-            // Move each of the characters to a random point of interest at the start of the game.
-            MoveNpcsToRandomPointsOfInterest();
-
             // Set the progress to 0
             SetProgress(0);
 
@@ -325,7 +322,7 @@ namespace JesterGame.Code.Scripts.Core
 
         private void OnDebugTimeScaleChanged()
         {
-            // Get the time scale subsystem
+            // Get the timescale subsystem
             if (!UtilLibrary.GetSubsystem(out TimeScaleSubsystem timeScaleSubsystem))
                 return;
 
@@ -368,6 +365,30 @@ namespace JesterGame.Code.Scripts.Core
 
         #endregion
 
+        private void StopNpcBehaviors(bool bClear = true)
+        {
+            var validCharacters = characterNameToPawnMap.Values
+                .Where(n => n is NpcCharacter)
+                .Cast<NpcCharacter>()
+                .ToArray();
+
+
+            foreach (var npc in validCharacters)
+                npc.StopMainBehaviorCoroutine(bClear);
+        }
+
+        private void StartNpcBehaviors(bool bClear = true)
+        {
+            var validCharacters = characterNameToPawnMap.Values
+                .Where(n => n is NpcCharacter)
+                .Cast<NpcCharacter>()
+                .ToArray();
+
+
+            foreach (var npc in validCharacters)
+                npc.StartMainBehaviorCoroutine(bClear);
+        }
+
         private IEnumerator GameLoop()
         {
             // TODO: Intro cutscene.
@@ -375,6 +396,11 @@ namespace JesterGame.Code.Scripts.Core
             for (currentDayIndex = 0; currentDayIndex < dayProgressions.Length; currentDayIndex++)
             {
                 var currentDay = dayProgressions[currentDayIndex];
+
+                #region Intro Cutscene
+
+                // Move each of the characters to a random point of interest at the start of the game.
+                MoveNpcsToRandomPointsOfInterest();
 
                 // Yield the day start cutscene
                 if (currentDay.dayStartCutscene)
@@ -390,12 +416,26 @@ namespace JesterGame.Code.Scripts.Core
 
                 Debug.Log($"Day #{currentDayIndex} - Day Start Cutscene Finished!");
 
+                #endregion
+
+                #region Free Roam Phase
+
+                // Start the NPC coroutines
+                StartNpcBehaviors(true);
+
                 // Yield the free roam phase (all progression is done for the day)
                 freeRoamPhaseYield.Reset();
                 freeRoamPhaseYield.StartYield();
                 yield return freeRoamPhaseYield;
 
                 Debug.Log($"Day #{currentDayIndex} - Free Roam Phase Finished!");
+
+                #endregion
+
+                #region Day End Cutscene
+
+                // Stop the NPC behaviors
+                StopNpcBehaviors(false);
 
                 // Yield the day end cutscene
                 if (currentDay.dayEndCutscene)
@@ -411,9 +451,15 @@ namespace JesterGame.Code.Scripts.Core
 
                 Debug.Log($"Day #{currentDayIndex} - Day End Cutscene Finished!");
 
+                #endregion
+
+                #region Death Cutscene
+
                 // TODO: Yield the someone dies cutscene
 
                 yield return null;
+
+                #endregion
 
                 // Increment the day index and call the day progressed event.
                 var previousProgress = currentInteractionProgression;

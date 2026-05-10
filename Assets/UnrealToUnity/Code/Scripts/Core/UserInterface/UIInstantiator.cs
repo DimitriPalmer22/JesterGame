@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using JesterGame.Code.Scripts.Core;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Utility;
@@ -23,7 +24,7 @@ namespace UnrealToUnity.Code.Scripts.Core.UserInterface
                 if (!uiDataAsset || uiDataAsset.hasBeenInstantiated)
                     continue;
 
-                uiDataAsset.InstantiateScreenAsync();
+                uiDataAsset.asyncInstantiationOp = uiDataAsset.InstantiateScreenAsync();
             }
         }
 
