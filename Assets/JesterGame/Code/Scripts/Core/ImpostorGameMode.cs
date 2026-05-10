@@ -22,8 +22,18 @@ namespace JesterGame.Code.Scripts.Core
     {
         #region Inspector Fields
 
-        [SerializeField, ReadOnly, Label("Impostor Name"), BoxGroup("Debug")]
+        [SerializeField, ReadOnly, Label("Impostor Name"), Foldout("Read Only")]
         private string impostorRowName;
+
+        [SerializedDictionary("Character Name", "Character Instance"), ReadOnly, Foldout("Read Only")]
+        public SerializedDictionary<string, CharacterInstance> characterInstanceMap = new();
+
+        [SerializedDictionary("Room Data Asset", "Level Manager"), ReadOnly, Foldout("Read Only")]
+        public SerializedDictionary<RoomDataAsset, JesterLevelManager> roomToLevelManagerMap = new();
+
+        [SerializedDictionary("Pawn", "Room Data Asset"), ReadOnly, Foldout("Read Only")]
+        public SerializedDictionary<JesterGamePawn, RoomDataAsset> pawnToRoomMap = new();
+
 
         [SerializeField, BoxGroup("Progression")]
         public DayProgressionStruct[] dayProgressions;
@@ -47,18 +57,9 @@ namespace JesterGame.Code.Scripts.Core
 
         [SerializeField] private DataTable<DialogueCharacter> characterDataTable;
 
-        [SerializeField] public UnityEvent<AffectionEventArgs> onAffectionChanged;
-        [SerializeField] public UnityEvent<ProgressionEventArgs> onProgressionChanged;
-        [SerializeField] public UnityEvent<ProgressionEventArgs> onDayProgressed;
-
-        [SerializedDictionary("Character Name", "Character Instance"), ReadOnly]
-        public SerializedDictionary<string, CharacterInstance> characterInstanceMap = new();
-
-        [SerializedDictionary("Room Data Asset", "Level Manager"), ReadOnly]
-        public SerializedDictionary<RoomDataAsset, JesterLevelManager> roomToLevelManagerMap = new();
-
-        [SerializedDictionary("Pawn", "Room Data Asset"), ReadOnly]
-        public SerializedDictionary<JesterGamePawn, RoomDataAsset> pawnToRoomMap = new();
+        [SerializeField, Foldout("Progression Events")] public UnityEvent<AffectionEventArgs> onAffectionChanged;
+        [SerializeField, Foldout("Progression Events")] public UnityEvent<ProgressionEventArgs> onProgressionChanged;
+        [SerializeField, Foldout("Progression Events")] public UnityEvent<ProgressionEventArgs> onDayProgressed;
 
         [NonSerialized] public readonly SerializedDictionary<string, JesterGamePawn> characterNameToPawnMap = new();
 
