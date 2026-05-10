@@ -73,6 +73,10 @@ namespace JesterGame.Code.Scripts.Core
 
         [NonSerialized] public readonly SerializedDictionary<string, JesterGamePawn> characterNameToPawnMap = new();
 
+        [NonSerialized] private readonly ManualYield freeRoamPhaseYield = new();
+
+        [NonSerialized] private Coroutine gameLoopCoroutine;
+
         #region Properties
 
         public int GetMaxDays => dayProgressions.Length;
@@ -152,6 +156,9 @@ namespace JesterGame.Code.Scripts.Core
 
             // Set the progress to 0
             SetProgress(0);
+
+            // Start the game loop coroutine
+            gameLoopCoroutine = StartCoroutine(GameLoop());
         }
 
         #region Progress Functions
@@ -201,13 +208,16 @@ namespace JesterGame.Code.Scripts.Core
             if (args.currentProgress < GetCurrentMaxProgressions())
                 return;
 
-            // Increment the day index and call the day progressed event.
-            currentDayIndex += 1;
-            onDayProgressed?.Invoke(
-                new ProgressionEventArgs(args.previousProgress, args.currentProgress, currentDayIndex));
+            // Reset the manual yield for the free roam phase
+            freeRoamPhaseYield.Reset();
 
-            // Reset the interaction progress.
-            currentInteractionProgression = 0;
+            // // Increment the day index and call the day progressed event.
+            // currentDayIndex += 1;
+            // onDayProgressed?.Invoke(
+            //     new ProgressionEventArgs(args.previousProgress, args.currentProgress, currentDayIndex));
+            //
+            // // Reset the interaction progress.
+            // currentInteractionProgression = 0;
         }
 
         public void LogProgress_Event(ProgressionEventArgs args)
@@ -218,39 +228,6 @@ namespace JesterGame.Code.Scripts.Core
         public void OnDayProgressed_Event(ProgressionEventArgs args)
         {
             Debug.Log($"Day progressed to {args.currentDay}!");
-            StartCoroutine(DayProgressedCoroutine(args));
-        }
-
-        private IEnumerator DayProgressedCoroutine(ProgressionEventArgs args)
-        {
-            // Try to play the previous day end's cutscene
-            var previousDay = args.currentDay - 1;
-            if (previousDay >= 0 && dayProgressions.IsValidIndex(previousDay))
-            {
-                var previousDayStruct = dayProgressions[previousDay];
-
-                // yield the cutscene with events
-                yield return PlayDayCutsceneWithEvents(
-                    previousDayStruct.dayEndCutscene,
-                    previousDayStruct.dayEndEvents,
-                    args
-                );
-            }
-
-            // Try to play the current day start's cutscene
-            var currentDay = args.currentDay;
-            if (currentDay >= 0 && dayProgressions.IsValidIndex(currentDay))
-            {
-                var currentDayStruct = dayProgressions[currentDay];
-
-                yield return PlayDayCutsceneWithEvents(
-                    currentDayStruct.dayStartCutscene,
-                    currentDayStruct.dayStartEvents,
-                    args
-                );
-            }
-
-            yield return null;
         }
 
         #endregion
@@ -390,5 +367,63 @@ namespace JesterGame.Code.Scripts.Core
         }
 
         #endregion
+
+        private IEnumerator GameLoop()
+        {
+            // TODO: Intro cutscene.
+
+            for (currentDayIndex = 0; currentDayIndex < dayProgressions.Length; currentDayIndex++)
+            {
+                var currentDay = dayProgressions[currentDayIndex];
+
+                // Yield the day start cutscene
+                if (currentDay.dayStartCutscene)
+                {
+                    var currentProgressionArgs = new ProgressionEventArgs
+                    {
+                        currentDay = currentDayIndex,
+                        currentProgress = 0,
+                        previousProgress = 0
+                    };
+                    yield return currentDay.dayStartCutscene.OngoingCoroutine(currentProgressionArgs);
+                }
+
+                Debug.Log($"Day #{currentDayIndex} - Day Start Cutscene Finished!");
+
+                // Yield the free roam phase (all progression is done for the day)
+                freeRoamPhaseYield.Reset();
+                freeRoamPhaseYield.StartYield();
+                yield return freeRoamPhaseYield;
+
+                Debug.Log($"Day #{currentDayIndex} - Free Roam Phase Finished!");
+
+                // Yield the day end cutscene
+                if (currentDay.dayEndCutscene)
+                {
+                    var currentProgressionArgs = new ProgressionEventArgs
+                    {
+                        currentDay = currentDayIndex,
+                        currentProgress = currentDay.numProgressionsInDay,
+                        previousProgress = currentDay.numProgressionsInDay - 1
+                    };
+                    yield return currentDay.dayEndCutscene.OngoingCoroutine(currentProgressionArgs);
+                }
+
+                Debug.Log($"Day #{currentDayIndex} - Day End Cutscene Finished!");
+
+                // TODO: Yield the someone dies cutscene
+
+                yield return null;
+
+                // Increment the day index and call the day progressed event.
+                var previousProgress = currentInteractionProgression;
+                currentInteractionProgression = 0;
+                onDayProgressed?.Invoke(
+                    new ProgressionEventArgs(previousProgress, currentInteractionProgression, currentDayIndex + 1)
+                );
+            }
+
+            yield break;
+        }
     }
 }

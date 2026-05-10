@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace UnrealToUnity.Code.Scripts.Core.Cutscenes
 {
@@ -13,6 +14,6 @@ namespace UnrealToUnity.Code.Scripts.Core.Cutscenes
         /// A custom yield instruction that can be used to wait for the cutscene to finish.
         /// To be used externally.
         /// </summary>
-        public WaitForCutsceneFinish CutsceneFinishYield { get; } = new();
+        public ManualYield CutsceneFinishYield { get; } = new();
     }
 }

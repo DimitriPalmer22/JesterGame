@@ -29,7 +29,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Cutscenes
             // Invoke the start event.
             onCutsceneStarted?.Invoke(pawn);
 
-            CutsceneFinishYield.StartCutscene();
+            CutsceneFinishYield.StartYield();
 
             // Yield for the custom cutscene code.
             cutsceneCoroutine = StartCoroutine(CustomRunCutscene(pawn));
