@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using JesterGame.Code.Scripts.Core;
 using JesterGame.Code.Scripts.Core.Interaction;
 using JesterGame.Code.Scripts.Dialogue.Data;
@@ -156,8 +157,11 @@ namespace JesterGame.Code.Scripts.Characters
                 out var bCompletedRoomInteraction
             );
 
+            // TODO: Remove the dialogue lines that have already been played!!!
             if (bCompletedRoomInteraction)
-                return currentPool.Data.randomInteractions.GetRandom();
+                return currentPool.Data.randomInteractions
+                    .Where(n => n != null)
+                    .GetRandom();
 
             return currentPool.Data.firstInteractionPerRoom[currentRoom];
         }
