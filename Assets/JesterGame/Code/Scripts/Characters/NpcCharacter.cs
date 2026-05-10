@@ -46,7 +46,7 @@ namespace JesterGame.Code.Scripts.Characters
         {
             // If this is the impostor, apply the impostor material to the renderer
             if (UtilLibrary.GetGameMode(out ImpostorGameMode gameMode) &&
-                gameMode.GetCharacterInstance(npcDataHandle.rowName, out var characterInstance) &&
+                gameMode.GetCharacterInstance(npcDataHandle.RowName, out var characterInstance) &&
                 characterInstance.characterType == CharacterType.Impostor
                )
             {
@@ -99,9 +99,9 @@ namespace JesterGame.Code.Scripts.Characters
                     gameMode.pawnToRoomMap.TryGetValue(this, out var currentRoom)
                 )
                 {
-                    var characterInstance = gameMode.characterInstanceMap[npcDataHandle.rowName];
+                    var characterInstance = gameMode.characterInstanceMap[npcDataHandle.RowName];
                     characterInstance.hasCompletedFirstInteractionPerRoom[currentRoom] = true;
-                    gameMode.characterInstanceMap[npcDataHandle.rowName] = characterInstance;
+                    gameMode.characterInstanceMap[npcDataHandle.RowName] = characterInstance;
                 }
             }
 
@@ -123,7 +123,7 @@ namespace JesterGame.Code.Scripts.Characters
         {
             if (dialogueScreenDataAsset)
                 yield return StartCoroutine(
-                    dialogueScreenDataAsset.RunDialogueScreen(npcDataHandle.rowName, dialogueGraph)
+                    dialogueScreenDataAsset.RunDialogueScreen(npcDataHandle.RowName, dialogueGraph)
                 );
 
             yield return null;
@@ -135,7 +135,7 @@ namespace JesterGame.Code.Scripts.Characters
             if (!UtilLibrary.GetGameMode(out ImpostorGameMode gameMode))
                 return null;
 
-            if (!gameMode.characterInstanceMap.TryGetValue(npcDataHandle.rowName, out var characterInstance))
+            if (!gameMode.characterInstanceMap.TryGetValue(npcDataHandle.RowName, out var characterInstance))
                 return null;
 
             // Check to see if the character is the impostor

@@ -33,8 +33,5 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         [SerializeField] public DialoguePoolDataAsset innocentPoolAsset;
 
         [SerializeField] public DialoguePoolDataAsset impostorPoolAsset;
-
-
-        public string GetDataTableRowName => name;
     }
 }

@@ -52,7 +52,7 @@ namespace JesterGame.Code.Scripts.Characters
 
             // Set the value in the map.
             if (UtilLibrary.GetGameMode(out ImpostorGameMode gameMode))
-                gameMode.characterNameToPawnMap[npcDataHandle.rowName] = this;
+                gameMode.characterNameToPawnMap[npcDataHandle.RowName] = this;
         }
 
         protected override void CustomOnDisable()
@@ -150,7 +150,7 @@ namespace JesterGame.Code.Scripts.Characters
             if (!UtilLibrary.GetGameMode(out ImpostorGameMode gameMode))
                 return false;
 
-            if (!gameMode.characterInstanceMap.TryGetValue(characterData.name, out var characterInstanceData))
+            if (!gameMode.characterInstanceMap.TryGetValue(npcDataHandle.RowName, out var characterInstanceData))
                 return false;
 
             brain = characterInstanceData.characterType switch

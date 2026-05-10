@@ -97,7 +97,7 @@ namespace JesterGame.Code.Scripts.Core
             if (characterDataTable)
             {
                 foreach (var rowHandle in characterDataTable.GetAllRowHandles())
-                    characterInstanceMap[rowHandle.rowName] = new CharacterInstance(rowHandle, CharacterType.Normal);
+                    characterInstanceMap[rowHandle.RowName] = new CharacterInstance(rowHandle, CharacterType.Normal);
             }
 
             var validImpostors = characterInstanceMap
@@ -119,11 +119,11 @@ namespace JesterGame.Code.Scripts.Core
                 }
 
                 // Set the impostor.
-                characterInstanceMap[characterInstance.characterAsset.rowName] =
+                characterInstanceMap[characterInstance.characterAsset.RowName] =
                     new CharacterInstance(characterInstance.characterAsset, CharacterType.Impostor);
-                impostorRowName = characterInstance.characterAsset.rowName;
+                impostorRowName = characterInstance.characterAsset.RowName;
 
-                Debug.Log($"The impostor is {characterInstance.characterAsset.rowName}!");
+                Debug.Log($"The impostor is {characterInstance.characterAsset.RowName}!");
 
                 break;
             }
