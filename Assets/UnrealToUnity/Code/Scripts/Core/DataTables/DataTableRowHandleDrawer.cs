@@ -3,8 +3,7 @@ using UnityEngine;
 
 namespace UnrealToUnity.Code.Scripts.Core.DataTables
 {
-    [CustomPropertyDrawer(typeof(DataTableRowHandle))]
-    public class DataTableRowHandleDrawer : PropertyDrawer
+    public abstract class AbstractDataTableRowHandleDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -99,5 +98,15 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
                     : string.Empty;
             }
         }
+    }
+
+    [CustomPropertyDrawer(typeof(DataTableRowHandle))]
+    public class DataTableRowHandleDrawer : AbstractDataTableRowHandleDrawer
+    {
+    }
+
+    [CustomPropertyDrawer(typeof(DataTableRowHandle<>))]
+    public class GenericDataTableRowHandleDrawer : AbstractDataTableRowHandleDrawer
+    {
     }
 }

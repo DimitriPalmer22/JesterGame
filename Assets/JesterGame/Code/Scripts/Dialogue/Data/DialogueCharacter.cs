@@ -6,7 +6,7 @@ using UnrealToUnity.Code.Scripts.Core.DataTables;
 namespace JesterGame.Code.Scripts.Dialogue.Data
 {
     [Serializable]
-    public struct DialogueCharacter : IDataTableRow
+    public struct DialogueCharacter
     {
         /// <summary>
         /// The display name of the character.

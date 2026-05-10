@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
@@ -9,6 +10,7 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
     public abstract class PointOfInterest : MonoBehaviour, ICharacterBehavior
     {
         [SerializeField] private Transform pointTransform;
+        [SerializeField] private DataTableRowHandle pointOfInterestDataHandle;
 
         /// <summary>
         /// Move toward this point of interest.
