@@ -12,7 +12,7 @@ namespace JesterGame.Code.Scripts.Core
         [SerializeField] private RoomDataAsset roomDataAsset;
         [SerializeField] private PointOfInterest[] pointsOfInterest;
 
-        private void Start()
+        private void OnEnable()
         {
             // Add this to the room data map
             if (UtilLibrary.GetGameMode(out ImpostorGameMode gameMode) && roomDataAsset)

@@ -15,7 +15,7 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
     }
 
     [Serializable]
-    public struct DataTableRowHandle : IDataTableRowHandle
+    public struct DataTableRowHandle : IDataTableRowHandle, IEquatable<DataTableRowHandle>
     {
         [SerializeField] public DataTableBase dataTable;
         [SerializeField] public string rowName;
@@ -60,10 +60,40 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
 
             return false;
         }
+
+        public static implicit operator DataTableRowHandle(DataTableRowHandle<DataTableBase> handle)
+        {
+            return new DataTableRowHandle(handle.dataTable, handle.rowName);
+        }
+
+        public static bool operator ==(DataTableRowHandle handle1, DataTableRowHandle handle2)
+        {
+            return Equals(handle1, handle2);
+        }
+
+        public static bool operator !=(DataTableRowHandle handle1, DataTableRowHandle handle2)
+        {
+            return !(handle1 == handle2);
+        }
+
+        public bool Equals(DataTableRowHandle other)
+        {
+            return Equals(dataTable, other.dataTable) && rowName == other.rowName;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is DataTableRowHandle other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(dataTable, rowName);
+        }
     }
 
     [Serializable]
-    public struct DataTableRowHandle<TTableType> : IDataTableRowHandle
+    public struct DataTableRowHandle<TTableType> : IDataTableRowHandle, IEquatable<DataTableRowHandle<TTableType>>
     {
         [SerializeField] public DataTable<TTableType> dataTable;
         [SerializeField] public string rowName;
@@ -108,6 +138,31 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
                 Debug.LogError($"Data table `{dataTable.name}` is not of type `{typeof(TType).Name}`!");
 
             return false;
+        }
+
+        public static bool operator ==(DataTableRowHandle<TTableType> handle1, DataTableRowHandle<TTableType> handle2)
+        {
+            return Equals(handle1, handle2);
+        }
+
+        public static bool operator !=(DataTableRowHandle<TTableType> handle1, DataTableRowHandle<TTableType> handle2)
+        {
+            return !(handle1 == handle2);
+        }
+
+        public bool Equals(DataTableRowHandle<TTableType> other)
+        {
+            return Equals(dataTable, other.dataTable) && rowName == other.rowName;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is DataTableRowHandle<TTableType> other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(dataTable, rowName);
         }
     }
 }

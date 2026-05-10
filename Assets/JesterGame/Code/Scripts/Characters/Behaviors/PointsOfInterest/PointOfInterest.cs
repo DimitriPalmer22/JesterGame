@@ -12,6 +12,8 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
         [SerializeField] private Transform pointTransform;
         [SerializeField] private DataTableRowHandle pointOfInterestDataHandle;
 
+        public DataTableRowHandle PointOfInterestDataHandle => pointOfInterestDataHandle;
+
         /// <summary>
         /// Move toward this point of interest.
         /// Then, do whatever at the point of interest.

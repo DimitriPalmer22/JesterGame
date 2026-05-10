@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
 using JesterGame.Code.Scripts.Characters;
+using JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Progression;
 using JesterGame.Code.Scripts.Rooms;
@@ -58,84 +60,18 @@ namespace JesterGame.Code.Scripts.Core
         [SerializedDictionary("Pawn", "Room Data Asset"), ReadOnly]
         public SerializedDictionary<JesterGamePawn, RoomDataAsset> pawnToRoomMap = new();
 
-        #endregion
-
         [NonSerialized] public readonly SerializedDictionary<string, JesterGamePawn> characterNameToPawnMap = new();
 
+        #endregion
+
+
+        #region Properties
+
+        public int GetMaxDays => dayProgressions.Length;
+
+        #endregion
+
         #region Functions
-
-        #region Progress Functions
-
-        public void SetProgress(int progress)
-        {
-            // If the new progress is out of bounds, return.
-            if (progress < 0 || progress > GetCurrentMaxProgressions())
-                return;
-
-            // If the current day index is NOT valid, return
-            if (!dayProgressions.IsValidIndex(currentDayIndex))
-                return;
-
-            var prevProgress = currentInteractionProgression;
-            currentInteractionProgression = progress;
-
-            // Only invoke the event if the progress has actually changed.
-            if (prevProgress != currentInteractionProgression)
-            {
-                // Create the progression args
-                var args = new ProgressionEventArgs(prevProgress, progress, currentDayIndex);
-                onProgressionChanged?.Invoke(args);
-            }
-
-            // TODO: Maybe have some different event for when the progress is reset.
-        }
-
-        [Button(enabledMode: EButtonEnableMode.Playmode)]
-        public void IncrementProgress() => SetProgress(currentInteractionProgression + 1);
-
-        [Button(enabledMode: EButtonEnableMode.Playmode)]
-        public void DecrementProgress() => SetProgress(currentInteractionProgression - 1);
-
-        public void CheckDayProgression(ProgressionEventArgs args)
-        {
-            if (args.currentProgress < GetCurrentMaxProgressions())
-                return;
-
-            // Increment the day index and call the day progressed event.
-            currentDayIndex += 1;
-            onDayProgressed?.Invoke(
-                new ProgressionEventArgs(args.previousProgress, args.currentProgress, currentDayIndex));
-
-            // Reset the interaction progress.
-            currentInteractionProgression = 0;
-        }
-
-        public void LogProgress_Event(ProgressionEventArgs args)
-        {
-            Debug.Log($"Progression from {args.previousProgress} to {args.currentProgress}");
-        }
-
-        public void ModifyCharacterAffection(string characterName, int affectionValue)
-        {
-            if (!characterInstanceMap.TryGetValue(characterName, out var characterInstance))
-                return;
-
-            characterInstance.currentAffection += affectionValue;
-
-            // Update the value within the map
-            characterInstanceMap[characterName] = characterInstance;
-
-            // Create affection event args
-            var affectionEventArgs =
-                new AffectionEventArgs(characterName, characterInstance.currentAffection, affectionValue);
-
-            // Broadcast affection event here.
-            onAffectionChanged?.Invoke(affectionEventArgs);
-        }
-
-        #endregion
-
-        #endregion
 
         #region Awake
 
@@ -207,14 +143,7 @@ namespace JesterGame.Code.Scripts.Core
             SetProgress(0);
         }
 
-        public void LogAffectionStatus(AffectionEventArgs args)
-        {
-            // Return if no change.
-            if (args.affectionDelta == 0)
-                return;
-
-            Debug.Log($"{args.characterName}'s affection is now {args.affectionValue} ({args.affectionDelta})");
-        }
+        #region Progress Functions
 
         public int GetCurrentMaxProgressions()
         {
@@ -225,7 +154,55 @@ namespace JesterGame.Code.Scripts.Core
             return dayProgressions[validDayIndex].numProgressionsInDay;
         }
 
-        public int GetMaxDays => dayProgressions.Length;
+
+        public void SetProgress(int progress)
+        {
+            // If the new progress is out of bounds, return.
+            if (progress < 0 || progress > GetCurrentMaxProgressions())
+                return;
+
+            // If the current day index is NOT valid, return
+            if (!dayProgressions.IsValidIndex(currentDayIndex))
+                return;
+
+            var prevProgress = currentInteractionProgression;
+            currentInteractionProgression = progress;
+
+            // Only invoke the event if the progress has actually changed.
+            if (prevProgress != currentInteractionProgression)
+            {
+                // Create the progression args
+                var args = new ProgressionEventArgs(prevProgress, progress, currentDayIndex);
+                onProgressionChanged?.Invoke(args);
+            }
+
+            // TODO: Maybe have some different event for when the progress is reset.
+        }
+
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
+        public void IncrementProgress() => SetProgress(currentInteractionProgression + 1);
+
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
+        public void DecrementProgress() => SetProgress(currentInteractionProgression - 1);
+
+        public void CheckDayProgression(ProgressionEventArgs args)
+        {
+            if (args.currentProgress < GetCurrentMaxProgressions())
+                return;
+
+            // Increment the day index and call the day progressed event.
+            currentDayIndex += 1;
+            onDayProgressed?.Invoke(
+                new ProgressionEventArgs(args.previousProgress, args.currentProgress, currentDayIndex));
+
+            // Reset the interaction progress.
+            currentInteractionProgression = 0;
+        }
+
+        public void LogProgress_Event(ProgressionEventArgs args)
+        {
+            Debug.Log($"Progression from {args.previousProgress} to {args.currentProgress}");
+        }
 
         public void OnDayProgressed_Event(ProgressionEventArgs args)
         {
@@ -263,6 +240,35 @@ namespace JesterGame.Code.Scripts.Core
             }
 
             yield return null;
+        }
+
+        #endregion
+
+        public void ModifyCharacterAffection(string characterName, int affectionValue)
+        {
+            if (!characterInstanceMap.TryGetValue(characterName, out var characterInstance))
+                return;
+
+            characterInstance.currentAffection += affectionValue;
+
+            // Update the value within the map
+            characterInstanceMap[characterName] = characterInstance;
+
+            // Create affection event args
+            var affectionEventArgs =
+                new AffectionEventArgs(characterName, characterInstance.currentAffection, affectionValue);
+
+            // Broadcast affection event here.
+            onAffectionChanged?.Invoke(affectionEventArgs);
+        }
+
+        public void LogAffectionStatus(AffectionEventArgs args)
+        {
+            // Return if no change.
+            if (args.affectionDelta == 0)
+                return;
+
+            Debug.Log($"{args.characterName}'s affection is now {args.affectionValue} ({args.affectionDelta})");
         }
 
         private IEnumerator PlayDayCutsceneWithEvents(
@@ -305,6 +311,29 @@ namespace JesterGame.Code.Scripts.Core
         {
             return characterNameToPawnMap.TryGetValue(characterName, out pawn);
         }
+
+        #endregion
+
+        #region Point of Interest Functions
+
+        /// <summary>
+        /// A function that goes through each of the active levels and returns all the registered points of interest from each.
+        /// </summary>
+        /// <returns></returns>
+        public PointOfInterest[] GetAllPointsOfInterest()
+        {
+            return roomToLevelManagerMap.Values.SelectMany(room => room.GetAllPointsOfInterest().Where(n => n != null))
+                .ToArray();
+        }
+
+        public PointOfInterest GetPointOfInterestByRowHandle(DataTableRowHandle rowHandle)
+        {
+            var allPoints = GetAllPointsOfInterest();
+
+            return allPoints.FirstOrDefault(poi => poi.PointOfInterestDataHandle == rowHandle);
+        }
+
+        #endregion
 
         #endregion
     }
