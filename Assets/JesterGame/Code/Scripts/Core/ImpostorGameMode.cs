@@ -23,6 +23,8 @@ namespace JesterGame.Code.Scripts.Core
     {
         #region Inspector Fields
 
+        [SerializeField] private EnsureSubscenesLoaded ensureSubscenesLoadedComponent;
+
         [SerializeField, Foldout("Debug"), Delayed, OnValueChanged(nameof(OnDebugTimeScaleChanged))]
         private float debugTimeScale = 1f;
 
@@ -149,6 +151,9 @@ namespace JesterGame.Code.Scripts.Core
 
         protected override void Start()
         {
+            if (ensureSubscenesLoadedComponent)
+                ensureSubscenesLoadedComponent.LoadScenes();
+
             base.Start();
 
             // Set the progress to 0

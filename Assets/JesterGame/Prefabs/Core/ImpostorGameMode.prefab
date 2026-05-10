@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4640229314338223285}
   - component: {fileID: 6286514807522637335}
   - component: {fileID: 8232573044728332250}
+  - component: {fileID: 4066477966986930855}
   m_Layer: 0
   m_Name: ImpostorGameMode
   m_TagString: Untagged
@@ -52,7 +53,15 @@ MonoBehaviour:
     playerControllerPrefab: {fileID: 6936015359185284266, guid: 34368a966f99c4543b21a6ce4e9560a0, type: 3}
     pawnPrefab: {fileID: -8877130054480770675, guid: 236d7f4b02e805c4385d7f02fe607ec3, type: 3}
     cheatMenuPrefab: {fileID: 1396427182263401920, guid: 66054ff409ad87b4bbbcc2b8ae97a927, type: 3}
+  ensureSubscenesLoadedComponent: {fileID: 4066477966986930855}
+  debugTimeScale: 1
   impostorRowName: 
+  characterInstanceMap:
+    _serializedList: []
+  roomToLevelManagerMap:
+    _serializedList: []
+  pawnToRoomMap:
+    _serializedList: []
   dayProgressions:
   - numProgressionsInDay: 5
     dayStartEvents:
@@ -187,8 +196,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  characterInstanceMap:
-    _serializedList: []
 --- !u!114 &4640229314338223285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,3 +248,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnrealToUnity.Code.Scripts.Core.UserInterface.UIInstantiatorComponent
   uiInstantiator: {fileID: 11400000, guid: 622d8956513486640ba514cab9a49a2b, type: 2}
+--- !u!114 &4066477966986930855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680658913375508802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035abc3904f24232a0594f4499ee1f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnrealToUnity.Code.Scripts.Core.Utility.EnsureSubscenesLoaded
+  bLoadOnAwake: 0
+  mainScene:
+    asset: {fileID: 0}
+    guid: 00000000000000000000000000000000
+  subscenesToLoad: []
