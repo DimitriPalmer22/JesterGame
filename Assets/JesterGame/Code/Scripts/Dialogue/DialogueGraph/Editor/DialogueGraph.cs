@@ -102,6 +102,10 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor
                 if (item == null)
                     continue;
 
+                // If the value is not null, continue
+                if (loadedAsset.Data.firstInteractionPerRoom[item] != null)
+                    continue;
+
                 var graphName = $"{folderPath}/{dialogueGraphPrefix}{baseAssetName}_{item.roomName}.{ASSET_EXTENSION}";
                 var createdGraph = CreateOrLoadGraph(graphName);
                 var runtimeGraph = AssetDatabase.LoadAssetAtPath<RuntimeDialogueGraph>(graphName);
@@ -112,6 +116,10 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor
             // Create graphs for each place in the random list;
             for (var i = 0; i < loadedAsset.Data.randomInteractions.Length; i++)
             {
+                // If the spot is already filled, continue
+                if (loadedAsset.Data.randomInteractions[i] != null)
+                    continue;
+
                 var graphName = $"{folderPath}/{dialogueGraphPrefix}{baseAssetName}_Rand_{i}.{ASSET_EXTENSION}";
                 var createdGraph = CreateOrLoadGraph(graphName);
                 var runtimeGraph = AssetDatabase.LoadAssetAtPath<RuntimeDialogueGraph>(graphName);
