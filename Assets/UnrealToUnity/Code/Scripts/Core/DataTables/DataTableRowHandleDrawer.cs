@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEngine;
 
@@ -110,3 +112,5 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
     {
     }
 }
+
+#endif
