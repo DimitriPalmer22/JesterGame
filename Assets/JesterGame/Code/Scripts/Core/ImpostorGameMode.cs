@@ -64,7 +64,6 @@ namespace JesterGame.Code.Scripts.Core
 
         #endregion
 
-
         #region Properties
 
         public int GetMaxDays => dayProgressions.Length;
