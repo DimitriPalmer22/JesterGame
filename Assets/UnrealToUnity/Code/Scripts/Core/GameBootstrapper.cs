@@ -16,7 +16,8 @@ namespace UnrealToUnity.Code.Scripts.Core
             var startupSubsystems = new UnrealSubsystem[]
             {
                 new GameInstanceSubsystem(),
-                new UISubsystem()
+                new UISubsystem(),
+                new TimeScaleSubsystem()
             };
 
             foreach (var startupSubsystem in startupSubsystems)

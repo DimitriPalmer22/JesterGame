@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
 using JesterGame.Code.Scripts.Characters;
@@ -14,6 +13,7 @@ using UnityEngine.Events;
 using UnrealToUnity.Code.Scripts.Core.Cutscenes;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.GameMode;
+using UnrealToUnity.Code.Scripts.Core.Subsystems;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Core
@@ -21,6 +21,9 @@ namespace JesterGame.Code.Scripts.Core
     public class ImpostorGameMode : GameMode
     {
         #region Inspector Fields
+
+        [SerializeField, Foldout("Debug"), Delayed, OnValueChanged(nameof(OnDebugTimeScaleChanged))]
+        private float debugTimeScale = 1f;
 
         [SerializeField, ReadOnly, Label("Impostor Name"), Foldout("Read Only")]
         private string impostorRowName;
@@ -33,7 +36,6 @@ namespace JesterGame.Code.Scripts.Core
 
         [SerializedDictionary("Pawn", "Room Data Asset"), ReadOnly, Foldout("Read Only")]
         public SerializedDictionary<JesterGamePawn, RoomDataAsset> pawnToRoomMap = new();
-
 
         [SerializeField, BoxGroup("Progression")]
         public DayProgressionStruct[] dayProgressions;
@@ -57,13 +59,18 @@ namespace JesterGame.Code.Scripts.Core
 
         [SerializeField] private DataTable<DialogueCharacter> characterDataTable;
 
-        [SerializeField, Foldout("Progression Events")] public UnityEvent<AffectionEventArgs> onAffectionChanged;
-        [SerializeField, Foldout("Progression Events")] public UnityEvent<ProgressionEventArgs> onProgressionChanged;
-        [SerializeField, Foldout("Progression Events")] public UnityEvent<ProgressionEventArgs> onDayProgressed;
+        [SerializeField, Foldout("Progression Events")]
+        public UnityEvent<AffectionEventArgs> onAffectionChanged;
 
-        [NonSerialized] public readonly SerializedDictionary<string, JesterGamePawn> characterNameToPawnMap = new();
+        [SerializeField, Foldout("Progression Events")]
+        public UnityEvent<ProgressionEventArgs> onProgressionChanged;
+
+        [SerializeField, Foldout("Progression Events")]
+        public UnityEvent<ProgressionEventArgs> onDayProgressed;
 
         #endregion
+
+        [NonSerialized] public readonly SerializedDictionary<string, JesterGamePawn> characterNameToPawnMap = new();
 
         #region Properties
 
@@ -334,6 +341,15 @@ namespace JesterGame.Code.Scripts.Core
         }
 
         #endregion
+
+        private void OnDebugTimeScaleChanged()
+        {
+            // Get the time scale subsystem
+            if (!UtilLibrary.GetSubsystem(out TimeScaleSubsystem timeScaleSubsystem))
+                return;
+
+            timeScaleSubsystem.SetDebugSpeed(debugTimeScale);
+        }
 
         #endregion
     }
