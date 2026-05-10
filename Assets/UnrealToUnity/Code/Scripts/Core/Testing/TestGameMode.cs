@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace UnrealToUnity.Code.Scripts.Core.Testing
@@ -14,9 +15,9 @@ namespace UnrealToUnity.Code.Scripts.Core.Testing
         /// </summary>
         [SerializeField] private int numberOfRounds = 3;
 
-        protected override void Start()
+        protected override IEnumerator Start()
         {
-            base.Start();
+            yield return base.Start();
 
             // Log the game mode name and number of rounds.
             Debug.Log($"Game Mode: {gameModeName}, Number of Rounds: {numberOfRounds}");

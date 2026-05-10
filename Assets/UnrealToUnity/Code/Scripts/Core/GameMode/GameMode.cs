@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Pawns;
@@ -38,10 +39,12 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
             // InstantiateGameModePrefabs();
         }
 
-        protected virtual void Start()
+        protected virtual IEnumerator Start()
         {
             // Instantiate the game mode prefabs.
             InstantiateGameModePrefabs();
+
+            yield break;
         }
 
         private void OnEnable()

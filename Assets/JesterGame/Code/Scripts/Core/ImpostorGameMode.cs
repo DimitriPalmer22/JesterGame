@@ -94,6 +94,14 @@ namespace JesterGame.Code.Scripts.Core
             base.Awake();
 
             InitializeCharacters();
+
+// #if UNITY_EDITOR
+// #else
+//                 // If in a build, we need to ensure all the subscenes are loaded before we initialize the characters.
+//                 // This is because the characters are initialized based on the character data table, which is in a subscene.
+//                 if (ensureSubscenesLoadedComponent)
+//                     ensureSubscenesLoadedComponent.LoadScenes();
+// #endif
         }
 
         private void InitializeCharacters()
@@ -149,12 +157,20 @@ namespace JesterGame.Code.Scripts.Core
 
         #endregion
 
-        protected override void Start()
+        protected override IEnumerator Start()
         {
+#if UNITY_EDITOR
+
+            // If in the editor,
+            // we need to check if we have multiple scenes open first.
             if (ensureSubscenesLoadedComponent)
                 ensureSubscenesLoadedComponent.LoadScenes();
 
-            base.Start();
+            // Wait a frame to ensure all the subscenes are loaded and Awake has been called on all the components?
+            yield return null;
+#endif
+
+            yield return base.Start();
 
             // Set the progress to 0
             SetProgress(0);
