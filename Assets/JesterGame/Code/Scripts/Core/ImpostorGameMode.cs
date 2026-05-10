@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
 using JesterGame.Code.Scripts.Characters;
@@ -145,6 +146,9 @@ namespace JesterGame.Code.Scripts.Core
         protected override void Start()
         {
             base.Start();
+
+            // Move each of the characters to a random point of interest at the start of the game.
+            MoveNpcsToRandomPointsOfInterest();
 
             // Set the progress to 0
             SetProgress(0);
@@ -349,6 +353,40 @@ namespace JesterGame.Code.Scripts.Core
                 return;
 
             timeScaleSubsystem.SetDebugSpeed(debugTimeScale);
+        }
+
+        private void MoveNpcsToRandomPointsOfInterest()
+        {
+            var allPointsOfInterest = GetAllPointsOfInterest().ToHashSet();
+            var usedPoints = new HashSet<PointOfInterest>();
+
+            // If there are no valid points of interest, return
+            if (allPointsOfInterest.Count == 0 && usedPoints.Count == 0)
+                return;
+
+            var validCharacters = characterNameToPawnMap.Values
+                .Where(n => n is NpcCharacter)
+                .Cast<NpcCharacter>()
+                .ToArray();
+
+            foreach (var npc in validCharacters)
+            {
+                // when the valid list is empty, add all the used points back
+                if (allPointsOfInterest.Count == 0)
+                {
+                    allPointsOfInterest.UnionWith(usedPoints);
+                    usedPoints.Clear();
+                }
+
+                // Get a random point from the valid points
+                var randomPoint = allPointsOfInterest.GetRandom();
+                allPointsOfInterest.Remove(randomPoint);
+                usedPoints.Add(randomPoint);
+
+                // Move the npc to the random point
+                npc.transform.position = randomPoint.GetTransform.position;
+                npc.transform.rotation = randomPoint.GetTransform.rotation;
+            }
         }
 
         #endregion

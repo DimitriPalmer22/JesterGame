@@ -34,7 +34,7 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
                 yield break;
 
             // Wait until the nav mesh agent is done with its current path
-            yield return navMeshAgent.MoveToCoroutine(PointOfInterestTransform.position);
+            yield return navMeshAgent.MoveToCoroutine(GetTransform.position);
         }
 
         protected abstract IEnumerator DoAtPointOfInterest(JesterGamePawn args);
@@ -45,9 +45,9 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
         {
             // Draw a small sphere at the point
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(PointOfInterestTransform.position, 0.5f);
+            Gizmos.DrawWireSphere(GetTransform.position, 0.5f);
         }
 
-        public Transform PointOfInterestTransform => pointTransform != null ? pointTransform : transform;
+        public Transform GetTransform => pointTransform != null ? pointTransform : transform;
     }
 }
