@@ -14,8 +14,10 @@ namespace UnrealToUnity.Code.Scripts.Core.Testing
         /// </summary>
         [SerializeField] private int numberOfRounds = 3;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             // Log the game mode name and number of rounds.
             Debug.Log($"Game Mode: {gameModeName}, Number of Rounds: {numberOfRounds}");
         }

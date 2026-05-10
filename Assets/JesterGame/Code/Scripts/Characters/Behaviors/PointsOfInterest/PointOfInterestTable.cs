@@ -7,7 +7,7 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest
         fileName = "New Point of Interest Table",
         menuName = "JesterGame/Points of Interest Table")
     ]
-    public class PointOfInterestTable : DataTable<int>
+    public class PointOfInterestTable : StringOnlyDataTable
     {
     }
 }
