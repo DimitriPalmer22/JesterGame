@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
+using JesterGame.Code.Scripts.Characters;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using UnrealToUnity.Code.Scripts.Core.Pawns;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Core.Interaction
@@ -75,11 +78,23 @@ namespace JesterGame.Code.Scripts.Core.Interaction
 
             if (bDisableAfterInteract)
                 enabled = false;
+
+            // Play test animation on interact
+            // if (interactorComponent.TryGetComponent<Controller>(out var controller))
+            //     StartCoroutine(PlayTestAnimation(controller.ControlledPawn));
         }
 
         public void SetInteractionText(string newText)
         {
             interactText = newText;
+        }
+
+        private IEnumerator PlayTestAnimation(Pawn pawn)
+        {
+            if (pawn is not JesterGamePawn jesterGamePawn)
+                yield break;
+
+            yield return jesterGamePawn.PlayActivityAnimationAndWait(JesterGamePawn.APActivityTest);
         }
     }
 }

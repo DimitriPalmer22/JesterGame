@@ -16,7 +16,8 @@ namespace JesterGame.Code.Scripts.Characters
 {
     public abstract class JesterGamePawn : Pawn
     {
-        protected static readonly int APCurrentVelocity = Animator.StringToHash("currentVelocity");
+        protected static readonly int AP_CurrentVelocity = Animator.StringToHash("currentVelocity");
+        public static readonly int APActivityTest = Animator.StringToHash("tActivityTest");
 
         #region Serialized Fields
 
@@ -45,6 +46,7 @@ namespace JesterGame.Code.Scripts.Characters
 
         private Coroutine _mainBehaviorCoroutine;
         private Coroutine _currentBehaviorCoroutine;
+        private readonly ManualYield _activityYield = new ManualYield();
 
         #endregion
 
@@ -220,5 +222,25 @@ namespace JesterGame.Code.Scripts.Characters
         public void ClearBehaviors() => behaviorQueue.Clear();
 
         #endregion
+
+        public void OnAbilityAnimationFinished()
+        {
+            Debug.Log("Ability animation finished callback received.");
+            _activityYield.Reset();
+        }
+
+        public IEnumerator PlayActivityAnimationAndWait(int animHash)
+        {
+            if (animator == null)
+            {
+                Debug.LogError("Animator is not assigned. Cannot play activity animation.");
+                yield break;
+            }
+
+            _activityYield.StartYield();
+            animator.SetTrigger(animHash);
+
+            yield return _activityYield;
+        }
     }
 }

@@ -63,7 +63,7 @@ namespace JesterGame.Code.Scripts.Player
             var value = context.ReadValue<Vector2>();
             SetMovementInput(value);
 
-            animator?.SetFloat(APCurrentVelocity, value.magnitude);
+            animator?.SetFloat(AP_CurrentVelocity, value.magnitude);
         }
 
         private void SetMovementInput(Vector2 value)
