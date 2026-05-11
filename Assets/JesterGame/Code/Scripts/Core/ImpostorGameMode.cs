@@ -359,17 +359,6 @@ namespace JesterGame.Code.Scripts.Core
             return allPoints.FirstOrDefault(poi => poi.PointOfInterestDataHandle == rowHandle);
         }
 
-        #endregion
-
-        private void OnDebugTimeScaleChanged()
-        {
-            // Get the timescale subsystem
-            if (!UtilLibrary.GetSubsystem(out TimeScaleSubsystem timeScaleSubsystem))
-                return;
-
-            timeScaleSubsystem.SetDebugSpeed(debugTimeScale);
-        }
-
         private void MoveNpcsToRandomPointsOfInterest()
         {
             var allPointsOfInterest = GetAllPointsOfInterest().ToHashSet();
@@ -406,13 +395,35 @@ namespace JesterGame.Code.Scripts.Core
 
         #endregion
 
+        private void OnDebugTimeScaleChanged()
+        {
+            // Get the timescale subsystem
+            if (!UtilLibrary.GetSubsystem(out TimeScaleSubsystem timeScaleSubsystem))
+                return;
+
+            timeScaleSubsystem.SetDebugSpeed(debugTimeScale);
+        }
+
+        public int GetImpostorAffection(out string impostorName)
+        {
+            impostorName = string.Empty;
+
+            var impostorData = characterInstanceMap
+                .FirstOrDefault(n => n.Value.characterType == CharacterType.Impostor);
+
+            impostorName = impostorData.Key;
+
+            return impostorData.Value.currentAffection;
+        }
+
+        #endregion
+
         private void StopNpcBehaviors(bool bClear = true)
         {
             var validCharacters = characterNameToPawnMap.Values
                 .Where(n => n is NpcCharacter)
                 .Cast<NpcCharacter>()
                 .ToArray();
-
 
             foreach (var npc in validCharacters)
                 npc.StopMainBehaviorCoroutine(bClear);
@@ -501,6 +512,8 @@ namespace JesterGame.Code.Scripts.Core
                 #region Death Cutscene
 
                 // TODO: Yield the someone dies cutscene
+                var impostorAffection = GetImpostorAffection(out var impostorName);
+                Debug.Log($"Current impostor affection: {impostorName} - {impostorAffection}");
 
                 yield return null;
 
