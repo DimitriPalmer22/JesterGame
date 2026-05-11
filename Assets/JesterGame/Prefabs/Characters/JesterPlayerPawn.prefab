@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 1137917443894404245}
   - component: {fileID: 3817043120047245222}
   - component: {fileID: 7393192973109211480}
+  - component: {fileID: 6623858644421919479}
   m_Layer: 6
   m_Name: JesterPlayerPawn
   m_TagString: Untagged
@@ -183,6 +184,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1456493843059751477}
+  - {fileID: 6772093544151083356}
   - {fileID: 2724052410042357760}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -209,7 +211,7 @@ MonoBehaviour:
   impostorBrain: {fileID: 0}
   animator: {fileID: 7393192973109211480}
   cinemachineCamera: {fileID: 4346776938213497931}
-  moveSpeed: 10
+  moveSpeed: 8
   rotationSpeed: 720
 --- !u!114 &2694684978663128119
 MonoBehaviour:
@@ -341,6 +343,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6623858644421919479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4067538012022057987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72844bb243f84ef6b90a6da6abc7a4d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.PawnVfxHelper
+  stepAudioSource: {fileID: 5849402878395641866}
+  stepParticle: {fileID: 2037511104369431930}
 --- !u!1 &4575444523727080701
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,3 +594,75 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &5730912909256646855
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 490864989916862901}
+    m_Modifications:
+    - target: {fileID: 1329412773127784859, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329412773127784859, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329412773127784859, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329412773127784859, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329412773127784859, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329412773127784859, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329412773127784859, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329412773127784859, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329412773127784859, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329412773127784859, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2271534450475957653, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+      propertyPath: m_Name
+      value: StepFX
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+--- !u!198 &2037511104369431930 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6039040542286542269, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+  m_PrefabInstance: {fileID: 5730912909256646855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &5849402878395641866 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2208182188621041869, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+  m_PrefabInstance: {fileID: 5730912909256646855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6772093544151083356 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1329412773127784859, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+  m_PrefabInstance: {fileID: 5730912909256646855}
+  m_PrefabAsset: {fileID: 0}
