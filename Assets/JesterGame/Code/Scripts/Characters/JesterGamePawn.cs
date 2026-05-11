@@ -16,6 +16,8 @@ namespace JesterGame.Code.Scripts.Characters
 {
     public abstract class JesterGamePawn : Pawn
     {
+        protected static readonly int APCurrentVelocity = Animator.StringToHash("currentVelocity");
+
         #region Serialized Fields
 
         /// <summary>
@@ -34,6 +36,8 @@ namespace JesterGame.Code.Scripts.Characters
 
         [SerializeField] private CharacterBehaviorBrain innocentBrain;
         [SerializeField] private CharacterBehaviorBrain impostorBrain;
+
+        [SerializeField] protected Animator animator;
 
         #endregion
 

@@ -55,6 +55,11 @@ namespace JesterGame.Code.Scripts.Characters
             }
         }
 
+        private void Update()
+        {
+            animator.SetFloat(APCurrentVelocity, agent.velocity.magnitude);
+        }
+
         public void StartSpeaking(InteractEventArgs args)
         {
             if (!TryGetCharacterData(out var characterData))
