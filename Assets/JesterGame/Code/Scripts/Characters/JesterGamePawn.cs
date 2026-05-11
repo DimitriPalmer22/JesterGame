@@ -168,6 +168,8 @@ namespace JesterGame.Code.Scripts.Characters
             return true;
         }
 
+        public PawnVfxHelper GetVfxHelper() => GetComponentInChildren<PawnVfxHelper>();
+
         #region Behavior Queue Functions
 
         public void EnqueueBehavior(InterfaceReference<ICharacterBehavior> behavior)

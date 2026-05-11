@@ -10,11 +10,24 @@ namespace JesterGame.Code.Scripts.Characters
 
         [SerializeField] private VfxSfxHelper stepVfxSfx;
 
+        [SerializeField] private VfxSfxHelper affectionUpVfxSfx;
+        [SerializeField] private VfxSfxHelper affectionDownVfxSfx;
+
         #endregion
 
         public virtual void OnStep(int step)
         {
-            stepVfxSfx.Play();
+            stepVfxSfx?.Play();
+        }
+
+        public void OnAffectionUp()
+        {
+            affectionUpVfxSfx?.Play();
+        }
+
+        public void OnAffectionDown()
+        {
+            affectionDownVfxSfx?.Play();
         }
     }
 }

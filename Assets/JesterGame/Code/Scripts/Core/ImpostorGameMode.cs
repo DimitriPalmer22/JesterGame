@@ -248,6 +248,26 @@ namespace JesterGame.Code.Scripts.Core
             Debug.Log($"Day progressed to {args.currentDay}!");
         }
 
+        public void PlayParticles_AffectionChanged(AffectionEventArgs args)
+        {
+            if (args.affectionDelta == 0)
+                return;
+
+            if (!characterNameToPawnMap.TryGetValue(args.characterName, out var pawn))
+                return;
+
+            Debug.Log($"Affection changed for {args.characterName} by {args.affectionDelta}. Playing particles!");
+
+            var vfxHelper = pawn.GetVfxHelper();
+            if (vfxHelper == null)
+                return;
+
+            if (args.affectionDelta > 0)
+                vfxHelper.OnAffectionUp();
+            else
+                vfxHelper.OnAffectionDown();
+        }
+
         #endregion
 
         public void ModifyCharacterAffection(string characterName, int affectionValue)
