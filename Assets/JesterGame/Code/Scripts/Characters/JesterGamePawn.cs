@@ -16,7 +16,7 @@ namespace JesterGame.Code.Scripts.Characters
 {
     public abstract class JesterGamePawn : Pawn
     {
-        protected static readonly int AP_CurrentVelocity = Animator.StringToHash("currentVelocity");
+        protected static readonly int APCurrentVelocity = Animator.StringToHash("currentVelocity");
         public static readonly int APActivityTest = Animator.StringToHash("tActivityTest");
 
         #region Serialized Fields

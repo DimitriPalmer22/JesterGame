@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1329412773127784859}
+  - component: {fileID: 6895672421138013072}
   - component: {fileID: 2208182188621041869}
   - component: {fileID: 6039040542286542269}
   - component: {fileID: 8610086758074441198}
@@ -34,6 +35,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6895672421138013072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271534450475957653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39085a15cd3a4ecfbd16b6a9b5b31b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Util.VfxSfxHelper
+  particles: {fileID: 6039040542286542269}
+  vfxAsset: {fileID: 0}
+  audioSource: {fileID: 2208182188621041869}
 --- !u!82 &2208182188621041869
 AudioSource:
   m_ObjectHideFlags: 0

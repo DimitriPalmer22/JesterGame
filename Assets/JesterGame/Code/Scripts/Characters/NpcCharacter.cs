@@ -57,7 +57,7 @@ namespace JesterGame.Code.Scripts.Characters
 
         private void Update()
         {
-            animator.SetFloat(AP_CurrentVelocity, agent.velocity.magnitude);
+            animator.SetFloat(APCurrentVelocity, agent.velocity.magnitude);
         }
 
         public void StartSpeaking(InteractEventArgs args)

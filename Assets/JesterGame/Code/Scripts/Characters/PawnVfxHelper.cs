@@ -1,3 +1,4 @@
+using JesterGame.Code.Scripts.Util;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -7,15 +8,13 @@ namespace JesterGame.Code.Scripts.Characters
     {
         #region Serialized Fields
 
-        [SerializeField, Foldout("Step")] private AudioSource stepAudioSource;
-        [SerializeField, Foldout("Step")] private ParticleSystem stepParticle;
+        [SerializeField] private VfxSfxHelper stepVfxSfx;
 
         #endregion
 
         public virtual void OnStep(int step)
         {
-            stepAudioSource.Play();
-            stepParticle.Play();
+            stepVfxSfx.Play();
         }
     }
 }

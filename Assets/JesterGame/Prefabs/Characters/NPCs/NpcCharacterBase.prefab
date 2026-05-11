@@ -505,8 +505,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72844bb243f84ef6b90a6da6abc7a4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.PawnVfxHelper
-  stepAudioSource: {fileID: 6788164525391302556}
-  stepParticle: {fileID: 1396000209874103020}
+  stepVfxSfx: {fileID: 2243694367940461761}
+  stepAudioSource: {fileID: 0}
+  stepParticle: {fileID: 0}
 --- !u!1001 &4652620475095146321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -564,18 +565,19 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
---- !u!198 &1396000209874103020 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6039040542286542269, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
+--- !u!114 &2243694367940461761 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6895672421138013072, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
   m_PrefabInstance: {fileID: 4652620475095146321}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39085a15cd3a4ecfbd16b6a9b5b31b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Util.VfxSfxHelper
 --- !u!4 &5972450904394651338 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1329412773127784859, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
-  m_PrefabInstance: {fileID: 4652620475095146321}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &6788164525391302556 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 2208182188621041869, guid: 4cd24b9bd2c04ef4eb3fdb200c3e451d, type: 3}
   m_PrefabInstance: {fileID: 4652620475095146321}
   m_PrefabAsset: {fileID: 0}
