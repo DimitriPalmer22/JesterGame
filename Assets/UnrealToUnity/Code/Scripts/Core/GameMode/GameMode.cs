@@ -76,17 +76,7 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
 
                     // Get the player start & move the pawn there
                     var playerStart = GetPlayerStart();
-                    if (playerStart)
-                    {
-                        var spawnTransform = playerStart.GetSpawnTransform();
-                        currentPawn.transform.position = spawnTransform.position;
-                        currentPawn.transform.forward = spawnTransform.forward;
-                    }
-                    else
-                    {
-                        currentPawn.transform.position = Vector3.zero;
-                        currentPawn.transform.forward = Vector3.forward;
-                    }
+                    MovePawnToPlayerStart(currentPawn, playerStart);
                 }
 
                 // Possess if the pawn and controller were both instantiated.
@@ -100,6 +90,16 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
                     cheatMenu.Initialize(playerController);
                 }
             }
+        }
+
+        protected void MovePawnToPlayerStart(Pawn pawn, PlayerStart playerStart)
+        {
+            if (pawn == null || playerStart == null)
+                return;
+
+            var spawnTransform = playerStart.GetSpawnTransform();
+            pawn.transform.position = spawnTransform.position;
+            pawn.transform.forward = spawnTransform.forward;
         }
 
         private PlayerStart[] GetAllPlayerStarts()

@@ -423,6 +423,10 @@ namespace JesterGame.Code.Scripts.Core
                 // Move each of the characters to a random point of interest at the start of the game.
                 MoveNpcsToRandomPointsOfInterest();
 
+                // Move the player pawn to the player start
+                var playerPawn = UtilLibrary.GetPlayerController(0)?.ControlledPawn;
+                MovePawnToPlayerStart(playerPawn, GetPlayerStart());
+
                 // Yield the day start cutscene
                 if (currentDay.dayStartCutscene)
                 {
