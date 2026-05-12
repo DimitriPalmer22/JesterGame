@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
-using JesterGame.Code.Scripts.Characters;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
-using UnrealToUnity.Code.Scripts.Core.Pawns;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Core.Interaction
@@ -87,14 +84,6 @@ namespace JesterGame.Code.Scripts.Core.Interaction
         public void SetInteractionText(string newText)
         {
             interactText = newText;
-        }
-
-        private IEnumerator PlayTestAnimation(Pawn pawn)
-        {
-            if (pawn is not JesterGamePawn jesterGamePawn)
-                yield break;
-
-            yield return jesterGamePawn.PlayActivityAnimationAndWait(JesterGamePawn.APActivityTest);
         }
     }
 }

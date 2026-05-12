@@ -12,15 +12,13 @@ using UnityEngine.Events;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.Pawns;
 using UnrealToUnity.Code.Scripts.Core.Utility;
+using UnrealToUnity.Code.Scripts.Core.Utility.Components;
 
 namespace JesterGame.Code.Scripts.Characters
 {
     public abstract class JesterGamePawn : Pawn
     {
         protected static readonly int APCurrentVelocity = Animator.StringToHash("currentVelocity");
-        protected static readonly int APDeathTrigger = Animator.StringToHash("tDeath");
-
-        public static readonly int APActivityTest = Animator.StringToHash("tActivityTest");
 
         #region Serialized Fields
 
@@ -43,6 +41,8 @@ namespace JesterGame.Code.Scripts.Characters
 
         [SerializeField] protected Animator animator;
 
+        [SerializeField] protected AnimationHelperComponent animationHelper;
+
         [SerializeField] private UnityEvent<JesterGameEventArgs> onDeath;
 
         #endregion
@@ -58,6 +58,8 @@ namespace JesterGame.Code.Scripts.Characters
         #endregion
 
         public bool IsDead => _isDead;
+
+        public AnimationHelperComponent AnimationHelper => animationHelper;
 
         protected override void CustomOnEnable()
         {
@@ -241,26 +243,14 @@ namespace JesterGame.Code.Scripts.Characters
             _activityYield.Reset();
         }
 
-        public IEnumerator PlayActivityAnimationAndWait(int animHash)
-        {
-            if (animator == null)
-            {
-                Debug.LogError("Animator is not assigned. Cannot play activity animation.");
-                yield break;
-            }
-
-            _activityYield.StartYield();
-            animator.SetTrigger(animHash);
-
-            yield return _activityYield;
-        }
-
         public virtual void Die()
         {
             if (IsDead)
                 return;
 
-            animator.SetTrigger(APDeathTrigger);
+            // StartCoroutine(AnimationHelper.PlayAnimationAndWait("Dead"));
+            AnimationHelper.PlayAnimation("Dead");
+
             _isDead = true;
 
             var args = new JesterGameEventArgs

@@ -303,6 +303,7 @@ Transform:
   - {fileID: 6086880305256995695}
   - {fileID: 4472676482785778269}
   - {fileID: 6710143358542417738}
+  - {fileID: 4565535809730271922}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1943743681128460605
@@ -369,6 +370,7 @@ MonoBehaviour:
   innocentBrain: {fileID: 11400000, guid: 5259a9fb0096ee1459ed2dda1df75581, type: 2}
   impostorBrain: {fileID: 11400000, guid: fd69fb533b6c489479731fbf67226e54, type: 2}
   animator: {fileID: 9125569427245453944}
+  animationHelper: {fileID: 5312746660686156193}
   onDeath:
     m_PersistentCalls:
       m_Calls:
@@ -604,6 +606,83 @@ MonoBehaviour:
     m_RotationOrder: 4
   cutsceneCamera: {fileID: 4935991880305494785}
   blendTime: 1
+--- !u!1001 &225308942459758573
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3662038317595672381}
+    m_Modifications:
+    - target: {fileID: 3916588283303635557, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+      propertyPath: m_Name
+      value: PawnAnimationHelper
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358499187424509279, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.33581
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358499187424509279, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.33465
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358499187424509279, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.83428
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358499187424509279, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358499187424509279, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358499187424509279, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358499187424509279, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358499187424509279, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358499187424509279, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358499187424509279, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5375855097523680844, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 9125569427245453944}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+--- !u!4 &4565535809730271922 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4358499187424509279, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+  m_PrefabInstance: {fileID: 225308942459758573}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5312746660686156193 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5375855097523680844, guid: 26ed31e19d87da3439f8a44426d5eeea, type: 3}
+  m_PrefabInstance: {fileID: 225308942459758573}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f03516be0c54da881d017d87a3f7a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnrealToUnity.Code.Scripts.Core.Utility.Components.AnimationHelperComponent
 --- !u!1001 &1765950838410505707
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -153,12 +153,8 @@ namespace JesterGame.Code.Scripts.Characters
         private IEnumerator TurnTowards(Transform lookAt, float turningRate)
         {
             // Smoothly rotate towards the target rotation
-            while (true)
+            while (!AngleWithinRange(transform.rotation, lookAt, out var targetRotation))
             {
-                // Get the rotation from the direction
-                var direction = lookAt.position - transform.position;
-                direction.y = 0;
-                var targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 
                 var turnDelta = turningRate * Time.deltaTime;
                 var newRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnDelta);
@@ -169,10 +165,16 @@ namespace JesterGame.Code.Scripts.Characters
             yield break;
 
             // Function to test if the angle is within an acceptable range.
-            bool AngleWithinRange(Quaternion a, Quaternion b)
+            bool AngleWithinRange(Quaternion a, Transform targetTransform, out Quaternion targetRotation)
             {
-                return false;
-                // return Mathf.Abs(Quaternion.Angle(a, b)) <= 0.1f;
+                // Get the rotation from the direction
+                var direction = targetTransform.position - transform.position;
+                direction.y = 0;
+                targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+
+                // return false;
+                // return Mathf.Abs(Quaternion.Angle(a, targetRotation)) <= 0.1f;
+                return Mathf.Abs(Quaternion.Angle(a, targetRotation)) <= -1f;
             }
         }
 

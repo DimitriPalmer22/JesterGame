@@ -213,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9187141587616484091}
   - component: {fileID: 5989358951164091365}
+  - component: {fileID: 1869652355274233496}
   m_Layer: 0
   m_Name: DialogueScreen
   m_TagString: Untagged
@@ -280,6 +281,28 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 4276602435325133104, guid: 441a295c40515194a8125a2abe2ae50f, type: 3}
   nextLineButton: {fileID: 6711540512620614369}
   wordDelay: 0.1
+--- !u!95 &1869652355274233496
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859044283199183830}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c21292175b641a34c8679b4eeee17772, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2392521478984128670
 GameObject:
   m_ObjectHideFlags: 0

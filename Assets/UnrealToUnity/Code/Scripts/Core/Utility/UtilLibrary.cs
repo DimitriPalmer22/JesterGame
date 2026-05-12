@@ -14,6 +14,8 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
     /// </summary>
     public static class UtilLibrary
     {
+        #region Core Functions
+
         public static bool GetSubsystem<TSubsystem>(out TSubsystem subsystem) where TSubsystem : UnrealSubsystem
         {
             return UnrealSubsystemManager.Instance.GetSubsystem(out subsystem);
@@ -40,6 +42,8 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
 
             return gameMode.GetPlayerController(index);
         }
+
+        #endregion
 
         #region Vector Functions
 
@@ -103,6 +107,19 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
             // Wait until the nav mesh agent has reached the destination
             while (!navMeshAgent.IsAtDestination())
                 yield return null;
+        }
+
+        public static IEnumerator PlayAnimationAndWait(this Animator animator, int stateHash, ManualYield manualYield)
+        {
+            if (manualYield == null)
+            {
+                Debug.LogWarning("ManualYield is null. Cannot wait for animation to finish.");
+                yield break;
+            }
+
+            manualYield.StartYield();
+            animator.Play(stateHash, -1, 0);
+            yield return manualYield;
         }
     }
 }
