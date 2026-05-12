@@ -10,6 +10,7 @@ using JesterGame.Code.Scripts.Progression.UI;
 using UnityEngine;
 using UnityEngine.AI;
 using UnrealToUnity.Code.Scripts.Core.AI;
+using UnrealToUnity.Code.Scripts.Core.Player;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Characters
@@ -82,6 +83,11 @@ namespace JesterGame.Code.Scripts.Characters
         {
             var bHasGameMode = UtilLibrary.GetGameMode(out ImpostorGameMode gameMode);
 
+            var bHasPlayerController = args.interactor.TryGetComponent(out PlayerController playerController);
+            if (bHasPlayerController)
+                playerController.AddInputBlocker(this);
+
+
             // Deactivate the interaction helper component
             // Deactivate interactor component on the player character to prevent multiple interactions while the dialogue is open.
             interactionHelperComponent.enabled = false;
@@ -132,6 +138,10 @@ namespace JesterGame.Code.Scripts.Characters
             // Re-activate the interactor component on the player character
             interactionHelperComponent.enabled = true;
             args.interactor.enabled = true;
+
+            if (bHasPlayerController)
+                playerController.RemoveInputBlocker(this);
+
 
             _speakingCoroutine = null;
 

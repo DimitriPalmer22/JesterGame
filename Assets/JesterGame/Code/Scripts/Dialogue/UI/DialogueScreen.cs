@@ -132,7 +132,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             UtilLibrary.GetGameMode(out ImpostorGameMode gameMode);
 
             // Open the screen
-            yield return StartCoroutine(OpenScreenCoroutine());
+            yield return OpenScreenCoroutine();
 
             // Disable player input while the dialogue is running.
             // Disable it specifically for the pawn so the player controller can still get input.
@@ -218,7 +218,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             controlledPawn?.RemoveInputBlocker(this);
 
             // Close the screen
-            yield return StartCoroutine(CloseScreenCoroutine());
+            yield return CloseScreenCoroutine();
 
             yield return null;
         }
