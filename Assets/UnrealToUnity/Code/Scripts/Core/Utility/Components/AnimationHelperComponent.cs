@@ -11,7 +11,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility.Components
     {
         private static readonly Dictionary<string, int> StaticStringHashes = new();
 
-        [NonSerialized] private ManualYield _manualYield;
+        [NonSerialized] private readonly ManualYield _manualYield = new();
 
         [SerializeField, SerializedDictionary("Code Name", "State Name In Animator")]
         private SerializedDictionary<string, string> animationStateNames;
@@ -56,6 +56,12 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility.Components
             // Add the hash values to the static dictionary
             if (!StaticStringHashes.ContainsKey(nameInAnimator))
                 StaticStringHashes.Add(nameInAnimator, Animator.StringToHash(nameInAnimator));
+        }
+
+        public void FinishAnimation()
+        {
+            _manualYield.Reset();
+            Debug.Log("Finished animation");
         }
     }
 }

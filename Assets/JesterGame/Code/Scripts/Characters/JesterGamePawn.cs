@@ -261,5 +261,7 @@ namespace JesterGame.Code.Scripts.Characters
 
             onDeath?.Invoke(args);
         }
+
+        public void FinishAnimation() => AnimationHelper.FinishAnimation();
     }
 }

@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnrealToUnity.Code.Scripts.Core.UserInterface;
 using UnrealToUnity.Code.Scripts.Core.Utility;
+using UnrealToUnity.Code.Scripts.Core.Utility.Components;
 
 namespace JesterGame.Code.Scripts.Dialogue.UI
 {
@@ -27,6 +28,8 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
         [SerializeField] private float wordDelay = 0.25f;
 
+        [SerializeField] private AnimationHelperComponent animationHelperComponent;
+
         #endregion
 
         #region Private Fields
@@ -38,7 +41,6 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
         private WaitForDialogueChoiceSelection _waitForChoiceSelection;
 
         #endregion
-
 
         protected override void CustomInitialize()
         {
@@ -55,36 +57,49 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             // Disable the next line button
             nextLineButton.gameObject.SetActive(false);
 
-            // Get the end time based on the length of the curve.
-            var beginTime = Time.unscaledTime;
-            var endTime = beginTime + opacityCurve.keys[opacityCurve.length - 1].time;
+            // // Get the end time based on the length of the curve.
+            // var beginTime = Time.unscaledTime;
+            // var endTime = beginTime + opacityCurve.keys[opacityCurve.length - 1].time;
+            //
+            // while (Time.unscaledTime < endTime)
+            // {
+            //     var currentTime = Time.unscaledTime - beginTime;
+            //     canvasGroup.alpha = opacityCurve.Evaluate(currentTime);
+            //     yield return null;
+            // }
+            //
+            // canvasGroup.alpha = opacityCurve.Evaluate(opacityCurve.keys[opacityCurve.length - 1].time);
 
-            while (Time.unscaledTime < endTime)
-            {
-                var currentTime = Time.unscaledTime - beginTime;
-                canvasGroup.alpha = opacityCurve.Evaluate(currentTime);
-                yield return null;
-            }
+            yield return animationHelperComponent.PlayAnimationAndWait("Intro");
 
-            canvasGroup.alpha = opacityCurve.Evaluate(opacityCurve.keys[opacityCurve.length - 1].time);
+            // enable the next line button
+            nextLineButton.gameObject.SetActive(true);
         }
 
         protected override IEnumerator CloseScreenCoroutine()
         {
-            var beginTime = Time.unscaledTime;
-            var endTime = beginTime + opacityCurve.keys[opacityCurve.length - 1].time;
+            // var beginTime = Time.unscaledTime;
+            // var endTime = beginTime + opacityCurve.keys[opacityCurve.length - 1].time;
+            //
+            // while (Time.unscaledTime < endTime)
+            // {
+            //     var currentTime = Time.unscaledTime - beginTime;
+            //
+            //     // Reverse the current time
+            //     currentTime = opacityCurve.keys[opacityCurve.length - 1].time - currentTime;
+            //     canvasGroup.alpha = opacityCurve.Evaluate(currentTime);
+            //     yield return null;
+            // }
+            //
+            // canvasGroup.alpha = opacityCurve.Evaluate(opacityCurve.keys[0].time);
 
-            while (Time.unscaledTime < endTime)
-            {
-                var currentTime = Time.unscaledTime - beginTime;
+            // Disable the next line button
+            nextLineButton.gameObject.SetActive(false);
 
-                // Reverse the current time
-                currentTime = opacityCurve.keys[opacityCurve.length - 1].time - currentTime;
-                canvasGroup.alpha = opacityCurve.Evaluate(currentTime);
-                yield return null;
-            }
+            yield return animationHelperComponent.PlayAnimationAndWait("Outro");
 
-            canvasGroup.alpha = opacityCurve.Evaluate(opacityCurve.keys[0].time);
+            // enable the next line button
+            nextLineButton.gameObject.SetActive(true);
         }
 
         /// <summary>
