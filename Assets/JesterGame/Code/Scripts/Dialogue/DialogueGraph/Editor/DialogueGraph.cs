@@ -5,8 +5,10 @@ using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor.Nodes;
 using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using JesterGame.Code.Scripts.Rooms;
 using Unity.GraphToolkit.Editor;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using Graph = Unity.GraphToolkit.Editor.Graph;
 using Object = UnityEngine.Object;
 
 namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor
@@ -15,11 +17,13 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor
     public class DialogueGraph : Graph
     {
         public const string ASSET_EXTENSION = "dialogueGraph";
+        private const string GRAPH_PREFIX = "DG_";
+        private const string TEMPLATE_GRAPH_NAME = GRAPH_PREFIX + "TEMPLATE";
 
         [MenuItem("Assets/Create/JesterGame/Dialogue/Dialogue Graph", false)]
-        static void CreateAssetFile()
+        private static void CreateAssetFile()
         {
-            GraphDatabase.PromptInProjectBrowserToCreateNewAsset<DialogueGraph>("DG_");
+            GraphDatabase.PromptInProjectBrowserToCreateNewAsset<DialogueGraph>(GRAPH_PREFIX);
         }
 
         public override void OnGraphChanged(GraphLogger graphLogger)
@@ -45,11 +49,22 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor
                 .Cast<RoomDataAsset>()
                 .ToArray();
 
+
+            // Try to find and load the template graph.
+            var templateGraphCandidates = AssetDatabase.FindAssets(TEMPLATE_GRAPH_NAME);
+            if (templateGraphCandidates.Length == 0)
+            {
+                Debug.LogError("No template graph found!");
+                return;
+            }
+
+            var templateGraphPath = AssetDatabase.GUIDToAssetPath(templateGraphCandidates[0]);
+
             foreach (var asset in Selection.GetFiltered(typeof(DialoguePoolDataAsset), SelectionMode.DeepAssets))
-                CreatePoolGraph(asset, rooms);
+                CreatePoolGraph(asset, rooms, templateGraphPath);
         }
 
-        private static void CreatePoolGraph(Object obj, RoomDataAsset[] rooms)
+        private static void CreatePoolGraph(Object obj, RoomDataAsset[] rooms, string templateGraphPath)
         {
             Debug.Log("Creating corresponding dialogue graph...");
             var currentSelectedAsset = AssetDatabase.GetAssetPath(obj);
@@ -83,7 +98,7 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor
 
             // Get the asset path of this scriptable object
             const string dialoguePoolPrefix = "DP_";
-            const string dialogueGraphPrefix = "DG_";
+            const string dialogueGraphPrefix = GRAPH_PREFIX;
 
             var thisPath = AssetDatabase.GetAssetPath(loadedAsset);
             var thisAssetName = thisPath.Substring(thisPath.LastIndexOf('/') + 1);
@@ -107,7 +122,7 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor
                     continue;
 
                 var graphName = $"{folderPath}/{dialogueGraphPrefix}{baseAssetName}_{item.roomName}.{ASSET_EXTENSION}";
-                var createdGraph = CreateOrLoadGraph(graphName);
+                var createdGraph = CreateOrLoadGraph(graphName, templateGraphPath);
                 var runtimeGraph = AssetDatabase.LoadAssetAtPath<RuntimeDialogueGraph>(graphName);
 
                 loadedAsset.Data.firstInteractionPerRoom[item] = runtimeGraph;
@@ -120,22 +135,33 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor
                 if (loadedAsset.Data.randomInteractions[i] != null)
                     continue;
 
-                var graphName = $"{folderPath}/{dialogueGraphPrefix}{baseAssetName}_Rand_{i}.{ASSET_EXTENSION}";
-                var createdGraph = CreateOrLoadGraph(graphName);
+                var graphName = $"{folderPath}/{dialogueGraphPrefix}{baseAssetName}_Rand_{i+1}.{ASSET_EXTENSION}";
+                var createdGraph = CreateOrLoadGraph(graphName, templateGraphPath);
                 var runtimeGraph = AssetDatabase.LoadAssetAtPath<RuntimeDialogueGraph>(graphName);
 
                 loadedAsset.Data.randomInteractions[i] = runtimeGraph;
             }
         }
 
-        private static DialogueGraph CreateOrLoadGraph(string path)
+        private static DialogueGraph CreateOrLoadGraph(string path, string templateGraphPath)
         {
             var loadedAsset = GraphDatabase.LoadGraph<DialogueGraph>(path);
 
             if (loadedAsset != null)
                 return loadedAsset;
 
-            return GraphDatabase.CreateGraph<DialogueGraph>(path);
+            if (string.IsNullOrEmpty(templateGraphPath))
+                return GraphDatabase.CreateGraph<DialogueGraph>(path);
+
+            // Copy the template graph to the new path.
+            var newGraph = AssetDatabase.CopyAsset(templateGraphPath, path);
+            if (!newGraph)
+            {
+                Debug.LogError($"Failed to create graph at {path} from template {templateGraphPath}.");
+                return null;
+            }
+
+            return GraphDatabase.LoadGraph<DialogueGraph>(path);
         }
     }
 }
