@@ -20,12 +20,6 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         /// </summary>
         [SerializeField] public CharacterType characterType;
 
-        /// <summary>
-        /// A bool indicating whether is character is alive or not.
-        /// Should not really be changed in the inspector.
-        /// </summary>
-        [SerializeField, ReadOnly] private bool bIsAlive;
-
         public const int MAX_AFFECTION = 100;
         public const int MIN_AFFECTION = 100;
 
@@ -38,7 +32,6 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
         {
             this.characterAsset = characterAsset;
             this.characterType = characterType;
-            bIsAlive = true;
             currentAffection = 0;
             hasCompletedFirstInteractionPerRoom = new SerializedDictionary<RoomDataAsset, bool>();
         }

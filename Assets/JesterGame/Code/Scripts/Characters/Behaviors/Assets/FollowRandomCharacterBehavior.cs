@@ -20,10 +20,11 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.Assets
 
             var characterPawns = gameMode
                 .characterNameToPawnMap
-                // Only get non-main characters and characters that are not the current pawn.
+                // Only get alive, non-main characters and characters that are not the current pawn.
                 .Where(n =>
                     n.Value.TryGetCharacterData(out var characterData) &&
                     !characterData.bIsMainCharacter &&
+                    !n.Value.IsDead &&
                     n.Value != pawn
                 )
                 .ToArray();

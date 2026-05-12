@@ -89,7 +89,8 @@ namespace JesterGame.Code.Scripts.Characters
             var prevAcceleration = agent.acceleration;
             agent.acceleration = 10000;
 
-            // TODO: Start a coroutine to look at the player. DON'T yield for it, just start if. End it after closing.
+            // Start a coroutine to look at the player. DON'T yield for it, just start if. End it after closing.
+            var lookAtCoroutine = StartCoroutine(TurnTowards(args.interactor.transform, agent.angularSpeed));
 
             // Determine which lines to play. For now, just play the test data asset.
             // Wait for the dialogue panel to be complete.
@@ -109,6 +110,9 @@ namespace JesterGame.Code.Scripts.Characters
                     gameMode.characterInstanceMap[npcDataHandle.RowName] = characterInstance;
                 }
             }
+
+            if (lookAtCoroutine != null)
+                StopCoroutine(lookAtCoroutine);
 
             // Restart the current behavior coroutine.
             agent.isStopped = false;
@@ -132,6 +136,32 @@ namespace JesterGame.Code.Scripts.Characters
                 );
 
             yield return null;
+        }
+
+        private IEnumerator TurnTowards(Transform lookAt, float turningRate)
+        {
+            // Smoothly rotate towards the target rotation
+            while (true)
+            {
+                // Get the rotation from the direction
+                var direction  = lookAt.position - transform.position;
+                direction.y = 0;
+                var targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+
+                var turnDelta = turningRate * Time.deltaTime;
+                var newRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnDelta);
+                transform.rotation = newRotation;
+                yield return null;
+            }
+
+            yield break;
+
+            // Function to test if the angle is within an acceptable range.
+            bool AngleWithinRange(Quaternion a, Quaternion b)
+            {
+                return false;
+                // return Mathf.Abs(Quaternion.Angle(a, b)) <= 0.1f;
+            }
         }
 
         public RuntimeDialogueGraph DetermineCurrentDialogue(DialogueCharacter characterData)
