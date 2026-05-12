@@ -61,6 +61,8 @@ namespace UnrealToUnity.Code.Scripts.Core.Player
             _inputTokenManager.RemoveToken(token);
         }
 
+        public bool IsInputBlocked() => _inputTokenManager.HasTokens;
+
         protected override void CustomPossess(Pawn pawn)
         {
         }

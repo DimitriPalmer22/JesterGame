@@ -19,6 +19,8 @@ namespace JesterGame.Code.Scripts.Core.Proximity
                 return;
 
             var playerController = UtilLibrary.GetPlayerController(0);
+            if (playerController.IsInputBlocked())
+                return;
 
             if (playerController == null || playerController.ControlledPawn == null)
                 return;
