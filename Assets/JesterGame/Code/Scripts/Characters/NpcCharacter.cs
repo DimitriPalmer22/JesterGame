@@ -80,9 +80,8 @@ namespace JesterGame.Code.Scripts.Characters
         private IEnumerator SpeakCoroutine(DialogueCharacter characterData, InteractEventArgs args)
         {
             // Deactivate the interaction helper component
-            interactionHelperComponent.enabled = false;
-
             // Deactivate interactor component on the player character to prevent multiple interactions while the dialogue is open.
+            interactionHelperComponent.enabled = false;
             args.interactor.enabled = false;
 
             // Stop the current behavior coroutine
@@ -130,9 +129,8 @@ namespace JesterGame.Code.Scripts.Characters
             StartMainBehaviorCoroutine(false);
 
             // Re-activate the interaction helper component
-            interactionHelperComponent.enabled = true;
-
             // Re-activate the interactor component on the player character
+            interactionHelperComponent.enabled = true;
             args.interactor.enabled = true;
 
             _speakingCoroutine = null;

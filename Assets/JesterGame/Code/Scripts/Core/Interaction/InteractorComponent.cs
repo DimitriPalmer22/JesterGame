@@ -20,6 +20,20 @@ namespace JesterGame.Code.Scripts.Core.Interaction
         [SerializeField, Foldout("Events")] public UnityEvent<InteractEventArgs> onFocusedInteractableChanged;
         [SerializeField, Foldout("Events")] public UnityEvent<InteractEventArgs> onInteracted;
 
+        private void OnDisable()
+        {
+            var args = new InteractEventArgs(this, null);
+            args.previousHelper = _currentHelper;
+
+            if (_currentHelper != null)
+            {
+                _currentHelper.onDeselected.Invoke(args);
+                _currentHelper = null;
+            }
+
+            onFocusedInteractableChanged.Invoke(args);
+        }
+
         private void Update()
         {
             // If the current helper is NOT the current helper, invoke events
