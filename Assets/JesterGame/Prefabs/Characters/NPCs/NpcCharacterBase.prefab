@@ -276,6 +276,7 @@ GameObject:
   - component: {fileID: 2663689184051431422}
   - component: {fileID: 9125569427245453944}
   - component: {fileID: 7980335997727775189}
+  - component: {fileID: 4553250218861822016}
   m_Layer: 6
   m_Name: NpcCharacterBase
   m_TagString: Untagged
@@ -366,6 +367,22 @@ MonoBehaviour:
   innocentBrain: {fileID: 11400000, guid: 5259a9fb0096ee1459ed2dda1df75581, type: 2}
   impostorBrain: {fileID: 11400000, guid: fd69fb533b6c489479731fbf67226e54, type: 2}
   animator: {fileID: 9125569427245453944}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4553250218861822016}
+        m_TargetAssemblyTypeName: JesterGame.Code.Scripts.Core.Proximity.ProximityActivationComponent,
+          Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   interactionHelperComponent: {fileID: 721196155857160652}
   dialogueScreenDataAsset: {fileID: 11400000, guid: 532600b429f119644adc1c7dbf615908, type: 2}
   agent: {fileID: 2663689184051431422}
@@ -510,6 +527,35 @@ MonoBehaviour:
   stepVfxSfx: {fileID: 2243694367940461761}
   affectionUpVfxSfx: {fileID: 8346155030561491030}
   affectionDownVfxSfx: {fileID: 1853703163885881700}
+--- !u!114 &4553250218861822016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598573864551597866}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98812f366cd04291aa104096a62a8cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Core.Proximity.ProximityActivationComponent
+  range: 5
+  bActivateOnce: 1
+  onActivate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1765950838410505707
 PrefabInstance:
   m_ObjectHideFlags: 0

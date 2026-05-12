@@ -8,6 +8,7 @@ using JesterGame.Code.Scripts.Core;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Events;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.Pawns;
 using UnrealToUnity.Code.Scripts.Core.Utility;
@@ -41,6 +42,8 @@ namespace JesterGame.Code.Scripts.Characters
         [SerializeField] private CharacterBehaviorBrain impostorBrain;
 
         [SerializeField] protected Animator animator;
+
+        [SerializeField] private UnityEvent<JesterGameEventArgs> onDeath;
 
         #endregion
 
@@ -259,6 +262,14 @@ namespace JesterGame.Code.Scripts.Characters
 
             animator.SetTrigger(APDeathTrigger);
             _isDead = true;
+
+            var args = new JesterGameEventArgs
+            {
+                pawn = this,
+                position = transform.position,
+            };
+
+            onDeath?.Invoke(args);
         }
     }
 }
