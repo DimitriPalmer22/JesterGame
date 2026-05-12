@@ -37,7 +37,7 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility
 
             if (sceneByPath.isLoaded)
             {
-                Debug.Log($"{sceneByPath.name} is already loaded.");
+                // Debug.Log($"{sceneByPath.name} is already loaded.");
                 return sceneByPath;
             }
 
