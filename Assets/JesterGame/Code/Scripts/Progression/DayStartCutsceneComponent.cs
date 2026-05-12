@@ -1,14 +1,12 @@
 using System.Collections;
 using JesterGame.Code.Scripts.Core;
-using UnityEngine;
-using UnrealToUnity.Code.Scripts.Core.Cutscenes;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Progression
 {
     public class DayStartCutsceneComponent : DayCutsceneComponentBase
     {
-        protected override IEnumerator CustomRunCutscene(ProgressionEventArgs cutsceneStruct)
+        protected override IEnumerator OnDayProgressionCutscene(ProgressionEventArgs cutsceneStruct)
         {
             // Disable input while fading
             var playerController = UtilLibrary.GetPlayerController();

@@ -9,7 +9,7 @@ namespace JesterGame.Code.Scripts.Progression
     {
         [SerializeField] private float screenFadeDelay = 0.5f;
 
-        protected override IEnumerator CustomRunCutscene(ProgressionEventArgs cutsceneStruct)
+        protected override IEnumerator OnDayProgressionCutscene(ProgressionEventArgs cutsceneStruct)
         {
             // Disable input while fading
             var playerController = UtilLibrary.GetPlayerController();

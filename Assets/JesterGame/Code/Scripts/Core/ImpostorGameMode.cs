@@ -46,7 +46,7 @@ namespace JesterGame.Code.Scripts.Core
         [
             SerializeField, ReadOnly,
             ProgressBar("Current Day", "GetMaxDays"),
-            BoxGroup("Progression")
+            // BoxGroup("Progression")
         ]
         public int currentDayIndex;
 
@@ -378,7 +378,7 @@ namespace JesterGame.Code.Scripts.Core
                 return;
 
             var validCharacters = characterNameToPawnMap.Values
-                .Where(n => n is NpcCharacter)
+                .Where(n => n is NpcCharacter npc && !npc.IsDead)
                 .Cast<NpcCharacter>()
                 .ToArray();
 
@@ -430,7 +430,7 @@ namespace JesterGame.Code.Scripts.Core
         private void StopNpcBehaviors(bool bClear = true)
         {
             var validCharacters = characterNameToPawnMap.Values
-                .Where(n => n is NpcCharacter)
+                .Where(n => n is NpcCharacter npc && !npc.IsDead)
                 .Cast<NpcCharacter>()
                 .ToArray();
 
@@ -441,7 +441,7 @@ namespace JesterGame.Code.Scripts.Core
         private void StartNpcBehaviors(bool bClear = true)
         {
             var validCharacters = characterNameToPawnMap.Values
-                .Where(n => n is NpcCharacter)
+                .Where(n => n is NpcCharacter npc && !npc.IsDead)
                 .Cast<NpcCharacter>()
                 .ToArray();
 

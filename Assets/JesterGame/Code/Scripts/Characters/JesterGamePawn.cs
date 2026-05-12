@@ -17,6 +17,8 @@ namespace JesterGame.Code.Scripts.Characters
     public abstract class JesterGamePawn : Pawn
     {
         protected static readonly int APCurrentVelocity = Animator.StringToHash("currentVelocity");
+        protected static readonly int APDeathTrigger = Animator.StringToHash("tDeath");
+
         public static readonly int APActivityTest = Animator.StringToHash("tActivityTest");
 
         #region Serialized Fields
@@ -44,11 +46,15 @@ namespace JesterGame.Code.Scripts.Characters
 
         #region Private Fields
 
+        private bool _isDead = false;
+
         private Coroutine _mainBehaviorCoroutine;
         private Coroutine _currentBehaviorCoroutine;
         private readonly ManualYield _activityYield = new ManualYield();
 
         #endregion
+
+        public bool IsDead => _isDead;
 
         protected override void CustomOnEnable()
         {
@@ -244,6 +250,15 @@ namespace JesterGame.Code.Scripts.Characters
             animator.SetTrigger(animHash);
 
             yield return _activityYield;
+        }
+
+        public virtual void Die()
+        {
+            if (IsDead)
+                return;
+
+            animator.SetTrigger(APDeathTrigger);
+            _isDead = true;
         }
     }
 }

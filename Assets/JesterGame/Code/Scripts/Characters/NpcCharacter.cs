@@ -169,5 +169,18 @@ namespace JesterGame.Code.Scripts.Characters
 
             return currentPool.Data.firstInteractionPerRoom[currentRoom];
         }
+
+        public override void Die()
+        {
+            base.Die();
+
+            // Disable the interaction helper
+            interactionHelperComponent.enabled = false;
+
+            // stop the behavior
+            StopMainBehaviorCoroutine(true);
+
+
+        }
     }
 }
