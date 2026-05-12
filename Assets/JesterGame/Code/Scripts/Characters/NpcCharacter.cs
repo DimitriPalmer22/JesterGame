@@ -26,6 +26,7 @@ namespace JesterGame.Code.Scripts.Characters
         /// Data asset for opening the dialogue screen.
         /// </summary>
         [SerializeField] private DialogueScreenDataAsset dialogueScreenDataAsset;
+
         [SerializeField] private DayProgressionScreenDataAsset dayProgressionScreenDataAsset;
 
         [SerializeField] private NavMeshAgent agent;
@@ -79,6 +80,8 @@ namespace JesterGame.Code.Scripts.Characters
 
         private IEnumerator SpeakCoroutine(DialogueCharacter characterData, InteractEventArgs args)
         {
+            var bHasGameMode = UtilLibrary.GetGameMode(out ImpostorGameMode gameMode);
+
             // Deactivate the interaction helper component
             // Deactivate interactor component on the player character to prevent multiple interactions while the dialogue is open.
             interactionHelperComponent.enabled = false;
@@ -101,10 +104,7 @@ namespace JesterGame.Code.Scripts.Characters
                 yield return OpenDialoguePanel(currentDialogueGraph);
 
                 // Mark the first interaction type for this room as complete
-                if (
-                    UtilLibrary.GetGameMode(out ImpostorGameMode gameMode) &&
-                    gameMode.pawnToRoomMap.TryGetValue(this, out var currentRoom)
-                )
+                if (bHasGameMode && gameMode.pawnToRoomMap.TryGetValue(this, out var currentRoom))
                 {
                     var characterInstance = gameMode.characterInstanceMap[npcDataHandle.RowName];
                     characterInstance.hasCompletedFirstInteractionPerRoom[currentRoom] = true;
@@ -116,10 +116,10 @@ namespace JesterGame.Code.Scripts.Characters
                 StopCoroutine(lookAtCoroutine);
 
             // TODO: Fade, then teleport away
-            if (UtilLibrary.GetGameMode(out ImpostorGameMode gm))
+            if (bHasGameMode)
             {
                 yield return dayProgressionScreenDataAsset.OpenScreen();
-                gm.MoveNpcToRandomPointOfInterest(this);
+                gameMode.MoveNpcToRandomPointOfInterest(this);
                 yield return dayProgressionScreenDataAsset.CloseScreen();
             }
 
@@ -134,6 +134,10 @@ namespace JesterGame.Code.Scripts.Characters
             args.interactor.enabled = true;
 
             _speakingCoroutine = null;
+
+            // Progress the game
+            if (bHasGameMode)
+                gameMode.IncrementProgress();
         }
 
         private IEnumerator OpenDialoguePanel(RuntimeDialogueGraph dialogueGraph)
@@ -152,7 +156,7 @@ namespace JesterGame.Code.Scripts.Characters
             while (true)
             {
                 // Get the rotation from the direction
-                var direction  = lookAt.position - transform.position;
+                var direction = lookAt.position - transform.position;
                 direction.y = 0;
                 var targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 

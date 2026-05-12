@@ -202,10 +202,6 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             // Re-enable player input while dialogue is running.
             controlledPawn?.RemoveInputBlocker(this);
 
-            // Progress the game
-            if (gameMode)
-                gameMode.IncrementProgress();
-
             // Close the screen
             yield return StartCoroutine(CloseScreenCoroutine());
 
