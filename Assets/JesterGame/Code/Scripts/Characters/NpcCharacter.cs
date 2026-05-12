@@ -6,6 +6,7 @@ using JesterGame.Code.Scripts.Core.Interaction;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using JesterGame.Code.Scripts.Dialogue.UI;
+using JesterGame.Code.Scripts.Progression.UI;
 using UnityEngine;
 using UnityEngine.AI;
 using UnrealToUnity.Code.Scripts.Core.AI;
@@ -25,6 +26,7 @@ namespace JesterGame.Code.Scripts.Characters
         /// Data asset for opening the dialogue screen.
         /// </summary>
         [SerializeField] private DialogueScreenDataAsset dialogueScreenDataAsset;
+        [SerializeField] private DayProgressionScreenDataAsset dayProgressionScreenDataAsset;
 
         [SerializeField] private NavMeshAgent agent;
 
@@ -113,6 +115,14 @@ namespace JesterGame.Code.Scripts.Characters
 
             if (lookAtCoroutine != null)
                 StopCoroutine(lookAtCoroutine);
+
+            // TODO: Fade, then teleport away
+            if (UtilLibrary.GetGameMode(out ImpostorGameMode gm))
+            {
+                yield return dayProgressionScreenDataAsset.OpenScreen();
+                gm.MoveNpcToRandomPointOfInterest(this);
+                yield return dayProgressionScreenDataAsset.CloseScreen();
+            }
 
             // Restart the current behavior coroutine.
             agent.isStopped = false;

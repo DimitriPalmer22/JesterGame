@@ -40,8 +40,7 @@ namespace JesterGame.Code.Scripts.Core
         [SerializedDictionary("Pawn", "Room Data Asset"), ReadOnly, Foldout("Read Only")]
         public SerializedDictionary<JesterGamePawn, RoomDataAsset> pawnToRoomMap = new();
 
-        [SerializeField]
-        public DayProgressionStruct[] dayProgressions;
+        [SerializeField] public DayProgressionStruct[] dayProgressions;
 
         [
             SerializeField, ReadOnly,
@@ -368,7 +367,7 @@ namespace JesterGame.Code.Scripts.Core
             return allPoints.FirstOrDefault(poi => poi.PointOfInterestDataHandle == rowHandle);
         }
 
-        private void MoveNpcsToRandomPointsOfInterest()
+        public void MoveNpcsToRandomPointsOfInterest()
         {
             var allPointsOfInterest = GetAllPointsOfInterest().ToHashSet();
             var usedPoints = new HashSet<PointOfInterest>();
@@ -383,23 +382,38 @@ namespace JesterGame.Code.Scripts.Core
                 .ToArray();
 
             foreach (var npc in validCharacters)
+                MoveNpcToRandomPointOfInterest(npc, allPointsOfInterest, usedPoints);
+        }
+
+        public void MoveNpcToRandomPointOfInterest(JesterGamePawn npc)
+        {
+            var randomPoint = GetAllPointsOfInterest().GetRandom();
+
+            // Move the npc to the random point
+            npc.transform.position = randomPoint.GetTransform.position;
+            npc.transform.rotation = randomPoint.GetTransform.rotation;
+        }
+
+        private void MoveNpcToRandomPointOfInterest(
+            NpcCharacter npc,
+            HashSet<PointOfInterest> allPointsOfInterest, HashSet<PointOfInterest> usedPoints
+        )
+        {
+            // when the valid list is empty, add all the used points back
+            if (allPointsOfInterest.Count == 0)
             {
-                // when the valid list is empty, add all the used points back
-                if (allPointsOfInterest.Count == 0)
-                {
-                    allPointsOfInterest.UnionWith(usedPoints);
-                    usedPoints.Clear();
-                }
-
-                // Get a random point from the valid points
-                var randomPoint = allPointsOfInterest.GetRandom();
-                allPointsOfInterest.Remove(randomPoint);
-                usedPoints.Add(randomPoint);
-
-                // Move the npc to the random point
-                npc.transform.position = randomPoint.GetTransform.position;
-                npc.transform.rotation = randomPoint.GetTransform.rotation;
+                allPointsOfInterest.UnionWith(usedPoints);
+                usedPoints.Clear();
             }
+
+            // Get a random point from the valid points
+            var randomPoint = allPointsOfInterest.GetRandom();
+            allPointsOfInterest.Remove(randomPoint);
+            usedPoints.Add(randomPoint);
+
+            // Move the npc to the random point
+            npc.transform.position = randomPoint.GetTransform.position;
+            npc.transform.rotation = randomPoint.GetTransform.rotation;
         }
 
         #endregion
