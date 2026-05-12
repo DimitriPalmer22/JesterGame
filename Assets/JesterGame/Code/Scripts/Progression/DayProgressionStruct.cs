@@ -15,6 +15,12 @@ namespace JesterGame.Code.Scripts.Progression
         /// </summary>
         [SerializeField, Delayed] public int numProgressionsInDay;
 
+        /// <summary>
+        /// The minimum affection needed for the impostor to NOT kill someone.
+        /// Anything lower than this, and the kill a random NPC.
+        /// </summary>
+        [SerializeField, Delayed] public int minimumImpostorAffection;
+
         [SerializeField] public PrePostEvent<ProgressionEventArgs> dayStartEvents;
         [SerializeField] public PrePostEvent<ProgressionEventArgs> dayEndEvents;
 

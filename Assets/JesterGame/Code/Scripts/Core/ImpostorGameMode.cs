@@ -40,7 +40,7 @@ namespace JesterGame.Code.Scripts.Core
         [SerializedDictionary("Pawn", "Room Data Asset"), ReadOnly, Foldout("Read Only")]
         public SerializedDictionary<JesterGamePawn, RoomDataAsset> pawnToRoomMap = new();
 
-        [SerializeField, BoxGroup("Progression")]
+        [SerializeField]
         public DayProgressionStruct[] dayProgressions;
 
         [
@@ -70,6 +70,8 @@ namespace JesterGame.Code.Scripts.Core
 
         [SerializeField, Foldout("Progression Events")]
         public UnityEvent<ProgressionEventArgs> onDayProgressed;
+
+        [SerializeField] private NpcDeathCutsceneComponent npcDeathCutsceneComponent;
 
         #endregion
 
@@ -111,7 +113,14 @@ namespace JesterGame.Code.Scripts.Core
             if (characterDataTable)
             {
                 foreach (var rowHandle in characterDataTable.GetAllRowHandles())
-                    characterInstanceMap[rowHandle.RowName] = new CharacterInstance(rowHandle, CharacterType.Normal);
+                {
+                    var characterType = CharacterType.Normal;
+
+                    if (rowHandle.GetValue(out DialogueCharacter characterAsset) && characterAsset.bIsMainCharacter)
+                        characterType = CharacterType.Player;
+
+                    characterInstanceMap[rowHandle.RowName] = new CharacterInstance(rowHandle, characterType);
+                }
             }
 
             var validImpostors = characterInstanceMap
@@ -511,11 +520,22 @@ namespace JesterGame.Code.Scripts.Core
 
                 #region Death Cutscene
 
-                // TODO: Yield the someone dies cutscene
+                // Yield the someone dies cutscene
                 var impostorAffection = GetImpostorAffection(out var impostorName);
-                Debug.Log($"Current impostor affection: {impostorName} - {impostorAffection}");
+                Debug.Log(
+                    $"Current impostor affection: {impostorName} - {impostorAffection} - {currentDay.minimumImpostorAffection}"
+                );
+                if (impostorAffection < currentDay.minimumImpostorAffection)
+                {
+                    var currentProgressionArgs = new ProgressionEventArgs
+                    {
+                        currentDay = currentDayIndex,
+                        currentProgress = currentDay.numProgressionsInDay,
+                        previousProgress = currentDay.numProgressionsInDay - 1
+                    };
 
-                yield return null;
+                    yield return npcDeathCutsceneComponent.OngoingCoroutine(currentProgressionArgs);
+                }
 
                 #endregion
 

@@ -1,8 +1,6 @@
 using System.Collections;
 using JesterGame.Code.Scripts.Core;
 using UnityEngine;
-using UnrealToUnity.Code.Scripts.Core.Cutscenes;
-using UnrealToUnity.Code.Scripts.Core.Player;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Progression

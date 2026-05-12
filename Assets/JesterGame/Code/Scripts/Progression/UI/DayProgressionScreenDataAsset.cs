@@ -4,6 +4,9 @@ using UnrealToUnity.Code.Scripts.Core.UserInterface;
 
 namespace JesterGame.Code.Scripts.Progression.UI
 {
+    /// <summary>
+    /// Just treat this as a black screen.
+    /// </summary>
     [CreateAssetMenu(
         fileName = "DayProgressionScreenDataAsset",
         menuName = "JesterGame/UI/Day Progression Screen Data Asset")

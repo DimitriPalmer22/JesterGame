@@ -6,6 +6,7 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
     public enum CharacterType
     {
         Normal,
-        Impostor
+        Impostor,
+        Player
     }
 }

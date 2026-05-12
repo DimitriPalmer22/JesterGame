@@ -159,6 +159,7 @@ namespace JesterGame.Code.Scripts.Characters
             {
                 CharacterType.Normal => innocentBrain,
                 CharacterType.Impostor => impostorBrain,
+                CharacterType.Player => innocentBrain,
                 _ => throw new ArgumentOutOfRangeException()
             };
 
