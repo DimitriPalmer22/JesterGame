@@ -141,6 +141,9 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor
 
                 loadedAsset.Data.randomInteractions[i] = runtimeGraph;
             }
+
+            // Mark the loaded asset as dirty, forcing you to save
+            EditorUtility.SetDirty(loadedAsset);
         }
 
         private static DialogueGraph CreateOrLoadGraph(string path, string templateGraphPath)
