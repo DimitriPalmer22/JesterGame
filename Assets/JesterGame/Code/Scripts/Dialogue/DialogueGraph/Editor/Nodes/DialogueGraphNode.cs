@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JesterGame.Code.Scripts.Dialogue.Data;
 using Unity.GraphToolkit.Editor;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
 
@@ -24,6 +25,19 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor.Nodes
                 .WithDisplayName("Text")
                 .WithDefaultValue("Text")
                 .Build();
+        }
+
+        protected override void OnDefinePorts(IPortDefinitionContext context)
+        {
+            base.OnDefinePorts(context);
+
+            // context.AddInputPort<DataTableRowHandle<DialogueCharacter>>($"{OPTION_SPEAKER}_Test")
+            //     .WithDisplayName("Speaker")
+            //     .Build();
+            //
+            // context.AddInputPort<string>($"{OPTION_TEXT}_Test")
+            //     .WithDisplayName("Text")
+            //     .Build();
         }
 
         public virtual List<DialogueGraphNode> GetNextNodes()

@@ -8,6 +8,8 @@ namespace JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor.Nodes
     {
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
+            base.OnDefinePorts(context);
+
             context.AddOutputPort("ExecutionPort")
                 .WithDisplayName("Start")
                 .WithConnectorUI(PortConnectorUI.Arrowhead)

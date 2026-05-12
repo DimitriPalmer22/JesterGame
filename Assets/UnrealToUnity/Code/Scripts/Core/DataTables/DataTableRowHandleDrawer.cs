@@ -20,7 +20,7 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
 
             if (property.isExpanded)
             {
-                EditorGUI.indentLevel++;
+                // EditorGUI.indentLevel++;
 
                 // Get the serialized properties
                 var dataTableProperty = property.FindPropertyRelative("dataTable");
@@ -33,7 +33,7 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
                     position.width,
                     EditorGUIUtility.singleLineHeight
                 );
-                EditorGUI.PropertyField(dataTableRect, dataTableProperty);
+                EditorGUI.PropertyField(dataTableRect, dataTableProperty, GUIContent.none);
 
                 // Draw rowName dropdown
                 var rowNameRect = new Rect(
@@ -44,7 +44,7 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
                 );
                 DrawRowNameDropdown(rowNameRect, dataTableProperty, rowNameProperty);
 
-                EditorGUI.indentLevel--;
+                // EditorGUI.indentLevel--;
             }
 
             EditorGUI.EndProperty();
@@ -64,7 +64,7 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
 
             if (dataTable == null)
             {
-                EditorGUI.TextField(rect, "Row Name", rowNameProperty.stringValue);
+                EditorGUI.TextField(rect, "Row Name", rowNameProperty.stringValue, GUIStyle.none);
                 return;
             }
 
@@ -79,7 +79,7 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
 
             if (rowNamesWithEmpty.Length == 0)
             {
-                EditorGUI.TextField(rect, "Row Name", rowNameProperty.stringValue);
+                EditorGUI.TextField(rect, "Row Name", rowNameProperty.stringValue, GUIStyle.none);
                 return;
             }
 
@@ -89,9 +89,29 @@ namespace UnrealToUnity.Code.Scripts.Core.DataTables
             if (selectedIndex < 0)
                 selectedIndex = 0;
 
+            var currentTextColor = selectedIndex > 0
+                ? EditorStyles.label.normal.textColor
+                : Color.red;
+
             // Draw dropdown
             EditorGUI.BeginChangeCheck();
-            var newIndex = EditorGUI.Popup(rect, "Row Name", selectedIndex, rowNamesWithEmpty);
+            var style = new GUIStyle(EditorStyles.popup)
+            {
+                stretchWidth = true,
+                contentOffset = new Vector2(0, 0)
+            };
+            style.hover.textColor = currentTextColor;
+            style.normal.textColor = currentTextColor;
+            style.active.textColor = currentTextColor;
+            style.focused.textColor = currentTextColor;
+
+            var noLabelRect = new Rect(
+                rect.x - EditorGUIUtility.labelWidth,
+                rect.y,
+                rect.width + EditorGUIUtility.labelWidth,
+                rect.height
+            );
+            var newIndex = EditorGUI.Popup(noLabelRect, null, selectedIndex, rowNamesWithEmpty, style);
 
             if (EditorGUI.EndChangeCheck())
             {
