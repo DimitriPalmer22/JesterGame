@@ -28,7 +28,7 @@ namespace JesterGame.Code.Scripts.Characters
         /// </summary>
         [SerializeField] private DialogueScreenDataAsset dialogueScreenDataAsset;
 
-        [SerializeField] private DayProgressionScreenDataAsset dayProgressionScreenDataAsset;
+        [SerializeField] private DoneTalkingScreenDataAsset doneTalkingScreenDataAsset;
 
         [SerializeField] private NavMeshAgent agent;
 
@@ -121,12 +121,12 @@ namespace JesterGame.Code.Scripts.Characters
             if (lookAtCoroutine != null)
                 StopCoroutine(lookAtCoroutine);
 
-            // TODO: Fade, then teleport away
+            // Fade, then teleport away
             if (bHasGameMode)
             {
-                yield return dayProgressionScreenDataAsset.OpenScreen();
+                yield return doneTalkingScreenDataAsset.OpenScreen();
                 gameMode.MoveNpcToRandomPointOfInterest(this);
-                yield return dayProgressionScreenDataAsset.CloseScreen();
+                yield return doneTalkingScreenDataAsset.CloseScreen();
             }
 
             // Restart the current behavior coroutine.
