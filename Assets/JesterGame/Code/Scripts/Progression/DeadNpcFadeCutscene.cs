@@ -5,6 +5,7 @@ using JesterGame.Code.Scripts.Core;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.Cutscenes;
+using UnrealToUnity.Code.Scripts.Core.Player;
 
 namespace JesterGame.Code.Scripts.Progression
 {
@@ -27,9 +28,15 @@ namespace JesterGame.Code.Scripts.Progression
 
         protected override IEnumerator CustomRunCutscene(JesterGameEventArgs cutsceneStruct)
         {
+            PlayerController playerController = null;
+            if (cutsceneStruct.controller is PlayerController controller)
+            {
+                playerController = controller;
+                playerController.AddInputBlocker(this);
+            }
+
             // Set the camera's priority to max real quick
             SetCameraPriority(true);
-
             yield return new WaitForSeconds(blendTime);
 
             var startTime = Time.time;
@@ -54,6 +61,10 @@ namespace JesterGame.Code.Scripts.Progression
 
             // Reset the priority to deprioritize the camera.
             SetCameraPriority(false);
+            yield return new WaitForSeconds(blendTime);
+
+            if (playerController != null)
+                playerController.RemoveInputBlocker(this);
 
             // Destroy the game object after a little second
             Destroy(gameObject, 1f);
