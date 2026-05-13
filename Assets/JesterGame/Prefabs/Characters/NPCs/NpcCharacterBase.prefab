@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 7980335997727775189}
   - component: {fileID: 4553250218861822016}
   - component: {fileID: 136756119338540626}
+  - component: {fileID: 7924921260884622389}
   m_Layer: 6
   m_Name: NpcCharacterBase
   m_TagString: Untagged
@@ -611,6 +612,23 @@ MonoBehaviour:
     m_RotationOrder: 4
   cineCameraDataAsset: {fileID: 11400000, guid: aa599017a4fda194d8f3021e1a4058c8, type: 2}
   cutsceneCamera: {fileID: 4935991880305494785}
+--- !u!114 &7924921260884622389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598573864551597866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69738abca4c44491b91e29205971ff00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnrealToUnity.Code.Scripts.Core.Utility.Scenes.MoveToScene
+  bRunOnStart: 1
+  bMoveToActiveScene: 1
+  sceneToMoveTo:
+    asset: {fileID: 0}
+    guid: 00000000000000000000000000000000
 --- !u!1001 &225308942459758573
 PrefabInstance:
   m_ObjectHideFlags: 0

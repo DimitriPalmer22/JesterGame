@@ -284,5 +284,7 @@ namespace JesterGame.Code.Scripts.Characters
                 return Mathf.Abs(Quaternion.Angle(a, targetRotation)) <= -1f;
             }
         }
+
+        public abstract void SetMovementEnabled(bool bEnabled);
     }
 }

@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
 using Eflatun.SceneReference;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace UnrealToUnity.Code.Scripts.Core.Utility
+namespace UnrealToUnity.Code.Scripts.Core.Utility.Scenes
 {
     public class EnsureSubscenesLoaded : MonoBehaviour
     {
