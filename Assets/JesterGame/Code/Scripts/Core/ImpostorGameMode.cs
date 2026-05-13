@@ -98,13 +98,13 @@ namespace JesterGame.Code.Scripts.Core
 
             InitializeCharacters();
 
-// #if UNITY_EDITOR
-// #else
-//                 // If in a build, we need to ensure all the subscenes are loaded before we initialize the characters.
-//                 // This is because the characters are initialized based on the character data table, which is in a subscene.
-//                 if (ensureSubscenesLoadedComponent)
-//                     ensureSubscenesLoadedComponent.LoadScenes();
-// #endif
+#if UNITY_EDITOR
+#else
+                // If in a build, we need to ensure all the subscenes are loaded before we initialize the characters.
+                // This is because the characters are initialized based on the character data table, which is in a subscene.
+                if (ensureSubscenesLoadedComponent)
+                    ensureSubscenesLoadedComponent.LoadScenes();
+#endif
         }
 
         private void InitializeCharacters()

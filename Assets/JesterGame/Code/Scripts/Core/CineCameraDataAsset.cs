@@ -12,6 +12,8 @@ namespace JesterGame.Code.Scripts.Core
 
         [SerializeField] private float blendTime = 1f;
 
+        public float BlendTime => blendTime;
+
         public void PrioritizeCamera(CinemachineCamera cam)
         {
             if (cam == null)
