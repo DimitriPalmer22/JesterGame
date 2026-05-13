@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000012, guid: eb8ec60587585ba49bfe4adbcb1cebf7, type: 2}
+  m_LightingDataAsset: {fileID: 112000004, guid: 1db4e77af6da5a74f8f59872bee64f09, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -119,56 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &551107577
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 551107579}
-  - component: {fileID: 551107578}
-  m_Layer: 0
-  m_Name: ProbeVolumePerSceneData
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &551107578
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551107577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a83d2f7ae04ab6f4f99b0d85377be998, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.ProbeVolumePerSceneData
-  serializedBakingSet: {fileID: 0}
-  sceneGUID: d4ba2e6c5bb642447ac6447bb4233da1
-  obsoleteAsset: {fileID: 0}
-  obsoleteCellSharedDataAsset: {fileID: 0}
-  obsoleteCellSupportDataAsset: {fileID: 0}
-  obsoleteSerializedScenarios: []
---- !u!4 &551107579
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551107577}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6139336631763871750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -320,19 +270,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 284351081311086548, guid: 1b886dedea6ba534288ec94aaf992f1a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.355
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 284351081311086548, guid: 1b886dedea6ba534288ec94aaf992f1a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.75
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 284351081311086548, guid: 1b886dedea6ba534288ec94aaf992f1a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8870221
+      value: -0.8433914
       objectReference: {fileID: 0}
     - target: {fileID: 284351081311086548, guid: 1b886dedea6ba534288ec94aaf992f1a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.461727
+      value: -0.53729963
       objectReference: {fileID: 0}
     - target: {fileID: 284351081311086548, guid: 1b886dedea6ba534288ec94aaf992f1a, type: 3}
       propertyPath: m_LocalRotation.y
@@ -354,6 +304,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2089212777338163265, guid: 1b886dedea6ba534288ec94aaf992f1a, type: 3}
+      propertyPath: field of view
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -365,4 +319,3 @@ SceneRoots:
   m_Roots:
   - {fileID: 8064524426611852100}
   - {fileID: 6139336631763871750}
-  - {fileID: 551107579}
