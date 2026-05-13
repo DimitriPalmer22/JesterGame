@@ -11,19 +11,16 @@ namespace JesterGame.Code.Scripts.Progression
 {
     public class DeadNpcFadeCutscene : CutsceneComponent<JesterGameEventArgs>
     {
-        private const int MAX_PRIORITY = 9999;
-        private const int MIN_PRIORITY = -9999;
-
         private static readonly int AlphaMatParam = Shader.PropertyToID("_Alpha");
 
         [SerializeField] private AnimationCurve animationCurve;
 
+        [SerializeField] private CineCameraDataAsset cineCameraDataAsset;
         [SerializeField] private CinemachineCamera cutsceneCamera;
-        [SerializeField] private float blendTime = 1f;
 
         private void Awake()
         {
-            SetCameraPriority(false);
+            cineCameraDataAsset.DeprioritizeCamera(cutsceneCamera);
         }
 
         protected override IEnumerator CustomRunCutscene(JesterGameEventArgs cutsceneStruct)
@@ -36,8 +33,7 @@ namespace JesterGame.Code.Scripts.Progression
             }
 
             // Set the camera's priority to max real quick
-            SetCameraPriority(true);
-            yield return new WaitForSeconds(blendTime);
+            yield return cineCameraDataAsset.PrioritizeCameraAndWait(cutsceneCamera);
 
             var startTime = Time.time;
             var endTime = Time.time + animationCurve.keys[^1].time;
@@ -60,8 +56,7 @@ namespace JesterGame.Code.Scripts.Progression
             SetFadeValue(animationCurve.keys[^1].value, materials);
 
             // Reset the priority to deprioritize the camera.
-            SetCameraPriority(false);
-            yield return new WaitForSeconds(blendTime);
+            yield return cineCameraDataAsset.DeprioritizeCameraAndWait(cutsceneCamera);
 
             if (playerController != null)
                 playerController.RemoveInputBlocker(this);
@@ -79,22 +74,6 @@ namespace JesterGame.Code.Scripts.Progression
 
                 mat.SetFloat(AlphaMatParam, value);
             }
-        }
-
-        private void SetCameraPriority(bool value)
-        {
-            if (!cutsceneCamera)
-                return;
-
-            cutsceneCamera.Priority = new PrioritySettings()
-            {
-                Enabled = true,
-                Value = value ? MAX_PRIORITY : MIN_PRIORITY
-            };
-
-            cutsceneCamera.enabled = value;
-
-            cutsceneCamera.Prioritize();
         }
     }
 }

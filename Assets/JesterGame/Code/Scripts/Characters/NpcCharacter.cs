@@ -7,6 +7,8 @@ using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using JesterGame.Code.Scripts.Dialogue.UI;
 using JesterGame.Code.Scripts.Progression.UI;
+using NaughtyAttributes;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
 using UnrealToUnity.Code.Scripts.Core.AI;
@@ -32,6 +34,13 @@ namespace JesterGame.Code.Scripts.Characters
 
         [SerializeField] private NavMeshAgent agent;
 
+        [SerializeField, Foldout("Dialogue Cutscene")]
+        private CineCameraDataAsset dialogueCameraDataAsset;
+
+        [SerializeField, Foldout("Dialogue Cutscene")]
+        private CinemachineCamera dialogueCutsceneCamera;
+
+        // TODO: Remove
         [SerializeField] private Renderer[] impostorMaterialRenderers;
         [SerializeField] public Material impostorMaterial;
 
@@ -87,7 +96,6 @@ namespace JesterGame.Code.Scripts.Characters
             if (bHasPlayerController)
                 playerController.AddInputBlocker(this);
 
-
             // Deactivate the interaction helper component
             // Deactivate interactor component on the player character to prevent multiple interactions while the dialogue is open.
             interactionHelperComponent.enabled = false;
@@ -107,7 +115,11 @@ namespace JesterGame.Code.Scripts.Characters
             var currentDialogueGraph = DetermineCurrentDialogue(characterData);
             if (currentDialogueGraph != null)
             {
+                StartCoroutine(dialogueCameraDataAsset.PrioritizeCameraAndWait(dialogueCutsceneCamera));
+
                 yield return OpenDialoguePanel(currentDialogueGraph);
+
+                yield return StartCoroutine(dialogueCameraDataAsset.DeprioritizeCameraAndWait(dialogueCutsceneCamera));
 
                 // Mark the first interaction type for this room as complete
                 if (bHasGameMode && gameMode.pawnToRoomMap.TryGetValue(this, out var currentRoom))

@@ -8,7 +8,7 @@ using UnrealToUnity.Code.Scripts.Core.Utility;
 namespace JesterGame.Code.Scripts.Core.Interaction
 {
     /// <summary>
-    /// A component used to detect which items nearby are able to be inteacted with.
+    /// A component used to detect which items nearby are able to be interacted with.
     /// </summary>
     public class InteractorComponent : MonoBehaviour
     {
@@ -20,8 +20,13 @@ namespace JesterGame.Code.Scripts.Core.Interaction
         [SerializeField, Foldout("Events")] public UnityEvent<InteractEventArgs> onFocusedInteractableChanged;
         [SerializeField, Foldout("Events")] public UnityEvent<InteractEventArgs> onInteracted;
 
+        [NonSerialized] private bool bQuitting;
+
         private void OnDisable()
         {
+            if (bQuitting)
+                return;
+
             var args = new InteractEventArgs(this, null);
             args.previousHelper = _currentHelper;
 
@@ -120,6 +125,11 @@ namespace JesterGame.Code.Scripts.Core.Interaction
                 Gizmos.DrawLine(transform.position, _currentHelper.transform.position);
                 Gizmos.DrawWireSphere(_currentHelper.transform.position, _currentHelper.InteractionRange);
             }
+        }
+
+        private void OnApplicationQuit()
+        {
+            bQuitting = true;
         }
     }
 }
