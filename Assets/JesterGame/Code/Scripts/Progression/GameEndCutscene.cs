@@ -31,6 +31,12 @@ namespace JesterGame.Code.Scripts.Progression
                 yield break;
             }
 
+            foreach (var pawn in gameMode.characterNameToPawnMap.Values)
+            {
+                pawn.StopMainBehaviorCoroutine(true);
+                pawn.SetMovementEnabled(false);
+            }
+
             // Disable the player's input
             var playerController = UtilLibrary.GetPlayerController(0);
             playerController?.AddInputBlocker(this);
