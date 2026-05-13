@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using JesterGame.Code.Scripts.Characters;
 using JesterGame.Code.Scripts.Core;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -32,6 +33,17 @@ namespace JesterGame.Code.Scripts.Progression
                 playerController.AddInputBlocker(this);
             }
 
+            // Get the player character
+            Coroutine lookAtCoroutine = null;
+            if (playerController != null &&
+                playerController.ControlledPawn != null &&
+                playerController.ControlledPawn is JesterGamePawn jesterPawn
+               )
+            {
+                var pawn = GetComponent<JesterGamePawn>();
+                lookAtCoroutine = StartCoroutine(jesterPawn.TurnTowards(pawn.transform, 180));
+            }
+
             // Set the camera's priority to max real quick
             yield return cineCameraDataAsset.PrioritizeCameraAndWait(cutsceneCamera);
 
@@ -51,6 +63,9 @@ namespace JesterGame.Code.Scripts.Progression
 
                 yield return null;
             }
+
+            if (lookAtCoroutine != null)
+                StopCoroutine(lookAtCoroutine);
 
             // Ensure the final value is set at the end of the animation curve
             SetFadeValue(animationCurve.keys[^1].value, materials);

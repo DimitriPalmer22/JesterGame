@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Linq;
+using JesterGame.Code.Scripts.Characters;
 using JesterGame.Code.Scripts.Core;
 using JesterGame.Code.Scripts.Dialogue.Data;
 using UnityEngine;
+using UnrealToUnity.Code.Scripts.Core.Player;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Progression
@@ -25,7 +27,7 @@ namespace JesterGame.Code.Scripts.Progression
             //         yield return new WaitForSecondsRealtime(screenFadeDelay);
             // }
 
-            // Choose a random character (not the impostor or main character) to die
+   // Choose a random character (not the impostor or main character) to die
             var validCharacters = gameMode.characterNameToPawnMap.Keys
                 .Where(charName => gameMode.characterInstanceMap[charName].characterType == CharacterType.Normal &&
                                    !gameMode.characterNameToPawnMap[charName].IsDead)

@@ -172,34 +172,6 @@ namespace JesterGame.Code.Scripts.Characters
             yield return null;
         }
 
-        private IEnumerator TurnTowards(Transform lookAt, float turningRate)
-        {
-            // Smoothly rotate towards the target rotation
-            while (!AngleWithinRange(transform.rotation, lookAt, out var targetRotation))
-            {
-
-                var turnDelta = turningRate * Time.deltaTime;
-                var newRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnDelta);
-                transform.rotation = newRotation;
-                yield return null;
-            }
-
-            yield break;
-
-            // Function to test if the angle is within an acceptable range.
-            bool AngleWithinRange(Quaternion a, Transform targetTransform, out Quaternion targetRotation)
-            {
-                // Get the rotation from the direction
-                var direction = targetTransform.position - transform.position;
-                direction.y = 0;
-                targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-
-                // return false;
-                // return Mathf.Abs(Quaternion.Angle(a, targetRotation)) <= 0.1f;
-                return Mathf.Abs(Quaternion.Angle(a, targetRotation)) <= -1f;
-            }
-        }
-
         public RuntimeDialogueGraph DetermineCurrentDialogue(DialogueCharacter characterData)
         {
             // Get the game mode to access the pawn to room map

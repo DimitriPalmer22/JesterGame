@@ -237,12 +237,6 @@ namespace JesterGame.Code.Scripts.Characters
 
         #endregion
 
-        public void OnAbilityAnimationFinished()
-        {
-            Debug.Log("Ability animation finished callback received.");
-            _activityYield.Reset();
-        }
-
         public virtual void Die()
         {
             if (IsDead)
@@ -263,5 +257,32 @@ namespace JesterGame.Code.Scripts.Characters
         }
 
         public void FinishAnimation() => AnimationHelper.FinishAnimation();
+
+        public IEnumerator TurnTowards(Transform lookAt, float turningRate)
+        {
+            // Smoothly rotate towards the target rotation
+            while (!AngleWithinRange(transform.rotation, lookAt, out var targetRotation))
+            {
+                var turnDelta = turningRate * Time.deltaTime;
+                var newRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnDelta);
+                transform.rotation = newRotation;
+                yield return null;
+            }
+
+            yield break;
+
+            // Function to test if the angle is within an acceptable range.
+            bool AngleWithinRange(Quaternion a, Transform targetTransform, out Quaternion targetRotation)
+            {
+                // Get the rotation from the direction
+                var direction = targetTransform.position - transform.position;
+                direction.y = 0;
+                targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+
+                // return false;
+                // return Mathf.Abs(Quaternion.Angle(a, targetRotation)) <= 0.1f;
+                return Mathf.Abs(Quaternion.Angle(a, targetRotation)) <= -1f;
+            }
+        }
     }
 }
