@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 777040674850859826}
   - component: {fileID: 4640229314338223285}
   - component: {fileID: 6286514807522637335}
+  - component: {fileID: 3245826453552113289}
   - component: {fileID: 5292940626778043156}
   - component: {fileID: 8232573044728332250}
   - component: {fileID: 4066477966986930855}
@@ -442,6 +443,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   npcDeathCutsceneComponent: {fileID: 5292940626778043156}
+  gameEndCutscene: {fileID: 3245826453552113289}
 --- !u!114 &4640229314338223285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,6 +483,25 @@ MonoBehaviour:
       m_Calls: []
   dayProgressionScreenDataAsset: {fileID: 11400000, guid: 763d6d2a350c05d48af791c20c4fb803, type: 2}
   screenFadeDelay: 0.5
+--- !u!114 &3245826453552113289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680658913375508802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf56f8d030c403899fe623b92cd1e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Progression.GameEndCutscene
+  onCutsceneStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onCutsceneEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  dayProgressionScreenDataAsset: {fileID: 11400000, guid: 763d6d2a350c05d48af791c20c4fb803, type: 2}
 --- !u!114 &5292940626778043156
 MonoBehaviour:
   m_ObjectHideFlags: 0

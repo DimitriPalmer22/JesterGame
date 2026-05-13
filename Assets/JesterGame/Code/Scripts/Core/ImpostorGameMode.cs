@@ -72,6 +72,8 @@ namespace JesterGame.Code.Scripts.Core
 
         [SerializeField] private NpcDeathCutsceneComponent npcDeathCutsceneComponent;
 
+        [SerializeField] private DayCutsceneComponentBase gameEndCutscene;
+
         #endregion
 
         [NonSerialized] public readonly SerializedDictionary<string, JesterGamePawn> characterNameToPawnMap = new();
@@ -560,6 +562,13 @@ namespace JesterGame.Code.Scripts.Core
                     new ProgressionEventArgs(previousProgress, currentInteractionProgression, currentDayIndex + 1)
                 );
             }
+
+            var progressionArgs = new ProgressionEventArgs(
+                previousProgress: currentInteractionProgression,
+                currentProgress: currentInteractionProgression,
+                currentDay: currentDayIndex
+            );
+            yield return gameEndCutscene.OngoingCoroutine(progressionArgs);
 
             yield break;
         }

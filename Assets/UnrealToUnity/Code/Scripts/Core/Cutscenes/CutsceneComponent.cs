@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
 using UnrealToUnity.Code.Scripts.Core.Utility.Interfaces;
@@ -16,8 +17,8 @@ namespace UnrealToUnity.Code.Scripts.Core.Cutscenes
     public abstract class CutsceneComponent<TCutsceneStruct> : CutsceneComponentBase, IOngoing<TCutsceneStruct>
         where TCutsceneStruct : struct
     {
-        [SerializeField] public UnityEvent<TCutsceneStruct> onCutsceneStarted;
-        [SerializeField] public UnityEvent<TCutsceneStruct> onCutsceneEnded;
+        [SerializeField, Foldout("Cutscene Events")] public UnityEvent<TCutsceneStruct> onCutsceneStarted;
+        [SerializeField, Foldout("Cutscene Events")] public UnityEvent<TCutsceneStruct> onCutsceneEnded;
 
         public void RunCutscene(TCutsceneStruct cutsceneStruct)
         {
