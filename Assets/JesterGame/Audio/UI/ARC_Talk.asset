@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1233149941 &-7810851826758036662
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: joentnt-talking-nya-2-291988_{-7810851826758036662}
+  m_AudioClip: {fileID: 8300000, guid: 05353c96b16f3a54bb4813217d80f04f, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &2753949447725731198
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: joentnt-talking-nya-1-291987_{2753949447725731198}
+  m_AudioClip: {fileID: 8300000, guid: 9ff405b223b2cc64b845a6ea6ecc260b, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1307931743 &6418180475301049370
+AudioRandomContainer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ARC_Talk
+  m_Volume: 0
+  m_Pitch: 0
+  m_AutomaticTriggerTime: 0
+  m_LoopCount: 1
+  m_VolumeRandomizationRange: {x: 0, y: 0}
+  m_PitchRandomizationRange: {x: -1, y: 1}
+  m_AutomaticTriggerTimeRandomizationRange: {x: 0, y: 0.1}
+  m_LoopCountRandomizationRange: {x: 0, y: 0}
+  m_Elements:
+  - {fileID: 2753949447725731198}
+  - {fileID: -7810851826758036662}
+  - {fileID: 8397476485844287154}
+  m_AvoidRepeatingLast: 0
+  m_PlaybackMode: 2
+  m_TriggerMode: 0
+  m_AutomaticTriggerMode: 0
+  m_LoopMode: 2
+  m_VolumeRandomizationEnabled: 1
+  m_PitchRandomizationEnabled: 1
+  m_AutomaticTriggerTimeRandomizationEnabled: 1
+  m_LoopCountRandomizationEnabled: 0
+--- !u!1233149941 &8397476485844287154
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: joentnt-talking-nya-3-291989_{8397476485844287154}
+  m_AudioClip: {fileID: 8300000, guid: 0aa1a26b5452ecb4dbc792083e10a7ed, type: 3}
+  m_Volume: 0
+  m_Enabled: 1

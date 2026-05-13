@@ -5,6 +5,7 @@ using JesterGame.Code.Scripts.Dialogue.Data;
 using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnrealToUnity.Code.Scripts.Core.UserInterface;
@@ -29,6 +30,8 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
         [SerializeField] private float wordDelay = 0.25f;
 
         [SerializeField] private AnimationHelperComponent animationHelperComponent;
+
+        [SerializeField] private UnityEvent onTextUpdated;
 
         #endregion
 
@@ -155,7 +158,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
                 // currentNode.affectionValue
 
-                // TODO: Animate or something.
+                // Animate or something.
                 // Set the current text and speaker.
                 if (currentNode.speaker.GetValue(out DialogueCharacter characterData))
                 {
@@ -243,6 +246,9 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                 // Add the space if not the last word.
                 if (index < splitLine.Length - 1)
                     dialogueText.text += " ";
+
+                // Call the text updated event.
+                onTextUpdated?.Invoke();
             }
         }
 
