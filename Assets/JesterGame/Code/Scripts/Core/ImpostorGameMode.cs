@@ -6,12 +6,13 @@ using AYellowpaper.SerializedCollections;
 using JesterGame.Code.Scripts.Characters;
 using JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest;
 using JesterGame.Code.Scripts.Dialogue.Data;
+using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
+using JesterGame.Code.Scripts.Dialogue.UI;
 using JesterGame.Code.Scripts.Progression;
 using JesterGame.Code.Scripts.Rooms;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
-using UnrealToUnity.Code.Scripts.Core.Cutscenes;
 using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.GameMode;
 using UnrealToUnity.Code.Scripts.Core.Subsystems;
@@ -74,6 +75,8 @@ namespace JesterGame.Code.Scripts.Core
         [SerializeField] private NpcDeathCutsceneComponent npcDeathCutsceneComponent;
 
         [SerializeField] private DayCutsceneComponentBase gameEndCutscene;
+
+        [SerializeField] private StartGameCutsceneComponent startGameCutsceneComponent;
 
         #endregion
 
@@ -331,25 +334,6 @@ namespace JesterGame.Code.Scripts.Core
             Debug.Log($"{args.characterName}'s affection is now {args.affectionValue} ({args.affectionDelta})");
         }
 
-        private IEnumerator PlayDayCutsceneWithEvents(
-            CutsceneComponent<ProgressionEventArgs> cutsceneComponent,
-            PrePostEvent<ProgressionEventArgs> dayEvents,
-            ProgressionEventArgs args
-        )
-        {
-            if (!cutsceneComponent)
-                yield break;
-
-            // Call the pre-event
-            dayEvents.preEvent?.Invoke(args);
-
-            // Play the cutscene
-            yield return StartCoroutine(cutsceneComponent.OngoingCoroutine(args));
-
-            // Call the post-event
-            dayEvents.postEvent?.Invoke(args);
-        }
-
         #region Get Functions
 
         public bool GetCurrentRoom(JesterGamePawn pawn, out RoomDataAsset dataAsset)
@@ -499,8 +483,6 @@ namespace JesterGame.Code.Scripts.Core
 
         private IEnumerator GameLoop()
         {
-            // TODO: Intro cutscene.
-
             for (currentDayIndex = 0; currentDayIndex < dayProgressions.Length; currentDayIndex++)
             {
                 var currentDay = dayProgressions[currentDayIndex];
@@ -529,6 +511,10 @@ namespace JesterGame.Code.Scripts.Core
                 Debug.Log($"Day #{currentDayIndex} - Day Start Cutscene Finished!");
 
                 #endregion
+
+                // Intro cutscene.
+                if (currentDayIndex == 0)
+                    yield return startGameCutsceneComponent.OngoingCoroutine(new ProgressionEventArgs());
 
                 #region Free Roam Phase
 

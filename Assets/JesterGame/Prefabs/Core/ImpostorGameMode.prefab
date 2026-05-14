@@ -237,6 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2881828951043328200}
   - component: {fileID: 777040674850859826}
+  - component: {fileID: 8905089862921798172}
   - component: {fileID: 4640229314338223285}
   - component: {fileID: 6286514807522637335}
   - component: {fileID: 3245826453552113289}
@@ -444,6 +445,31 @@ MonoBehaviour:
         m_CallState: 2
   npcDeathCutsceneComponent: {fileID: 5292940626778043156}
   gameEndCutscene: {fileID: 3245826453552113289}
+  startGameCutsceneComponent: {fileID: 8905089862921798172}
+--- !u!114 &8905089862921798172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680658913375508802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23faa825f59d4b3ca6836bb86d762f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Progression.StartGameCutsceneComponent
+  onCutsceneStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onCutsceneEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  dayProgressionScreenDataAsset: {fileID: 11400000, guid: 763d6d2a350c05d48af791c20c4fb803, type: 2}
+  playerRowHandle:
+    dataTable: {fileID: 11400000, guid: 37aed0bd9a7e61a4a973b39480416394, type: 2}
+    rowName: Player
+  dialogueScreenDataAsset: {fileID: 11400000, guid: 532600b429f119644adc1c7dbf615908, type: 2}
+  startDialogue: {fileID: 3965311268370046156, guid: c6fb425a3c414cf419a089d210bea0da, type: 3}
 --- !u!114 &4640229314338223285
 MonoBehaviour:
   m_ObjectHideFlags: 0
