@@ -190,7 +190,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                 nextLineButton.gameObject.SetActive(false);
 
                 // Display the text of the current line.
-                yield return StartCoroutine(DisplayWordsInCurrentLine(currentNode));
+                yield return StartCoroutine(DisplayWordsInCurrentLine(currentNode, characterData));
 
                 // If there are choices,
                 // 2. wait for selection
@@ -241,7 +241,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             yield return null;
         }
 
-        private IEnumerator DisplayWordsInCurrentLine(RuntimeDialogueNode currentNode)
+        private IEnumerator DisplayWordsInCurrentLine(RuntimeDialogueNode currentNode, DialogueCharacter characterData)
         {
             // Split the current line by spaces.
             var splitLine = currentNode.dialogueText.Split(' ');
@@ -256,7 +256,14 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
                 // Add the current word
                 var word = splitLine[index];
-                dialogueText.text += $"{word}";
+
+                var cWord = $"{word}";
+
+                // Force italicize if necessary.
+                if (characterData.bForceItalics)
+                    cWord = $"<i>{cWord}</i>";
+
+                dialogueText.text += cWord;
 
                 // Add the space if not the last word.
                 if (index < splitLine.Length - 1)

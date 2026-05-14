@@ -15,6 +15,7 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
 
         [SerializeField] public bool bIsMainCharacter;
         [SerializeField] public bool bCanBeImpostor;
+        [SerializeField] public bool bForceItalics;
 
         /// <summary>
         /// The portrait of the character to display in the dialogue UI.
