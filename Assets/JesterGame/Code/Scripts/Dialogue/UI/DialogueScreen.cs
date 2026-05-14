@@ -26,6 +26,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
         [SerializeField] private DialogueScreenButton choiceButtonPrefab;
 
         [SerializeField] private Button nextLineButton;
+        [SerializeField] private Button skipTextButton;
 
         [SerializeField] private float wordDelay = 0.25f;
 
@@ -43,6 +44,8 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
         private WaitForNextLineInput _waitForNextLineInput;
         private WaitForDialogueChoiceSelection _waitForChoiceSelection;
 
+        private bool _bIsSkipping;
+
         #endregion
 
         protected override void CustomInitialize()
@@ -58,51 +61,23 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             DestroyChoices();
 
             // Disable the next line button
-            nextLineButton.gameObject.SetActive(false);
-
-            // // Get the end time based on the length of the curve.
-            // var beginTime = Time.unscaledTime;
-            // var endTime = beginTime + opacityCurve.keys[opacityCurve.length - 1].time;
-            //
-            // while (Time.unscaledTime < endTime)
-            // {
-            //     var currentTime = Time.unscaledTime - beginTime;
-            //     canvasGroup.alpha = opacityCurve.Evaluate(currentTime);
-            //     yield return null;
-            // }
-            //
-            // canvasGroup.alpha = opacityCurve.Evaluate(opacityCurve.keys[opacityCurve.length - 1].time);
+            SetNextLineSkipTextVisibility(false, false);
 
             yield return animationHelperComponent.PlayAnimationAndWait("Intro");
 
             // enable the next line button
-            nextLineButton.gameObject.SetActive(true);
+            SetNextLineSkipTextVisibility(true, true);
         }
 
         protected override IEnumerator CloseScreenCoroutine()
         {
-            // var beginTime = Time.unscaledTime;
-            // var endTime = beginTime + opacityCurve.keys[opacityCurve.length - 1].time;
-            //
-            // while (Time.unscaledTime < endTime)
-            // {
-            //     var currentTime = Time.unscaledTime - beginTime;
-            //
-            //     // Reverse the current time
-            //     currentTime = opacityCurve.keys[opacityCurve.length - 1].time - currentTime;
-            //     canvasGroup.alpha = opacityCurve.Evaluate(currentTime);
-            //     yield return null;
-            // }
-            //
-            // canvasGroup.alpha = opacityCurve.Evaluate(opacityCurve.keys[0].time);
-
             // Disable the next line button
-            nextLineButton.gameObject.SetActive(false);
+            SetNextLineSkipTextVisibility(false, false);
 
             yield return animationHelperComponent.PlayAnimationAndWait("Outro");
 
             // enable the next line button
-            nextLineButton.gameObject.SetActive(true);
+            SetNextLineSkipTextVisibility(true, true);
         }
 
         /// <summary>
@@ -186,8 +161,15 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                     characterImage.sprite = null;
                 }
 
-                // Disable the next line button
-                nextLineButton.gameObject.SetActive(false);
+                // Disable the next line button if the line has more words than the threshold.
+                const int skipThreshold = 5;
+                if (currentNode.dialogueText.Split(' ').Length >= skipThreshold)
+                {
+                    SetNextLineSkipTextVisibility(false, true);
+                    EventSystem.current.SetSelectedGameObject(skipTextButton.gameObject);
+                }
+                else
+                    SetNextLineSkipTextVisibility(false, false);
 
                 // Display the text of the current line.
                 yield return StartCoroutine(DisplayWordsInCurrentLine(currentNode, characterData));
@@ -197,6 +179,8 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                 // 3. add the choice's nextLines back to the start of the dialogue lines.
                 if (currentNode.choiceStrings.Count > 0)
                 {
+                    SetNextLineSkipTextVisibility(false, false);
+
                     CreateChoices(currentNode);
 
                     // Wait for selection.
@@ -208,7 +192,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                     _waitForChoiceSelection = null;
 
                     // Re-enable the next line button
-                    nextLineButton.gameObject.SetActive(true);
+                    SetNextLineSkipTextVisibility(true, false);
                     EventSystem.current.SetSelectedGameObject(nextLineButton.gameObject);
 
                     DestroyChoices();
@@ -218,7 +202,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                 else
                 {
                     // Re-enable the next line button
-                    nextLineButton.gameObject.SetActive(true);
+                    SetNextLineSkipTextVisibility(true, false);
                     EventSystem.current.SetSelectedGameObject(nextLineButton.gameObject);
 
                     _currentNodeID = currentNode.nextNodeIDs?.Count > 0
@@ -252,7 +236,8 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             // Word by word, add the words to the current text.
             for (var index = 0; index < splitLine.Length; index++)
             {
-                yield return new WaitForSecondsRealtime(wordDelay);
+                if (!_bIsSkipping)
+                    yield return new WaitForSecondsRealtime(wordDelay);
 
                 // Add the current word
                 var word = splitLine[index];
@@ -270,8 +255,14 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                     dialogueText.text += " ";
 
                 // Call the text updated event.
-                onTextUpdated?.Invoke();
+                if (!_bIsSkipping)
+                    onTextUpdated?.Invoke();
             }
+
+            if (_bIsSkipping)
+                onTextUpdated?.Invoke();
+
+            _bIsSkipping = false;
         }
 
         private void DestroyChoices()
@@ -333,6 +324,17 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
         public void OnNextLineInput()
         {
             _waitForNextLineInput?.ReceiveInput();
+        }
+
+        public void OnSkipTextInput()
+        {
+            _bIsSkipping = true;
+        }
+
+        private void SetNextLineSkipTextVisibility(bool bNextLine, bool bSkipText)
+        {
+            nextLineButton.gameObject.SetActive(bNextLine);
+            skipTextButton.gameObject.SetActive(bSkipText);
         }
     }
 
