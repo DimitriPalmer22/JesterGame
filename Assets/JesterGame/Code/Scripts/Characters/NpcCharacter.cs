@@ -224,6 +224,9 @@ namespace JesterGame.Code.Scripts.Characters
 
         public override void SetMovementEnabled(bool bEnabled)
         {
+            if (agent == null)
+                return;
+
             if (!bEnabled)
                 agent.isStopped = true;
 
