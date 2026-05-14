@@ -24,7 +24,6 @@ namespace JesterGame.Code.Scripts.Util
             if (!UtilLibrary.GetGameMode(out ImpostorGameMode gameMode))
                 return;
 
-
             pawn.SetMovementEnabled(false);
 
             var playerStart = gameMode.GetPlayerStart();
