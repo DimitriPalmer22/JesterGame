@@ -5,7 +5,9 @@ using Eflatun.SceneReference;
 using JesterGame.Code.Scripts.Characters;
 using JesterGame.Code.Scripts.Core;
 using JesterGame.Code.Scripts.Dialogue.Data;
+using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using JesterGame.Code.Scripts.Player;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -20,6 +22,10 @@ namespace JesterGame.Code.Scripts.Progression
 
         [SerializeField] private SceneReference impostorRevealScene;
         [SerializeField] private SceneReference[] subscenesToUnload;
+
+        // [SerializeField, Foldout("Dialogues")] private RuntimeDialogueGraph impostorKillsEveryoneDg;
+        // [SerializeField, Foldout("Dialogues")] private RuntimeDialogueGraph impostorDoesntKillYouDg;
+        // [SerializeField, Foldout("Dialogues")] private RuntimeDialogueGraph impostorKillsNobodyDg;
 
         protected override IEnumerator OnDayProgressionCutscene(ProgressionEventArgs cutsceneStruct)
         {
@@ -86,7 +92,7 @@ namespace JesterGame.Code.Scripts.Progression
             timeScaleSubsystem?.SetGameSpeed(1);
 
             // Wait for the blend time of the cine camera data asset
-            yield return cineCameraDataAsset.BlendTime;
+            yield return new WaitForSeconds(cineCameraDataAsset.BlendTime);
 
             // Fade from black
             yield return dayProgressionScreenDataAsset?.CloseScreen();
@@ -96,6 +102,7 @@ namespace JesterGame.Code.Scripts.Progression
 
             yield return new WaitForSeconds((float)gameEndLevelManager.playableDirector.duration);
 
+            Debug.Log($"GAME END CUTSCENE OVER");
             // Play some dialogue or something...
             yield break;
         }
