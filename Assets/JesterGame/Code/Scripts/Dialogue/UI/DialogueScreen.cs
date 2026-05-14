@@ -134,6 +134,20 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
             UtilLibrary.GetGameMode(out ImpostorGameMode gameMode);
 
+            if (_currentDialogueGraph.TryGetNodeByID(_currentNodeID, out var cNode))
+            {
+                if (cNode.speaker.GetValue(out DialogueCharacter characterData))
+                {
+                    nameText.text = characterData.name;
+                    characterImage.sprite = characterData.portrait;
+                    characterImage.enabled = (characterData.portrait != null);
+                }
+            }
+            else
+            {
+                yield break;
+            }
+
             // Open the screen
             yield return OpenScreenCoroutine();
 
@@ -164,7 +178,6 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                 {
                     nameText.text = characterData.name;
                     characterImage.sprite = characterData.portrait;
-
                     characterImage.enabled = (characterData.portrait != null);
                 }
                 else
