@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using JesterGame.Code.Scripts.Core;
 using JesterGame.Code.Scripts.Core.Interaction;
@@ -45,6 +46,8 @@ namespace JesterGame.Code.Scripts.Characters
         [SerializeField] public Material impostorMaterial;
 
         private Coroutine _speakingCoroutine;
+
+        private readonly HashSet<RuntimeDialogueGraph> _usedDialogueGraphs = new();
 
         protected override void Awake()
         {
@@ -115,6 +118,9 @@ namespace JesterGame.Code.Scripts.Characters
             var currentDialogueGraph = DetermineCurrentDialogue(characterData);
             if (currentDialogueGraph != null)
             {
+                // Add the dialogue to the set of used dialogue
+                _usedDialogueGraphs.Add(currentDialogueGraph);
+
                 StartCoroutine(dialogueCameraDataAsset.PrioritizeCameraAndWait(dialogueCutsceneCamera));
 
                 yield return OpenDialoguePanel(currentDialogueGraph);
@@ -199,13 +205,17 @@ namespace JesterGame.Code.Scripts.Characters
                 out var bCompletedRoomInteraction
             );
 
+            // If the used dialogue graphs already contains all of the random interactions, clear it
+            if (currentPool.Data.randomInteractions.All(n => _usedDialogueGraphs.Contains(n)))
+                _usedDialogueGraphs.Clear();
+
             // TODO: REMOVE THIS FOR THE PRODUCTION VERSION OF THE GAME.
             const bool FORCE_RANDOM_DIALOGUE = true;
 
             // TODO: Remove the dialogue lines that have already been played!!!
             if (bCompletedRoomInteraction || FORCE_RANDOM_DIALOGUE)
                 return currentPool.Data.randomInteractions
-                    .Where(n => n != null)
+                    .Where(n => n != null && !_usedDialogueGraphs.Contains(n))
                     .GetRandom();
 
             return currentPool.Data.firstInteractionPerRoom[currentRoom];
