@@ -199,8 +199,11 @@ namespace JesterGame.Code.Scripts.Characters
                 out var bCompletedRoomInteraction
             );
 
+            // TODO: REMOVE THIS FOR THE PRODUCTION VERSION OF THE GAME.
+            const bool FORCE_RANDOM_DIALOGUE = true;
+
             // TODO: Remove the dialogue lines that have already been played!!!
-            if (bCompletedRoomInteraction)
+            if (bCompletedRoomInteraction || FORCE_RANDOM_DIALOGUE)
                 return currentPool.Data.randomInteractions
                     .Where(n => n != null)
                     .GetRandom();
