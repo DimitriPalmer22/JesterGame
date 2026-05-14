@@ -45,10 +45,11 @@ namespace JesterGame.Code.Scripts.UI
 
         public void QuitGame()
         {
-#if UNITY_EDITOR
+#if (UNITY_EDITOR)
             UnityEditor.EditorApplication.isPlaying = false;
+#elif (UNITY_WEBGL)
 #else
-            Application.Quit();
+    Application.Quit();
 #endif
         }
     }
