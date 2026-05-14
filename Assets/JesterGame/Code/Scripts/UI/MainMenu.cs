@@ -12,25 +12,35 @@ namespace JesterGame.Code.Scripts.UI
 
         public void StartGame()
         {
-            StartCoroutine(StartGameCoroutine());
+            SceneManager.LoadScene(mainGameScene.Path, LoadSceneMode.Single);
+
+            // StartCoroutine(StartGameCoroutine());
         }
 
         private IEnumerator StartGameCoroutine()
         {
-            var activeScene = SceneManager.GetActiveScene();
+            // SceneManager.LoadScene(mainGameScene.Path, LoadSceneMode.Additive);
+            //
+            // yield return null;
+            //
+            // SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
 
-            SceneManager.LoadScene(mainGameScene.Path, LoadSceneMode.Additive);
+            // var activeScene = SceneManager.GetActiveScene();
+            //
+            // SceneManager.LoadScene(mainGameScene.Path, LoadSceneMode.Additive);
+            //
+            // foreach (var sceneReference in subScenesToLoad)
+            //     SceneManager.LoadScene(sceneReference.Path, LoadSceneMode.Additive);
+            //
+            // yield return null;
+            //
+            // // Set the loaded main game scene as active
+            // SceneManager.SetActiveScene(mainGameScene.LoadedScene);
+            //
+            // // Unload the current scene (main menu)
+            // SceneManager.UnloadSceneAsync(activeScene);
 
-            foreach (var sceneReference in subScenesToLoad)
-                SceneManager.LoadScene(sceneReference.Path, LoadSceneMode.Additive);
-
-            yield return null;
-
-            // Set the loaded main game scene as active
-            SceneManager.SetActiveScene(mainGameScene.LoadedScene);
-
-            // Unload the current scene (main menu)
-            SceneManager.UnloadSceneAsync(activeScene);
+            yield break;
         }
 
         public void QuitGame()
