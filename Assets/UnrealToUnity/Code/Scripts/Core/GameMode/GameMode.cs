@@ -92,7 +92,7 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
             }
         }
 
-        protected void MovePawnToPlayerStart(Pawn pawn, PlayerStart playerStart)
+        public void MovePawnToPlayerStart(Pawn pawn, PlayerStart playerStart)
         {
             if (pawn == null || playerStart == null)
                 return;
@@ -102,7 +102,7 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
             pawn.transform.forward = spawnTransform.forward;
         }
 
-        private PlayerStart[] GetAllPlayerStarts()
+        public PlayerStart[] GetAllPlayerStarts()
         {
             // Find all the player starts within the scene.
             // var allStarts = FindObjectsByType<PlayerStart>(FindObjectsInactive.Exclude);
@@ -113,7 +113,7 @@ namespace UnrealToUnity.Code.Scripts.Core.GameMode
             return allPlayerStarts;
         }
 
-        protected virtual PlayerStart GetPlayerStart()
+        public virtual PlayerStart GetPlayerStart()
         {
             var allStarts = GetAllPlayerStarts();
             if (allStarts.Length == 0)
