@@ -347,17 +347,92 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131769001}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &164741688 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-  m_PrefabInstance: {fileID: 853999465}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a20e27da75ff478c95ad8008e5256dbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Core.JesterLevelManager
+--- !u!1001 &159826883
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1167558982493318820, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: roomDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b69581f301d6f24993e4a7b247accb3, type: 2}
+    - target: {fileID: 1167558982493318820, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: pointsOfInterest.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167558982493318820, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: 'pointsOfInterest.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2021601430}
+    - target: {fileID: 1963173454552444349, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963173454552444349, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963173454552444349, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963173454552444349, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963173454552444349, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963173454552444349, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963173454552444349, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963173454552444349, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963173454552444349, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963173454552444349, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3000463264260628533, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3000463264260628533, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3000463264260628533, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043965437316209304, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_Name
+      value: RoomSetupPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204262888219217246, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: priority
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 6984576257001969232, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
 --- !u!1 &164753967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,75 +1515,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1865514080}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &853999465
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 712863491901807724, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712863491901807724, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712863491901807724, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712863491901807724, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 712863491901807724, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712863491901807724, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712863491901807724, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712863491901807724, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712863491901807724, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712863491901807724, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1119599874467446431, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: m_Name
-      value: JesterLevelManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: roomDataAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 4b69581f301d6f24993e4a7b247accb3, type: 2}
-    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: pointsOfInterest.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
-      propertyPath: 'pointsOfInterest.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2021601430}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+--- !u!114 &912610394 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1167558982493318820, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+  m_PrefabInstance: {fileID: 159826883}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a20e27da75ff478c95ad8008e5256dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Core.JesterLevelManager
 --- !u!1 &996319919
 GameObject:
   m_ObjectHideFlags: 0
@@ -2038,7 +2055,7 @@ PrefabInstance:
     - target: {fileID: 2992297942319981365, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
       propertyPath: roomManager
       value: 
-      objectReference: {fileID: 164741688}
+      objectReference: {fileID: 912610394}
     - target: {fileID: 3443792706589417955, guid: f6feee07ef93c974899348f1c365fde2, type: 3}
       propertyPath: m_LocalScale.x
       value: 35
@@ -3165,7 +3182,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 853999465}
+  - {fileID: 159826883}
   - {fileID: 2054989617}
   - {fileID: 459081690}
   - {fileID: 344406639}
