@@ -15,6 +15,7 @@ namespace JesterGame.Code.Scripts.Dialogue.Data
 
         [SerializeField] public bool bIsMainCharacter;
         [SerializeField] public bool bCanBeImpostor;
+        [SerializeField] public bool bIsDisabled;
         [SerializeField] public bool bForceItalics;
 
         /// <summary>

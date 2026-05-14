@@ -24,6 +24,7 @@ namespace JesterGame.Code.Scripts.Characters.Behaviors.Assets
                 .Where(n =>
                     n.Value.TryGetCharacterData(out var characterData) &&
                     !characterData.bIsMainCharacter &&
+                    !characterData.bIsDisabled &&
                     !n.Value.IsDead &&
                     n.Value != pawn
                 )

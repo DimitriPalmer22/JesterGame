@@ -163,7 +163,7 @@ namespace JesterGame.Code.Scripts.Core
             if (!characterDataTable.GetRow(characterName, out var characterAsset))
                 return false;
 
-            if (characterAsset.bIsMainCharacter || !characterAsset.bCanBeImpostor)
+            if (characterAsset.bIsMainCharacter || !characterAsset.bCanBeImpostor || characterAsset.bIsDisabled)
                 return false;
 
             return true;

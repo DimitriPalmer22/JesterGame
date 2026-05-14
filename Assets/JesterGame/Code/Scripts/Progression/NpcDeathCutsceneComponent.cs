@@ -27,21 +27,25 @@ namespace JesterGame.Code.Scripts.Progression
             //         yield return new WaitForSecondsRealtime(screenFadeDelay);
             // }
 
-   // Choose a random character (not the impostor or main character) to die
+            // Choose a random character (not the impostor or main character) to die
             var validCharacters = gameMode.characterNameToPawnMap.Keys
-                .Where(charName => gameMode.characterInstanceMap[charName].characterType == CharacterType.Normal &&
-                                   !gameMode.characterNameToPawnMap[charName].IsDead)
+                .Where(charName => gameMode.characterNameToPawnMap.TryGetValue(charName, out var pawn) &&
+                                   pawn != null && !pawn.IsDead &&
+                                   gameMode.characterInstanceMap[charName].characterType == CharacterType.Normal
+                )
                 .ToArray();
 
-            var randomCharacter = validCharacters.GetRandom();
-
             // Literally remove their pawn from the game and remove it from the map in the game mode
-            var pawn = gameMode.characterNameToPawnMap[randomCharacter];
-            if (pawn != null)
-                pawn.Die();
+            if (validCharacters.Length > 0)
+            {
+                var randomCharacter = validCharacters.GetRandom();
+                var pawn = gameMode.characterNameToPawnMap[randomCharacter];
+                if (pawn != null)
+                    pawn.Die();
 
-            // Log a message to the screen.
-            Debug.Log($"Killing character: {randomCharacter}");
+                // Log a message to the screen.
+                Debug.Log($"Killing character: {randomCharacter}");
+            }
 
             // // Fade from black
             // if (dayProgressionScreenDataAsset)
