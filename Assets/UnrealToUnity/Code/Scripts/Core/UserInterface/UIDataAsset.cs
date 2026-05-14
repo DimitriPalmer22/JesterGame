@@ -44,6 +44,11 @@ namespace UnrealToUnity.Code.Scripts.Core.UserInterface
         {
             AssertValueSet();
 
+            // If the instantiated screen is destroyed for any reason,
+            // set the hasBeenInstantiated flag to false so that it can be instantiated again.
+            if (hasBeenInstantiated && _instantiatedScreen == null)
+                hasBeenInstantiated = false;
+
             // instantiate the screen and return it.
             if (!hasBeenInstantiated)
             {

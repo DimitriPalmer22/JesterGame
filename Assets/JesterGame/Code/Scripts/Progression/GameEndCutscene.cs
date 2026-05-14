@@ -2,14 +2,10 @@ using System;
 using System.Collections;
 using System.Linq;
 using Eflatun.SceneReference;
-using JesterGame.Code.Scripts.Characters;
 using JesterGame.Code.Scripts.Core;
 using JesterGame.Code.Scripts.Dialogue.Data;
-using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
 using JesterGame.Code.Scripts.Player;
-using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 using UnrealToUnity.Code.Scripts.Core.Subsystems;
 using UnrealToUnity.Code.Scripts.Core.Utility;
@@ -22,6 +18,8 @@ namespace JesterGame.Code.Scripts.Progression
 
         [SerializeField] private SceneReference impostorRevealScene;
         [SerializeField] private SceneReference[] subscenesToUnload;
+
+        [SerializeField] private SceneReference gameOverScene;
 
         // [SerializeField, Foldout("Dialogues")] private RuntimeDialogueGraph impostorKillsEveryoneDg;
         // [SerializeField, Foldout("Dialogues")] private RuntimeDialogueGraph impostorDoesntKillYouDg;
@@ -103,7 +101,12 @@ namespace JesterGame.Code.Scripts.Progression
             yield return new WaitForSeconds((float)gameEndLevelManager.playableDirector.duration);
 
             Debug.Log($"GAME END CUTSCENE OVER");
+
+            yield return dayProgressionScreenDataAsset?.OpenScreen();
+
             // Play some dialogue or something...
+            SceneManager.LoadScene(gameOverScene.Path);
+
             yield break;
         }
     }
