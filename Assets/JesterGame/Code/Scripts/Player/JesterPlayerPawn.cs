@@ -1,3 +1,4 @@
+using System;
 using JesterGame.Code.Scripts.Characters;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -55,7 +56,8 @@ namespace JesterGame.Code.Scripts.Player
             }
 
             // Apply the movement to the pawn
-            _characterController.SimpleMove(moveDelta);
+            if (_characterController.enabled)
+                _characterController.SimpleMove(moveDelta);
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -70,5 +72,11 @@ namespace JesterGame.Code.Scripts.Player
         {
             _moveInput = value;
         }
+
+        public override void SetMovementEnabled(bool bEnabled)
+        {
+            _characterController.enabled = bEnabled;
+        }
+
     }
 }

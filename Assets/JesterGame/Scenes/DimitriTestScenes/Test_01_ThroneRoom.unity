@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.ProbeVolumePerSceneData
   serializedBakingSet: {fileID: 0}
-  sceneGUID: d4ba2e6c5bb642447ac6447bb4233da1
+  sceneGUID: 64fc18bb8ea77d9488f0d9954e078d23
   obsoleteAsset: {fileID: 0}
   obsoleteCellSharedDataAsset: {fileID: 0}
   obsoleteCellSupportDataAsset: {fileID: 0}
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   version: 2
   globalVolume: 0
   mode: 0
-  size: {x: 93, y: 4.025, z: 93}
+  size: {x: 33, y: 4, z: 33}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -1057,7 +1057,7 @@ Transform:
   m_GameObject: {fileID: 1497808826}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.48749998, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1266,6 +1266,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 838b0edbc1d1427880eeb84a5c2e2a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest.InspectorPointOfInterest
+--- !u!1 &1825270755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1825270756}
+  m_Layer: 0
+  m_Name: ===CHARACTERS===
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1825270756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825270755}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1833231655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,10 +1588,11 @@ SceneRoots:
   - {fileID: 333017947}
   - {fileID: 578031528}
   - {fileID: 961089288}
-  - {fileID: 973763422}
+  - {fileID: 1825270756}
   - {fileID: 8550650257562668874}
   - {fileID: 846833843}
   - {fileID: 1609546926}
   - {fileID: 1179717680}
   - {fileID: 707153257}
+  - {fileID: 973763422}
   - {fileID: 551107579}

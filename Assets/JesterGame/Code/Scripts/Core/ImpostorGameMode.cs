@@ -16,6 +16,7 @@ using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.GameMode;
 using UnrealToUnity.Code.Scripts.Core.Subsystems;
 using UnrealToUnity.Code.Scripts.Core.Utility;
+using UnrealToUnity.Code.Scripts.Core.Utility.Scenes;
 
 namespace JesterGame.Code.Scripts.Core
 {
@@ -159,7 +160,7 @@ namespace JesterGame.Code.Scripts.Core
             if (!characterDataTable.GetRow(characterName, out var characterAsset))
                 return false;
 
-            if (characterAsset.bIsMainCharacter)
+            if (characterAsset.bIsMainCharacter || !characterAsset.bCanBeImpostor)
                 return false;
 
             return true;
@@ -230,6 +231,29 @@ namespace JesterGame.Code.Scripts.Core
 
         [Button(enabledMode: EButtonEnableMode.Playmode)]
         public void DecrementProgress() => SetProgress(currentInteractionProgression - 1);
+
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
+        public void ForceNextDay()
+        {
+            if (!dayProgressions.IsValidIndex(currentDayIndex))
+                return;
+
+            var currentDay = dayProgressions[currentDayIndex];
+
+            // If we are not at the end of the progression for the day, set it to the end.
+            if (currentInteractionProgression < currentDay.numProgressionsInDay)
+            {
+                SetProgress(currentDay.numProgressionsInDay);
+                return;
+            }
+
+            // // If we are already at the end of the progression for the day, increment the day index and reset progress.
+            // if (currentInteractionProgression >= currentDay.numProgressionsInDay)
+            // {
+            //     SetProgress(0);
+            //     currentDayIndex += 1;
+            // }
+        }
 
         public void CheckDayProgression(ProgressionEventArgs args)
         {

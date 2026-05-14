@@ -24,7 +24,7 @@ namespace JesterGame.Code.Scripts.Core.Interaction
 
         private void OnDisable()
         {
-            if (bQuitting)
+            if (bQuitting || gameObject == null || this == null)
                 return;
 
             var args = new InteractEventArgs(this, null);

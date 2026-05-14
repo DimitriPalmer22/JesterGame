@@ -215,12 +215,22 @@ namespace JesterGame.Code.Scripts.Characters
             // Disable the interaction helper
             interactionHelperComponent.enabled = false;
 
-            var navAgent = GetComponent<NavMeshAgent>();
             agent.isStopped = true;
             agent.enabled = false;
 
             // stop the behavior
             StopMainBehaviorCoroutine(true);
+        }
+
+        public override void SetMovementEnabled(bool bEnabled)
+        {
+            if (agent == null)
+                return;
+
+            if (!bEnabled)
+                agent.isStopped = true;
+
+            agent.enabled = bEnabled;
         }
     }
 }
