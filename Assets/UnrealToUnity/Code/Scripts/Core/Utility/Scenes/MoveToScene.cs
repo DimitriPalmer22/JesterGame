@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Eflatun.SceneReference;
 using NaughtyAttributes;
 using UnityEngine;
@@ -15,8 +16,10 @@ namespace UnrealToUnity.Code.Scripts.Core.Utility.Scenes
         [SerializeField, ShowIf("bSpecifyScene")]
         private SceneReference sceneToMoveTo;
 
-        private void Start()
+        private IEnumerator Start()
         {
+            yield return null;
+
             if (bRunOnStart)
                 MoveToCorrectScene();
         }
