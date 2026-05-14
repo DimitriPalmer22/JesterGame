@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 911c06f0e972eb44baee0511c53a89de, type: 2}
+  m_LightingDataAsset: {fileID: 112000012, guid: cea541e0ffce41e448840e49c1ed131b, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -273,6 +273,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 510503207477548707, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1167558982493318820, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
       propertyPath: roomDataAsset
       value: 
@@ -337,6 +341,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2766556907346527340, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3000463264260628533, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -27
@@ -349,9 +357,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -13
       objectReference: {fileID: 0}
+    - target: {fileID: 4960819643554029525, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6043965437316209304, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
       propertyPath: m_Name
       value: RoomSetupPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043965437316209304, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6412754062753034572, guid: 97b797cad060ba647ae26d85c2f00c9a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1608,7 +1628,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &996319920
 Transform:
@@ -2649,6 +2669,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: INVISIBLE_WALL_COLLIDER_1
       objectReference: {fileID: 0}
+    - target: {fileID: 5971007206429092640, guid: e432e7933541de848a84ca6120c1382f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7426468047556187148, guid: e432e7933541de848a84ca6120c1382f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.66742
@@ -2858,6 +2882,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorPrefab_2
       objectReference: {fileID: 0}
+    - target: {fileID: 2130832256105976121, guid: a5d61a41c49a9914d868f710056b6b0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7207283914586788329, guid: a5d61a41c49a9914d868f710056b6b0c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.0000005
@@ -2869,6 +2897,10 @@ PrefabInstance:
     - target: {fileID: 7207283914586788329, guid: a5d61a41c49a9914d868f710056b6b0c, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.14285709
+      objectReference: {fileID: 0}
+    - target: {fileID: 8971139493742935805, guid: a5d61a41c49a9914d868f710056b6b0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4001,6 +4033,10 @@ PrefabInstance:
     - target: {fileID: 5971007206429092640, guid: e432e7933541de848a84ca6120c1382f, type: 3}
       propertyPath: m_Name
       value: INVISIBLE_WALL_COLLIDER
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971007206429092640, guid: e432e7933541de848a84ca6120c1382f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7426468047556187148, guid: e432e7933541de848a84ca6120c1382f, type: 3}
       propertyPath: m_LocalPosition.x
