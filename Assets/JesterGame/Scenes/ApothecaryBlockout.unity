@@ -560,6 +560,22 @@ PrefabInstance:
       propertyPath: roomDataAsset
       value: 
       objectReference: {fileID: 11400000, guid: 0e75229d4dea8644d8694cb8a68c33b2, type: 2}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: pointsOfInterest.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: 'pointsOfInterest.Array.data[0]'
+      value: 
+      objectReference: {fileID: 926660493}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: 'pointsOfInterest.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1686443352}
+    - target: {fileID: 5135004393249628535, guid: b897c25d2f51b6c409ef5aeeee6c1858, type: 3}
+      propertyPath: 'pointsOfInterest.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1549300792}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -729,6 +745,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EmptyPOI
       objectReference: {fileID: 0}
+    - target: {fileID: 8727853609336226396, guid: 0fade532fa64c4a4e924280587d4153f, type: 3}
+      propertyPath: pointOfInterestDataHandle.rowName
+      value: Apothecary_1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -739,6 +759,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 831933506666481128, guid: 0fade532fa64c4a4e924280587d4153f, type: 3}
   m_PrefabInstance: {fileID: 926660491}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &926660493 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8727853609336226396, guid: 0fade532fa64c4a4e924280587d4153f, type: 3}
+  m_PrefabInstance: {fileID: 926660491}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838b0edbc1d1427880eeb84a5c2e2a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest.InspectorPointOfInterest
 --- !u!1 &963452485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,6 +1160,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EmptyPOI_2
       objectReference: {fileID: 0}
+    - target: {fileID: 8727853609336226396, guid: 0fade532fa64c4a4e924280587d4153f, type: 3}
+      propertyPath: pointOfInterestDataHandle.rowName
+      value: Apothecary_3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1139,6 +1174,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 831933506666481128, guid: 0fade532fa64c4a4e924280587d4153f, type: 3}
   m_PrefabInstance: {fileID: 1549300790}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1549300792 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8727853609336226396, guid: 0fade532fa64c4a4e924280587d4153f, type: 3}
+  m_PrefabInstance: {fileID: 1549300790}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838b0edbc1d1427880eeb84a5c2e2a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest.InspectorPointOfInterest
 --- !u!1001 &1686443350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1191,6 +1237,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EmptyPOI_1
       objectReference: {fileID: 0}
+    - target: {fileID: 8727853609336226396, guid: 0fade532fa64c4a4e924280587d4153f, type: 3}
+      propertyPath: pointOfInterestDataHandle.rowName
+      value: Apothecary_2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1201,6 +1251,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 831933506666481128, guid: 0fade532fa64c4a4e924280587d4153f, type: 3}
   m_PrefabInstance: {fileID: 1686443350}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1686443352 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8727853609336226396, guid: 0fade532fa64c4a4e924280587d4153f, type: 3}
+  m_PrefabInstance: {fileID: 1686443350}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838b0edbc1d1427880eeb84a5c2e2a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JesterGame.Code.Scripts.Characters.Behaviors.PointsOfInterest.InspectorPointOfInterest
 --- !u!1 &1711832989
 GameObject:
   m_ObjectHideFlags: 0
