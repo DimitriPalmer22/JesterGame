@@ -958,6 +958,7 @@ MonoBehaviour:
         - rid: 6178542085262803818
         - rid: 6178542085262803819
         - rid: 6178542085262803820
+        - rid: 6548717968824991841
         m_GraphStickyNoteModels: []
         m_GraphPlacematModels: []
         m_GraphVariableModels: []
@@ -1164,6 +1165,14 @@ MonoBehaviour:
             Hash: b9c35cde0ad69f4462766c641fafa291
           m_Category: 2
           m_Index: 10
+        - m_Guid:
+            m_Value0: 15981993586278390042
+            m_Value1: 8576064781769739144
+          m_HashGuid:
+            serializedVersion: 2
+            Hash: 1ad9b1907d72cbdd888b1f287b4d0477
+          m_Category: 2
+          m_Index: 11
         m_EntryPoint:
           rid: 6548717932975751243
         m_Graph:
@@ -1304,3 +1313,35 @@ MonoBehaviour:
     - rid: 6548717932975751249
       type: {class: SimpleDialogueNode, ns: JesterGame.Code.Scripts.Dialogue.DialogueGraph.Editor.Nodes, asm: Assembly-CSharp-Editor}
       data: 
+    - rid: 6548717968824991841
+      type: {class: WireModel, ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Guid:
+          m_Value0: 15981993586278390042
+          m_Value1: 8576064781769739144
+        m_HashGuid:
+          serializedVersion: 2
+          Hash: 1ad9b1907d72cbdd888b1f287b4d0477
+        m_Version: 2
+        m_FromPortReference:
+          m_NodeModelGuid:
+            m_Value0: 14826069517139132870
+            m_Value1: 8022660696559050503
+          m_NodeModelHashGuid:
+            serializedVersion: 2
+            Hash: c6415388acc7c0cd07dfe3cb6537566f
+          m_UniqueId: ExecutionPort
+          m_PortDirection: 2
+          m_PortOrientation: 0
+          m_Title: 
+        m_ToPortReference:
+          m_NodeModelGuid:
+            m_Value0: 12931030506330172903
+            m_Value1: 31075009819188689
+          m_NodeModelHashGuid:
+            serializedVersion: 2
+            Hash: e7ad8ce5bb3f74b3d11daa898e666e00
+          m_UniqueId: ExecutionPort
+          m_PortDirection: 1
+          m_PortOrientation: 0
+          m_Title: 

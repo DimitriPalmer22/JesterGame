@@ -4,9 +4,13 @@ using System.Linq;
 using Eflatun.SceneReference;
 using JesterGame.Code.Scripts.Core;
 using JesterGame.Code.Scripts.Dialogue.Data;
+using JesterGame.Code.Scripts.Dialogue.DialogueGraph.Runtime;
+using JesterGame.Code.Scripts.Dialogue.UI;
 using JesterGame.Code.Scripts.Player;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnrealToUnity.Code.Scripts.Core.DataTables;
 using UnrealToUnity.Code.Scripts.Core.Subsystems;
 using UnrealToUnity.Code.Scripts.Core.Utility;
 
@@ -14,16 +18,37 @@ namespace JesterGame.Code.Scripts.Progression
 {
     public class GameEndCutscene : DayCutsceneComponentBase
     {
+        #region Ending Conditions
+
+        [SerializeField, Foldout("Ending Conditions")]
+        private int endingLowerBound = 30;
+
+        [SerializeField, Foldout("Ending Conditions")]
+        private int endingUpperBound = 60;
+
+        [SerializeField, Foldout("Ending Conditions")]
+        private RuntimeDialogueGraph goodEndingDialogueGraph;
+
+        [SerializeField, Foldout("Ending Conditions")]
+        private RuntimeDialogueGraph neutralEndingDialogueGraph;
+
+        [SerializeField, Foldout("Ending Conditions")]
+        private RuntimeDialogueGraph badEndingDialogueGraph;
+
+        [SerializeField, Foldout("Ending Conditions")]
+        private DataTableRowHandle playerRowHandle;
+
+        [SerializeField, Foldout("Ending Conditions")]
+        private DialogueScreenDataAsset dialogueScreenDataAsset;
+
+        #endregion
+
         [SerializeField] private CineCameraDataAsset cineCameraDataAsset;
 
         [SerializeField] private SceneReference impostorRevealScene;
         [SerializeField] private SceneReference[] subscenesToUnload;
 
         [SerializeField] private SceneReference gameOverScene;
-
-        // [SerializeField, Foldout("Dialogues")] private RuntimeDialogueGraph impostorKillsEveryoneDg;
-        // [SerializeField, Foldout("Dialogues")] private RuntimeDialogueGraph impostorDoesntKillYouDg;
-        // [SerializeField, Foldout("Dialogues")] private RuntimeDialogueGraph impostorKillsNobodyDg;
 
         protected override IEnumerator OnDayProgressionCutscene(ProgressionEventArgs cutsceneStruct)
         {
@@ -98,16 +123,42 @@ namespace JesterGame.Code.Scripts.Progression
             // Start the timeline and await its finish
             gameEndLevelManager.playableDirector.Play();
 
-            yield return new WaitForSeconds((float)gameEndLevelManager.playableDirector.duration);
+            var duration = (float)gameEndLevelManager.playableDirector.duration;
+            Debug.Log($"Game End Cutscene duration: {duration}");
+
+            yield return new WaitForSeconds(duration);
+
+            // Run the appropriate dialogue
+            yield return dialogueScreenDataAsset.RunDialogueScreen(
+                playerRowHandle.RowName, GetEndingDialogueGraph(impostorName.RowName, gameMode)
+            );
 
             Debug.Log($"GAME END CUTSCENE OVER");
 
             yield return dayProgressionScreenDataAsset?.OpenScreen();
 
+            yield return new WaitForSeconds(1f);
+
             // Play some dialogue or something...
             SceneManager.LoadScene(gameOverScene.Path);
 
             yield break;
+        }
+
+        private RuntimeDialogueGraph GetEndingDialogueGraph(string impostorName, ImpostorGameMode gameMode)
+        {
+            // Get the impostor's affection value.
+            var affection = gameMode.characterInstanceMap[impostorName].currentAffection;
+
+            // Determine which ending dialogue graph to use based on the affection value and the bounds.
+            var currentEndingGraph = badEndingDialogueGraph;
+            if (affection >= endingUpperBound && goodEndingDialogueGraph != null)
+                currentEndingGraph = goodEndingDialogueGraph;
+            else if (affection >= endingLowerBound && neutralEndingDialogueGraph != null)
+                currentEndingGraph = neutralEndingDialogueGraph;
+
+            // Fallback: return the neutral graph.
+            return currentEndingGraph;
         }
     }
 }
