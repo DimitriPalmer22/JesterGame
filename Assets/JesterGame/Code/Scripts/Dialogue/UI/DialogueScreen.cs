@@ -164,6 +164,8 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                 {
                     nameText.text = characterData.name;
                     characterImage.sprite = characterData.portrait;
+
+                    characterImage.enabled = (characterData.portrait != null);
                 }
                 else
                 {

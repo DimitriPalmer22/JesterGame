@@ -382,7 +382,8 @@ namespace JesterGame.Code.Scripts.Core
         /// <returns></returns>
         public PointOfInterest[] GetAllPointsOfInterest()
         {
-            return roomToLevelManagerMap.Values.SelectMany(room => room.GetAllPointsOfInterest().Where(n => n != null))
+            return roomToLevelManagerMap.Values
+                .SelectMany(room => room.GetAllPointsOfInterest().Where(n => n != null))
                 .ToArray();
         }
 
@@ -414,6 +415,12 @@ namespace JesterGame.Code.Scripts.Core
         public void MoveNpcToRandomPointOfInterest(JesterGamePawn npc)
         {
             var randomPoint = GetAllPointsOfInterest().GetRandom();
+
+            if (randomPoint == null)
+            {
+                Debug.LogError($"No valid points of interest found to move {npc.name} to.");
+                return;
+            }
 
             // Move the npc to the random point
             npc.transform.position = randomPoint.GetTransform.position;
