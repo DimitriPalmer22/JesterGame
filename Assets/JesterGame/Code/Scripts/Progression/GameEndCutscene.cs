@@ -118,7 +118,7 @@ namespace JesterGame.Code.Scripts.Progression
             yield return new WaitForSeconds(cineCameraDataAsset.BlendTime);
 
             // Fade from black
-            yield return dayProgressionScreenDataAsset?.CloseScreen();
+            yield return dayProgressionScreenDataAsset?.CloseScreen(false);
 
             // Start the timeline and await its finish
             gameEndLevelManager.playableDirector.Play();

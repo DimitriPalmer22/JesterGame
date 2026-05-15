@@ -23,13 +23,14 @@ namespace JesterGame.Code.Scripts.Progression.UI
             yield return screen.OpenScreen();
         }
 
-        public IEnumerator CloseScreen()
+        public IEnumerator CloseScreen(bool bShowDayText = true)
         {
             var screen = GetScreen();
 
             if (!screen)
                 yield break;
 
+            screen.SetDayProgressionTextVisible(bShowDayText);
             yield return screen.CloseScreen();
         }
     }

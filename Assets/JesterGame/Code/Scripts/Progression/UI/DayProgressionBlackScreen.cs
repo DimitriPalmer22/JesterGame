@@ -1,11 +1,27 @@
+using System;
 using System.Collections;
+using JesterGame.Code.Scripts.Core;
+using TMPro;
 using UnityEngine;
 using UnrealToUnity.Code.Scripts.Core.UserInterface;
+using UnrealToUnity.Code.Scripts.Core.Utility;
 
 namespace JesterGame.Code.Scripts.Progression.UI
 {
     public class DayProgressionBlackScreen : UIScreen
     {
+        private static readonly int AnimIntro = Animator.StringToHash("Intro");
+        private static readonly int AnimOutro = Animator.StringToHash("Outro");
+        private static readonly int AnimOutroAlt = Animator.StringToHash("OutroAlt");
+
+        [SerializeField] private Animator animator;
+
+        [SerializeField] private GameObject dayTextParent;
+        [SerializeField] private TMP_Text dayText;
+
+        [NonSerialized] private readonly ManualYield _introOutroYield = new();
+        [NonSerialized] private bool bShowDayText = true;
+
         protected override void CustomInitialize()
         {
         }
@@ -16,36 +32,29 @@ namespace JesterGame.Code.Scripts.Progression.UI
 
         protected override IEnumerator OpenScreenCoroutine()
         {
-            // Get the end time based on the length of the curve.
-            var beginTime = Time.unscaledTime;
-            var endTime = beginTime + opacityCurve.keys[opacityCurve.length - 1].time;
-
-            while (Time.unscaledTime < endTime)
-            {
-                var currentTime = Time.unscaledTime - beginTime;
-                canvasGroup.alpha = opacityCurve.Evaluate(currentTime);
-                yield return null;
-            }
-
-            canvasGroup.alpha = opacityCurve.Evaluate(opacityCurve.keys[opacityCurve.length - 1].time);
+            yield return animator.PlayAnimationAndWait(AnimIntro, _introOutroYield);
         }
 
         protected override IEnumerator CloseScreenCoroutine()
         {
-            var beginTime = Time.unscaledTime;
-            var endTime = beginTime + opacityCurve.keys[opacityCurve.length - 1].time;
+            if (UtilLibrary.GetGameMode(out ImpostorGameMode gameMode))
+                dayText.text = $"Day {gameMode.CurrentDayIndex + 1}";
 
-            while (Time.unscaledTime < endTime)
-            {
-                var currentTime = Time.unscaledTime - beginTime;
+            if (bShowDayText)
+                yield return animator.PlayAnimationAndWait(AnimOutro, _introOutroYield);
+            else
+                yield return animator.PlayAnimationAndWait(AnimOutroAlt, _introOutroYield);
+        }
 
-                // Reverse the current time
-                currentTime = opacityCurve.keys[opacityCurve.length - 1].time - currentTime;
-                canvasGroup.alpha = opacityCurve.Evaluate(currentTime);
-                yield return null;
-            }
+        public void FinishAnimation()
+        {
+            _introOutroYield.Reset();
+        }
 
-            canvasGroup.alpha = opacityCurve.Evaluate(opacityCurve.keys[0].time);
+        public void SetDayProgressionTextVisible(bool bVisible)
+        {
+            bShowDayText = bVisible;
+            // dayTextParent.SetActive(bVisible);
         }
     }
 }

@@ -90,6 +90,8 @@ namespace JesterGame.Code.Scripts.Core
 
         public int GetMaxDays => dayProgressions.Length;
 
+        public int CurrentDayIndex => currentDayIndex;
+
         #endregion
 
         #region Functions
