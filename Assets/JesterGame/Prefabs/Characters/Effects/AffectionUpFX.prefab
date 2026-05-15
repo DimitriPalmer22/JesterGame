@@ -53,41 +53,33 @@ PrefabInstance:
       value: AffectionUpFX
       objectReference: {fileID: 0}
     - target: {fileID: 6039040542286542269, guid: b37f7d35289df9948b471ad98334b8dc, type: 3}
-      propertyPath: ShapeModule.type
+      propertyPath: UVModule.startFrame.scalar
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6039040542286542269, guid: b37f7d35289df9948b471ad98334b8dc, type: 3}
+      propertyPath: UVModule.sprites.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6039040542286542269, guid: b37f7d35289df9948b471ad98334b8dc, type: 3}
-      propertyPath: ShapeModule.radiusThickness
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6039040542286542269, guid: b37f7d35289df9948b471ad98334b8dc, type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6039040542286542269, guid: b37f7d35289df9948b471ad98334b8dc, type: 3}
-      propertyPath: InitialModule.startSpeed.minScalar
+      propertyPath: UVModule.startFrame.minMaxState
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6039040542286542269, guid: b37f7d35289df9948b471ad98334b8dc, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: UVModule.sprites.Array.data[0].sprite
+      value: 
+      objectReference: {fileID: 481577518, guid: a7a57e010002e4a47ab5bc71bffd0d6d, type: 3}
     - target: {fileID: 6039040542286542269, guid: b37f7d35289df9948b471ad98334b8dc, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: UVModule.sprites.Array.data[1].sprite
+      value: 
+      objectReference: {fileID: 1490171501, guid: a7a57e010002e4a47ab5bc71bffd0d6d, type: 3}
     - target: {fileID: 6039040542286542269, guid: b37f7d35289df9948b471ad98334b8dc, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: UVModule.sprites.Array.data[2].sprite
+      value: 
+      objectReference: {fileID: -1139238201, guid: a7a57e010002e4a47ab5bc71bffd0d6d, type: 3}
     - target: {fileID: 6039040542286542269, guid: b37f7d35289df9948b471ad98334b8dc, type: 3}
-      propertyPath: InitialModule.startSpeed.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6039040542286542269, guid: b37f7d35289df9948b471ad98334b8dc, type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
-      value: 100
-      objectReference: {fileID: 0}
+      propertyPath: UVModule.sprites.Array.data[3].sprite
+      value: 
+      objectReference: {fileID: -1334405939, guid: a7a57e010002e4a47ab5bc71bffd0d6d, type: 3}
     - target: {fileID: 6719225138541376889, guid: b37f7d35289df9948b471ad98334b8dc, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
       value: 2
