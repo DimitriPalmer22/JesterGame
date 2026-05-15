@@ -107,6 +107,13 @@ namespace JesterGame.Code.Scripts.Progression
             if (impostorPawn != null)
                 impostorPawn.SetMovementEnabled(false);
 
+            // Get all the OTHER pawns and disable their game object to make them invisible.
+            var allOtherPawns = gameMode.characterNameToPawnMap.Values
+                .Where(n => n != null && n != playerPawn && n != impostorPawn)
+                .ToArray();
+            foreach (var jesterGamePawn in allOtherPawns)
+                jesterGamePawn.gameObject.SetActive(false);
+
             yield return gameEndLevelManager.PrepareCutscene();
 
             gameEndLevelManager.SetPlayerAndImpostorTransforms(playerController?.ControlledPawn, impostorPawn);
