@@ -227,8 +227,10 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
         private IEnumerator DisplayWordsInCurrentLine(RuntimeDialogueNode currentNode, DialogueCharacter characterData)
         {
+            var cleanedText = CleanText(currentNode.dialogueText);
+
             // Split the current line by spaces.
-            var splitLine = currentNode.dialogueText.Split(' ');
+            var splitLine = cleanedText.Split(' ');
 
             // Clear the current text.
             dialogueText.text = string.Empty;
@@ -263,6 +265,13 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                 onTextUpdated?.Invoke();
 
             _bIsSkipping = false;
+        }
+
+        private string CleanText(string currentNodeDialogueText)
+        {
+            var newText = currentNodeDialogueText
+                .Replace("…", "...");
+            return newText;
         }
 
         private void DestroyChoices()
