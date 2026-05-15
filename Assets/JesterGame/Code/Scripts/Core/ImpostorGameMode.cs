@@ -90,6 +90,8 @@ namespace JesterGame.Code.Scripts.Core
 
         public int GetMaxDays => dayProgressions.Length;
 
+        public int CurrentDayIndex => currentDayIndex;
+
         #endregion
 
         #region Functions
@@ -516,7 +518,11 @@ namespace JesterGame.Code.Scripts.Core
 
                 // Intro cutscene.
                 if (currentDayIndex == 0)
+                {
+                    playerPawn!.SetMovementEnabled(false);
                     yield return startGameCutsceneComponent.OngoingCoroutine(new ProgressionEventArgs());
+                    playerPawn!.SetMovementEnabled(true);
+                }
 
                 #region Free Roam Phase
 
