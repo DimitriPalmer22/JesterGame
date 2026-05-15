@@ -8,7 +8,7 @@ namespace JesterGame.Code.Scripts.Util
     public class VfxSfxHelper : MonoBehaviour, IRunnable<JesterGameEventArgs>
     {
         [SerializeField] private ParticleSystem particles;
-        // [SerializeField] private VisualEffect vfxAsset;
+        [SerializeField] private VisualEffect vfxAsset;
         [SerializeField] private AudioSource audioSource;
 
         public void Play()
@@ -18,9 +18,14 @@ namespace JesterGame.Code.Scripts.Util
 
         public void Run(JesterGameEventArgs _)
         {
-            particles?.Play();
-            // vfxAsset?.Play();
-            audioSource?.Play();
+            if (particles != null)
+                particles.Play();
+
+            if (vfxAsset != null)
+                vfxAsset.Play();
+
+            if (audioSource != null)
+                audioSource.Play();
         }
     }
 }
