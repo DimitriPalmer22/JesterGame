@@ -20,7 +20,9 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
 
         [SerializeField] private TMP_Text nameText;
         [SerializeField] private TMP_Text dialogueText;
+
         [SerializeField] private Image characterImage;
+        [SerializeField] private Image miniPortrait;
 
         [SerializeField] private VerticalLayoutGroup choicesContainer;
         [SerializeField] private DialogueScreenButton choiceButtonPrefab;
@@ -95,6 +97,7 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
             dialogueText.text = string.Empty;
             nameText.text = string.Empty;
             characterImage.sprite = null;
+            miniPortrait.sprite = null;
         }
 
         /// <summary>
@@ -116,6 +119,8 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                     nameText.text = characterData.name;
                     characterImage.sprite = characterData.portrait;
                     characterImage.enabled = (characterData.portrait != null);
+                    miniPortrait.sprite = characterData.miniPortrait;
+                    miniPortrait.enabled = (characterData.miniPortrait != null);
                 }
             }
             else
@@ -154,11 +159,14 @@ namespace JesterGame.Code.Scripts.Dialogue.UI
                     nameText.text = characterData.name;
                     characterImage.sprite = characterData.portrait;
                     characterImage.enabled = (characterData.portrait != null);
+                    miniPortrait.sprite = characterData.miniPortrait;
+                    miniPortrait.enabled = (characterData.miniPortrait != null);
                 }
                 else
                 {
                     nameText.text = string.Empty;
                     characterImage.sprite = null;
+                    miniPortrait.sprite = null;
                 }
 
                 // Disable the next line button if the line has more words than the threshold.
